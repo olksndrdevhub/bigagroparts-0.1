@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<main style="margin-top: 100px;">
+  <div class="container col-11">
+    <div class="display_category_sidebar">
+      <div class="title mt-1 mb-1 text-center">
+        <h4>{% trans 'Підкатегорія' %}: {{ subcategory.title }}</h4>
+        <div class="text-center">
+          <img src="{{ subcategory.image.url }}" alt="img" style="height: 320px;" class="">
+        </div>
+        <div>
+          <button class="btn btn-outline-success" style="width: 200px;" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Всі категорії
+          </button>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body dm_list p-0 p-0">
+              {% for category in categories %}
+                <a href="{{ category.get_absolute_url }}" class="dropdown-item p-0"><li class="list-group-item">{{ category.title }}</li></a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="text-center mb-5 mt-2">
+        <nav class="navbar navbar-expand-lg navbar-dark mdb-color success-color-dark mb-5">
+
+
+          <!-- Collapse button -->
+          <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button> -->
+    
+          <!-- Collapsible content -->
+          <!-- <div class="collapse navbar-collapse" id="basicExampleNav"> -->
+    
+            <form id="search" action="{% url 'core:search_results' %}" class="form-inline w-100" method="POST">
+              {% csrf_token %}
+              <div class="md-form my-0 w-100">
+                <input class="form-control w-100 m-0" id="q" name="q" type="text" placeholder="{% trans 'Введіть назву запчастини чи її артикул та натисніть Enter' %}" aria-label="Search" title="{% trans 'Намагайтесь вводити точну назву чи артикул' %}">
+              </div>
+            </form>
+          <!-- </div> -->
+            <!-- Collapsible content -->
+        </nav>
+
+          <!--Grid row-->
+        <div class="row wow fadeIn mt-5 items_table">
+  
+          <!--Grid column-->
+          
+          {% for item in items %}
+            <div class="">
+                <!--Card-->
+              <div class="card">
+  
+  
+                <!--Card content-->
+                <div class="card-body text-center">
+                  <!--Category & Title-->
+                  <a href="{{ item.get_absolute_url }}" class="card-link">
+                    {% with item.itemimage_set.all|first as image %}
+                      <img src="{{ image.image.url }}" alt="" class="card-img-top">
+                    {% endwith %}
+                    <p>{{ item.title }}</p> <hr>
+                    <p><small>{{ item.item_code }}</small></p>
+                    <p>
+                      {% if request.user.extendeduser.wholesaler %}<span>{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>{% else %}  
+                      <span>{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
+                      {% endif %}
+                    </p>
+
+                  </a>
+                  {% if item.availability == '1' %}
+                    <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
+                      <i class="fas fa-shopping-cart ml-1"></i>
+                    </a>
+                  {% elif item.availability == '0' %}
+                    <span class="badge red mr-1">{% trans 'Немає в наявності' %}</span>
+                  {% else %}
+                    <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-md my-0 p" >{% trans 'Уточнити наявність' %}</a>
+                  {% endif %}
+                
+                </div>
+                <!--Card content-->
+  
+              </div>
+              <!--Card-->
+            </div>
+          {% endfor %}
+            
+
+        </div>
+      </section>
+    </div>
+  </div>
+    
+</main>
+{% endblock content %}

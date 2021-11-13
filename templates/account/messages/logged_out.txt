@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Ви вийшли з облікового запису.{% endblocktrans %}

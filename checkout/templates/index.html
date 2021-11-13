@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block content %}
+<div class="container col-10" style="margin-top: 100px;">
+    <h2 class="mb-3">{% trans 'Оформлення замовлення' %}</span></h2>
+    <p>{% trans 'Оберіть спосіб доставки, вкажіть необхідні дані та спосіб оплати' %} </p>
+    <div class="row">
+      <div class="col-md-7">
+       <div class="card mb-5" style="height: auto">
+         <div class="card-body">
+            <form method="POST">
+            {% csrf_token %}
+  
+           {{ form | crispy}}
+
+           
+           <p class="detail_PBD">{% trans 'Після оформлення замовлення з Вами зв’яжеться наш оператор і надішле реквізити для оплати суми замовлення на карту Приватбанку.' %}</p>
+           <p class="detail_PAD">{% trans 'Замовлення, оформлені як накладений платіж, оплачуються та отримуються на зручному для Вас відділенні «Нової пошти». При цьому отримувач має сплатити також додаткову поштову комісію за користування послугою післяплати. Якщо ж ви обрали доставку кур’єром по м. Луцьк, то оплату прийме кур’єр.' %}</p>
+           <p>{% trans 'Вам може зателефонувати менеджер для уточнення чи підтвердження замовлення.' %}</p>
+           <a href="{% url 'core:order-summary' %}" class="btn btn-warning">{% trans 'Повернутися до кошика' %}</a>
+            <button type="submit" class="btn btn-primary float-right">{% trans 'Підтвердити замовлення' %}</button>
+            </form>
+         </div>
+       </div>
+
+      </div>
+      <div class="col-md-5">
+        <div class="card" style="height: auto">
+          <div class="card-header">
+            <span class="float-left"><b>{% trans 'Сума замовлення' %}:</b></span>
+            <span class="float-right"><b>$ {{ order_total | floatformat:2 }}</b></span>
+          </div>
+          <div class="card-body">
+            {% trans 'Ваше замовлення' %}: <hr>
+            {% for order_item in order_items %}
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title m-0"><strong><a href="{{ order_item.item.get_absolute_url }}" class="card-link">{{ order_item.item.title }}</a></strong></p><span>{% trans 'Кількість' %}: {{ order_item.quantity }}</span>
+                  <p class="card-text">{% trans 'Ціна' %}:
+                    {% if request.user.extendeduser.wholesaler %}
+                      ₴ {{ order_item.item.wholesaler_price }}
+                    {% else %}  
+                      ₴ {{ order_item.item.price }}
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+           {% endfor %}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

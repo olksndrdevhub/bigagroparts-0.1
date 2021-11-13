@@ -1,0 +1,953 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-04 13:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: checkout/models.py:19
+msgid "Нова Пошта"
+msgstr "Новая Почта"
+
+#: checkout/models.py:20
+msgid "Кур'єр (по м. Луцьк)"
+msgstr "Курьер (по г. Луцк)"
+
+#: checkout/models.py:25
+msgid "Оплата при отриманні"
+msgstr "Оплата при получении"
+
+#: checkout/models.py:26
+msgid "Оплата за реквізитами (передоплата)"
+msgstr "Оплата по реквизитам (предоплата)"
+
+#: checkout/models.py:29 checkout/templates/index.html:61
+#: templates/order-summary.html:56
+msgid "Сума замовлення"
+msgstr "Сумма заказа"
+
+#: checkout/models.py:31
+msgid "Метод доставки:"
+msgstr "Метод доставки:"
+
+#: checkout/models.py:33 checkout/templates/index.html:38
+msgid "№ відділення Нової Пошти"
+msgstr "№ отделения Новой Почты"
+
+#: checkout/models.py:33
+msgid "Введіть лише число без '№'"
+msgstr "Введите только число без \"№\""
+
+#: checkout/models.py:34 checkout/templates/index.html:39
+msgid "Місто / село"
+msgstr "Город / село"
+
+#: checkout/models.py:35
+msgid "Адреса для доставки по Луцьку"
+msgstr "Адрес для доставки по Луцку"
+
+#: checkout/models.py:36 checkout/templates/index.html:40
+msgid "Область"
+msgstr "Область"
+
+#: checkout/models.py:37 checkout/templates/index.html:43
+msgid "Контактний номер телефону"
+msgstr "Контактный номер телефона"
+
+#: checkout/models.py:38
+msgid "Адреса електронної пошти"
+msgstr "Адрес электронной почты"
+
+#: checkout/models.py:39
+msgid "Метод оплати"
+msgstr "Метод оплаты"
+
+#: checkout/templates/checkout_success.html:8
+msgid "Вітаємо!"
+msgstr "Поздравляем!"
+
+#: checkout/templates/checkout_success.html:8
+msgid ""
+"Ваше замовлення прийнято, вам може зателефонувати менеджер для його "
+"уточнення чи підтвердження. "
+msgstr ""
+"Ваш заказ принят, вам может позвонить менеджер для его уточнения или "
+"подтверждения."
+
+#: checkout/templates/checkout_success.html:8
+msgid "Ми раді будемо бачити Вас знову!"
+msgstr "Мы рады будем видеть Вас снова!"
+
+#: checkout/templates/index.html:9
+msgid "Оформлення замовлення"
+msgstr "Оформление заказа"
+
+#: checkout/templates/index.html:10
+msgid "Оберіть спосіб доставки, вкажіть необхідні дані та спосіб оплати"
+msgstr "Выберите способ доставки, укажите необходимые данные и способ оплаты"
+
+#: checkout/templates/index.html:21
+msgid ""
+"Після оформлення замовлення з Вами зв’яжеться наш оператор і надішле "
+"реквізити для оплати суми замовлення на карту Приватбанку."
+msgstr ""
+"После оформления заказа с Вами свяжется наш оператор и направит реквизиты "
+"для оплаты суммы заказа на карту Приватбанка."
+
+#: checkout/templates/index.html:22
+msgid ""
+"Замовлення, оформлені як накладений платіж, оплачуються та отримуються на "
+"зручному для Вас відділенні «Нової пошти». При цьому отримувач має сплатити "
+"також додаткову поштову комісію за користування послугою післяплати. Якщо ж "
+"ви обрали доставку кур’єром по м. Луцьк, то оплату прийме кур’єр."
+msgstr ""
+"Заказы, оформленные как наложенный платеж,  Вы оплачиваете и получаете на "
+"удобном для Вас отделении «Новой почты». При этом получатель должен оплатить"
+" также дополнительную почтовый комиссию за пользование услугой наложенного "
+"платежа. Если же Вы выбрали доставку курьером по г. Луцк, тогда оплату "
+"примет курьер."
+
+#: checkout/templates/index.html:23
+msgid ""
+"Вам може зателефонувати менеджер для уточнення чи підтвердження замовлення."
+msgstr "Вам может позвонить менеджер для уточнения или подтверждения заказа."
+
+#: checkout/templates/index.html:24
+msgid "Повернутися до кошика"
+msgstr "Вернуться к корзине"
+
+#: checkout/templates/index.html:25
+msgid "Підтвердити замовлення"
+msgstr "Подтвердить заказ"
+
+#: checkout/templates/index.html:30
+msgid "Збережена адреса"
+msgstr "Сохраненный ранее адрес"
+
+#: checkout/templates/index.html:34 checkout/templates/index.html:37
+msgid "Спосіб доставки"
+msgstr "Способ доставки"
+
+#: checkout/templates/index.html:35
+msgid "Адреса доставки по м. Луцьк"
+msgstr "Адрес доставки по г. Луцк"
+
+#: checkout/templates/index.html:42
+msgid "Країна"
+msgstr "Страна"
+
+#: checkout/templates/index.html:44 parts_shop/forms.py:30
+msgid "Електронна адреса"
+msgstr "Электронный адрес"
+
+#: checkout/templates/index.html:46 checkout/templates/index.html:48
+msgid "Спосіб оплати"
+msgstr "Способ оплаты"
+
+#: checkout/templates/index.html:53
+msgid "Продовжити зі збереженою раніше адресою"
+msgstr "Продолжить с сохраненным ранее адресом"
+
+#: checkout/templates/index.html:65 templates/order-summary.html:10
+msgid "Ваше замовлення"
+msgstr "Ваш заказ"
+
+#: checkout/templates/index.html:69 templates/order-summary.html:17
+msgid "Кількість"
+msgstr "Количество"
+
+#: checkout/templates/index.html:70 templates/category-detail.html:89
+#: templates/category-detail.html:90 templates/order-summary.html:16
+#: templates/product-page.html:45 templates/product-page.html:46
+#: templates/subcategory-detail.html:68 templates/subcategory-detail.html:69
+msgid "Ціна"
+msgstr "Цена"
+
+#: parts_shop/forms.py:12 parts_shop/forms.py:28
+msgid "Ім'я"
+msgstr "Имя"
+
+#: parts_shop/forms.py:13 parts_shop/forms.py:29 templates/cabinet.html:17
+msgid "Прізвище"
+msgstr "Фамилия"
+
+#: parts_shop/forms.py:27
+msgid "Ім'я користувача"
+msgstr "Логин"
+
+#: parts_shop/settings.py:79
+msgid "Ukrainian"
+msgstr ""
+
+#: parts_shop/settings.py:80
+msgid "Russian"
+msgstr ""
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr "Аккаунт не активен"
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr "Этот аккаунт не активен."
+
+#: templates/account/email.html:5
+msgid "Account"
+msgstr "Аккаунт"
+
+#: templates/account/email.html:8
+msgid "E-mail Addresses"
+msgstr "Адрес электронной почты"
+
+#: templates/account/email.html:10
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Следующие адреса электронной почты связаны с вашей учетной записью:"
+
+#: templates/account/email.html:24
+msgid "Verified"
+msgstr "Проверенный"
+
+#: templates/account/email.html:26
+msgid "Unverified"
+msgstr "Непроверенный"
+
+#: templates/account/email.html:28
+msgid "Primary"
+msgstr "Основной"
+
+#: templates/account/email.html:34
+msgid "Make Primary"
+msgstr "Сделать основным"
+
+#: templates/account/email.html:35
+msgid "Re-send Verification"
+msgstr "Отправить подтверждение"
+
+#: templates/account/email.html:36
+msgid "Remove"
+msgstr "Удалить"
+
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr "Внимание:"
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, "
+"etc."
+msgstr ""
+"В настоящее время у вас нет настроенного адреса электронной почты. Вы "
+"действительно должны добавить адрес электронной почты, чтобы вы могли "
+"получать уведомления, сбросить пароль и т. д."
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
+msgstr "Добавить адрес электронной почты"
+
+#: templates/account/email.html:53
+msgid "Add E-mail"
+msgstr "Добавить адрес электронной почты"
+
+#: templates/account/email.html:62
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Вы действительно хотите удалить выбранный адрес электронной почты?"
+
+#: templates/account/email/email_confirmation_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because user %(user_display)s has given yours as an e-mail address to connect their account.\n"
+"\n"
+"To confirm this is correct, go to %(activate_url)s\n"
+msgstr ""
+"Привет от %(site_name)s !\n"
+"\n"
+"Вы получаете это электронное письмо, потому что пользователь %(user_display)s указал ваш адрес электронной почты для подключения к своей учетной записи.\n"
+"\n"
+"Чтобы подтвердить, что это правильно, перейдите к %(activate_url)s\n"
+
+#: templates/account/email/email_confirmation_message.txt:7
+#, python-format
+msgid ""
+"Thank you from %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Спасибо от %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/email_confirmation_subject.txt:3
+msgid "Please Confirm Your E-mail Address"
+msgstr "Подтвердите ваш имейл, пожалуйста"
+
+#: templates/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"Hello from %(site_name)s!\n"
+"\n"
+"You're receiving this e-mail because you or someone else has requested a password for your user account.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password."
+msgstr ""
+"Привет от %(site_name)s !\n"
+"\n"
+"Вы получаете это электронное письмо, потому что вы или кто-то еще запросил пароль для вашей учетной записи.\n"
+"Его можно смело игнорировать, если вы не запрашивали сброс пароля. Нажмите на ссылку ниже, чтобы сбросить пароль."
+
+#: templates/account/email/password_reset_key_message.txt:8
+#, python-format
+msgid "In case you forgot, your username is %(username)s."
+msgstr "Если вы забыли, ваше имя пользователя %(username)s"
+
+#: templates/account/email/password_reset_key_message.txt:10
+#, python-format
+msgid ""
+"Thank you for using %(site_name)s!\n"
+"%(site_domain)s"
+msgstr ""
+"Спасибо за использование %(site_name)s!\n"
+"%(site_domain)s"
+
+#: templates/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr "Сброс пароля"
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:12
+msgid "Confirm E-mail Address"
+msgstr "Подтвердите адрес электронной почты"
+
+#: templates/account/email_confirm.html:18
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Пожалуйста, подтвердите, что <a href=\\\"mailto:%(email)s\\\">%(email)s</a> "
+"адрес электронной почты для пользователя %(user_display)s."
+
+#: templates/account/email_confirm.html:22
+msgid "Confirm"
+msgstr "Подтверждение"
+
+#: templates/account/email_confirm.html:29
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Срок действия ссылки для подтверждения по электронной почте истек или "
+"недействителен. Пожалуйста <a href=\\\"%(email_url)s\\\">оформить новый "
+"запрос на подтверждение по электронной почте</a>."
+
+#: templates/account/login.html:11 templates/account/login.html:21
+#: templates/base.html:142
+msgid "Вхід"
+msgstr "Вход"
+
+#: templates/account/login.html:20
+msgid "Забули пароль?"
+msgstr "Забыли пароль?"
+
+#: templates/account/login.html:27
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"      of your existing third party accounts. Or, <a href=\"%(signup_url)s\">Реєстрація</a>\n"
+"      for a %(site_name)s account and sign in below:"
+msgstr ""
+"Пожалуйста, войдите с одним из ваших существующих сторонних учетных аккаунтов. Или же, <a href=\\\"%(signup_url)s\\\">Регистрация</a>\n"
+"для %(site_name)s аккаунт и войдите ниже:"
+
+#: templates/account/login.html:37
+msgid "or"
+msgstr "или"
+
+#: templates/account/login.html:44
+msgid "Або"
+msgstr "Или"
+
+#: templates/account/login.html:45
+msgid "зареєструйтесь"
+msgstr "зарегистрируйтесь"
+
+#: templates/account/logout.html:10 templates/account/logout.html:19
+#: templates/base.html:137
+msgid "Вихід"
+msgstr "Выход"
+
+#: templates/account/logout.html:12
+msgid "Ви впевнені, що бажаєте вийти з облікового запису?"
+msgstr "Вы уверены, что хотите выйти из учетной записи?"
+
+#: templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+"Вы не можете удалить свой основной адрес электронной почты (%(email)s)."
+
+#: templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Подтверждение по электронной почте отправлено на %(email)s."
+
+#: templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr "Вы подтвердили %(email)s."
+
+#: templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Удален адрес электронной почты %(email)s."
+
+#: templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Ви успішно увійшли як %(name)s."
+msgstr "Вы успешно вошли как %(name)s."
+
+#: templates/account/messages/logged_out.txt:2
+msgid "Ви вийшли з облікового запису."
+msgstr "Вы вышли из аккаунта."
+
+#: templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr "Пароль успешно изменен."
+
+#: templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr "Пароль успешно установлен."
+
+#: templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr "Основной адрес электронной почты установлен."
+
+#: templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr "Ваш основной адрес электронной почты должен быть подтвержден."
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:13
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Сменить пароль"
+
+#: templates/account/password_reset.html:7
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:11
+msgid "Password Reset"
+msgstr "Восстановление пароля"
+
+#: templates/account/password_reset.html:13
+msgid "Відновлення паролю"
+msgstr "Восстановление пароля"
+
+#: templates/account/password_reset.html:18
+msgid ""
+"Забули пароль? Введіть ваш емейл і ми відправимо вам інструкції для "
+"відновлення паролю"
+msgstr ""
+"Забыли пароль? Введите ваш адрес электронной почты и мы отправим вам "
+"инструкции для восстановления пароля"
+
+#: templates/account/password_reset.html:23
+msgid "Відновити мій пароль"
+msgstr "Восстановить мой пароль"
+
+#: templates/account/password_reset.html:26
+msgid ""
+"Будь ласка зв'яжіться з нами, якщо у вас виникають проблеми при відновленні "
+"паролю."
+msgstr ""
+"Пожалуйста, свяжитесь с нами, если у вас возникают проблемы при "
+"восстановлении пароля."
+
+#: templates/account/password_reset_done.html:17
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Мы отправили вам электронное письмо. Пожалуйста, свяжитесь с нами, если вы "
+"не получили его в течение нескольких минут."
+
+#: templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr "Плохой токен"
+
+#: templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
+msgstr ""
+"Ссылка для сброса пароля была недействительной, возможно, потому что она уже"
+" использовалась. Пожалуйста, запросите <a "
+"href=\\\"%(passwd_reset_url)s\\\">сброс пароля опять</a>."
+
+#: templates/account/password_reset_from_key.html:17
+msgid "change password"
+msgstr "сменить пароль"
+
+#: templates/account/password_reset_from_key.html:20
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Ваш пароль теперь изменен."
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
+msgid "Set Password"
+msgstr "Указать пароль"
+
+#: templates/account/signup.html:6
+msgid "Signup"
+msgstr "Зарегистрироваться"
+
+#: templates/account/signup.html:12 templates/base.html:145
+msgid "Реєстрація"
+msgstr "Зарегистрироваться"
+
+#: templates/account/signup.html:21
+msgid "Зареєструватися"
+msgstr "Зарегистрироваться"
+
+#: templates/account/signup.html:24
+msgid "Вже маєте обліковий запис"
+msgstr "Уже есть учетная запись"
+
+#: templates/account/signup.html:24
+msgid "вхід"
+msgstr "вход"
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr "Регистрация закрыта"
+
+#: templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "К сожалению, регистрация в настоящее время закрыта."
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr "Внимание"
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr "Вы уже вошли как %(user_display)s."
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:10
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:10
+msgid "Verify Your E-mail Address"
+msgstr "Подтвердите свой адрес электронной почты"
+
+#: templates/account/verification_sent.html:12
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Мы отправили вам электронное письмо для проверки. Перейдите по ссылке, чтобы"
+" завершить процесс регистрации. Пожалуйста, свяжитесь с нами, если вы не "
+"получили его в течение нескольких минут."
+
+#: templates/account/verified_email_required.html:14
+msgid ""
+"This part of the site requires us to verify that\n"
+"        you are who you claim to be. For this purpose, we require that you\n"
+"        verify ownership of your e-mail address. "
+msgstr ""
+"Эта часть сайта требует от нас убедиться, что вы тот, кем вы себя выдаете. "
+"Для этого мы требуем, чтобы вы подтвердили право собственности на свой адрес"
+" электронной почты."
+
+#: templates/account/verified_email_required.html:18
+msgid ""
+"We have sent an e-mail to you for\n"
+"        verification. Please click on the link inside this e-mail. Please\n"
+"        contact us if you do not receive it within a few minutes."
+msgstr ""
+"Мы отправили вам электронное письмо для проверки. Пожалуйста, нажмите на "
+"ссылку внутри этого электронного письма. Пожалуйста, свяжитесь с нами, если "
+"вы не получили его в течение нескольких минут."
+
+#: templates/account/verified_email_required.html:22
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your "
+"e-mail address</a>."
+msgstr ""
+"<strong>Внимание:</strong> вы еще можете <a "
+"href=\\\"%(email_url)s\\\">изменить свой адрес электронной почты</a>."
+
+#: templates/base.html:84
+msgid "Головна"
+msgstr "Главная"
+
+#: templates/base.html:87 templates/base.html:211
+msgid "Контакти та співпраця"
+msgstr "Контакты и сотрудничество"
+
+#: templates/base.html:90 templates/base.html:212
+msgid "Оплата та доставка"
+msgstr "Оплата и доставка"
+
+#: templates/base.html:93 templates/home-page.html:74
+#: templates/specorder.html:10
+msgid "Спецзамовлення"
+msgstr "Спецзаказ"
+
+#: templates/base.html:105 templates/category-detail.html:42
+#: templates/home-page.html:154 templates/home-page.html:160
+#: templates/subcategory-detail.html:42
+msgid "Введіть назву запчастини чи її артикул та натисніть Enter"
+msgstr "Введите название запчасти или ее артикул и нажмите Enter"
+
+#: templates/base.html:105 templates/category-detail.html:42
+#: templates/home-page.html:154 templates/home-page.html:160
+#: templates/subcategory-detail.html:42
+msgid "Намагайтесь вводити точну назву чи артикул"
+msgstr "Старайтесь вводить точное название или артикул"
+
+#: templates/base.html:124
+msgid " Кошик "
+msgstr "Корзина"
+
+#: templates/base.html:133
+msgid "Адмінпанель"
+msgstr "Админпанель"
+
+#: templates/base.html:136 templates/base.html:206
+msgid "Мій кабінет"
+msgstr "Мой кабинет"
+
+#: templates/base.html:205
+msgid "Особистий кабінет"
+msgstr "Личный кабинет"
+
+#: templates/base.html:209
+msgid "Карта сайту"
+msgstr "Карта сайта"
+
+#: templates/base.html:210
+msgid "Головна "
+msgstr "Главная"
+
+#: templates/base.html:215
+msgid "Контакти"
+msgstr "Контакты"
+
+#: templates/cabinet.html:13
+msgid "Логін:"
+msgstr "Логин:"
+
+#: templates/cabinet.html:14
+msgid "Ім"
+msgstr "Имя:"
+
+#: templates/cabinet.html:16
+msgid "я"
+msgstr " "
+
+#: templates/cabinet.html:18 templates/contacts.html:29
+msgid "Електронна пошта"
+msgstr "Электронная почта"
+
+#: templates/cabinet.html:20
+msgid "Редагувати інформацію"
+msgstr "Редактировать информацию"
+
+#: templates/cabinet.html:33
+msgid "Зберегти"
+msgstr "Сохранить"
+
+#: templates/cabinet.html:39
+msgid "Історія замовлень"
+msgstr "История заказов"
+
+#: templates/cabinet.html:46
+msgid "Замовлення"
+msgstr "Заказ"
+
+#: templates/cabinet.html:46
+msgid "від"
+msgstr "от"
+
+#: templates/cabinet.html:50
+msgid "Згенерувати накладну"
+msgstr "Сгенерировать накладную"
+
+#: templates/category-detail.html:9
+msgid "Kатегорія"
+msgstr "Категория"
+
+#: templates/category-detail.html:97 templates/home-page.html:220
+#: templates/product-page.html:102 templates/product-page.html:160
+#: templates/subcategory-detail.html:77
+msgid "Додати в кошик"
+msgstr "Добавить в корзину"
+
+#: templates/category-detail.html:101 templates/home-page.html:224
+#: templates/product-page.html:78 templates/product-page.html:164
+#: templates/subcategory-detail.html:81
+msgid "Немає в наявності"
+msgstr "Нет в наличии"
+
+#: templates/conditions.html:11
+msgid "Доставка"
+msgstr "Доставка"
+
+#: templates/conditions.html:13
+msgid "Ми здійснюємо доставку по Україні через сервіс \"Нова Пошта\","
+msgstr "Мы осуществляем доставку по Украине через сервис \"Новая Почта\","
+
+#: templates/conditions.html:13
+msgid ""
+"якщо місто доставки - Луцьк, ви можете обрати доставку нашим кур'єром. "
+"Терміни доставки - до 3-ьох робочих днів."
+msgstr ""
+"если город доставки - Луцк, вы можете выбрать доставку нашим курьером. Сроки"
+" доставки - до 3-х рабочих дней."
+
+#: templates/conditions.html:14
+msgid "Оплата"
+msgstr "Оплата"
+
+#: templates/conditions.html:15
+msgid "Оплатити вашу покупку ви можете двома способами: "
+msgstr "Оплатить вашу покупку можно двумя способами:"
+
+#: templates/conditions.html:16
+msgid ""
+"Оплата за реквізитами (передоплата): Ви оплачуєте повну вартість замовлення "
+"банківським переказом на картку ПриватБанку, реквізити для оплати вам "
+"повідомить наш манеджер."
+msgstr ""
+"Оплата по реквизитам (предоплата): Вы оплачиваете полную стоимость заказа "
+"банковским переводом на карточку ПриватБанка, реквизиты для оплаты вам "
+"сообщит наш манеджер."
+
+#: templates/conditions.html:17
+msgid ""
+"Оплата при отриманні: оплата вартості замовлення відбувається при отриманні "
+"у відділенні Нової Пошти або через кур'єра, якщо Ви обрали доставку кур'єром."
+msgstr ""
+"Оплата при получении: оплата стоимости заказа происходит при получении в "
+"отделении Новой Почты или через курьера, если Вы выбрали доставку курьером."
+
+#: templates/contacts.html:11
+msgid "Ми раді вітати вас на нашому сайті"
+msgstr "Мы рады приветствовать вас на нашем сайте"
+
+#: templates/contacts.html:12
+msgid "Якщо у вас виникли якісь питання чи пропозиції, ви можете зв"
+msgstr ""
+"Если у вас возникли какие-то вопросы или предложения, вы можете связаться "
+
+#: templates/contacts.html:14
+msgid "язатися з нами будь-яким зручним для вас способом"
+msgstr "с нами любым удобным для вас способом"
+
+#: templates/contacts.html:15
+msgid "Також ми відкриті до взаємовигідної співпраці"
+msgstr "Также мы открыты к взаимовыгодному сотрудничеству"
+
+#: templates/contacts.html:16
+msgid ""
+"Ми пропонуємо спеціальні цінові пропозиції для клієнтів, які готові закупати "
+"товари в оптових маштабах. Тож якщо ви бажаєте отримати статус оптовика -"
+msgstr ""
+"Мы предлагаем специальные ценовые предложения для клиентов, которые готовы "
+"закупать товары в оптовых масштабах. Поэтому если вы хотите получить статус "
+"оптовика -"
+
+#: templates/contacts.html:17
+msgid ""
+"зателефонуйте нам за вказаним нижче номером або напишіть нам у соцмережах чи "
+"поштою і ми обговоримо з вами деталі співпраці."
+msgstr ""
+"позвоните нам по указанному ниже номеру или напишите нам в соцсетях или по "
+"почте и мы обсудим с вами детали сотрудничества."
+
+#: templates/contacts.html:19
+msgid "Наші контакти"
+msgstr "Наши контакты"
+
+#: templates/contacts.html:23
+msgid "Телефон"
+msgstr "Телефон"
+
+#: templates/contacts.html:34
+msgid "Графік роботи"
+msgstr "График работы"
+
+#: templates/contacts.html:38
+msgid "Понеділок - п'ятниця"
+msgstr "Понедельник - пятница"
+
+#: templates/contacts.html:39
+msgid "з 10:00 до 17:00"
+msgstr "с 10:00 до 17:00"
+
+#: templates/contacts.html:44
+msgid "Субота - неділя"
+msgstr "Суббота - воскресенье"
+
+#: templates/contacts.html:45
+msgid "вихідні дні"
+msgstr "выходные дни"
+
+#: templates/contacts.html:49
+msgid "Ми в соцмережах"
+msgstr "Мы в соцсетях"
+
+#: templates/home-page.html:30
+msgid "Ви представник фірми чи оптовик?"
+msgstr "Вы представитель фирмы или оптовик?"
+
+#: templates/home-page.html:34
+msgid "Зареєструйтеся та зверніться до нас і ми надамо вам знижку!"
+msgstr "Зарегистрируйтесь, обратитесь к нам и мы предоставим вам скидку!"
+
+#: templates/home-page.html:40
+msgid "КОНТАКТИ"
+msgstr "КОНТАКТЫ"
+
+#: templates/home-page.html:63
+msgid "Не знайшли в каталозі потрібну вам деталь?"
+msgstr "Не нашли в каталоге нужную вам деталь?"
+
+#: templates/home-page.html:67
+msgid "Ви можете скористатися функцією \"Спецзамовлення\"."
+msgstr "Вы можете воспользоваться функцией \"Cпецзаказ\"."
+
+#: templates/home-page.html:71
+msgid "Просто зателефонуйте нам і повідомте яка деталь вам потрібна."
+msgstr "Просто позвоните нам и сообщите какая деталь вам нужна."
+
+#: templates/home-page.html:169
+msgid "Категорії за запитом"
+msgstr "Категории по запросу"
+
+#: templates/home-page.html:187
+msgid "Підкатегорії за запитом"
+msgstr "Подкатегории по запросу"
+
+#: templates/home-page.html:205
+msgid "Товари за запитом"
+msgstr "Товары по запросу"
+
+#: templates/home-page.html:234
+msgid "Нажаль  за запитом"
+msgstr "К сожалению по запросу"
+
+#: templates/home-page.html:234
+msgid "нічого не знайдено, спробуйте виправити запит"
+msgstr "ничего не найдено, попробуйте исправить запрос"
+
+#: templates/home-page.html:234
+msgid "або зверніть увагу на функцію"
+msgstr "или обратите внимание на функцию"
+
+#: templates/home-page.html:234
+msgid "спецзамовлення"
+msgstr "спецзаказ"
+
+#: templates/order-summary.html:15
+msgid "Назва товару"
+msgstr "Название товара"
+
+#: templates/order-summary.html:18
+msgid "Загальна вартість"
+msgstr "Общая стоимость"
+
+#: templates/order-summary.html:46
+msgid "Ваш кошик порожній"
+msgstr "Ваша корзина пуста"
+
+#: templates/order-summary.html:50 templates/order-summary.html:63
+msgid "Продовжити покупки"
+msgstr "Продолжить покупки"
+
+#: templates/order-summary.html:62
+msgid "Перейти до оформлення"
+msgstr "Перейти к оформлению"
+
+#: templates/product-page.html:76
+msgid "Є в наявності"
+msgstr "Имеется в наличии"
+
+#: templates/product-page.html:90
+msgid "Артикул"
+msgstr "Артикул"
+
+#: templates/product-page.html:105
+msgid "Видалити з кошика"
+msgstr "Удалить из корзины"
+
+#: templates/product-page.html:109
+msgid ""
+"Цього товару немає в наявності зараз. <a href=\"/contacts\">Зателефонуйте "
+"нам</a>, аби уточнити коли він буде доступний."
+msgstr ""
+"Этого товара нет в наличии сейчас. <a href=\"/contacts\">Позвоните "
+"нам</a>, чтобы уточнить когда он будет доступен."
+
+#: templates/product-page.html:113
+msgid "Опис"
+msgstr "Описание"
+
+#: templates/product-page.html:132
+msgid "Інші товари з цього розділу"
+msgstr "Другие товары из этого раздела"
+
+#: templates/specorder.html:11
+msgid ""
+"Якщо ви не знайшли потрібний вам товар на нашому сайті - ви можете замовити "
+"його в нас спеціально для себе"
+msgstr ""
+"Если вы не нашли нужный вам товар на нашем сайте - вы можете заказать его у "
+"нас специально для себя"
+
+#: templates/specorder.html:11
+msgid "Зателефонуйте нам за номером"
+msgstr "Позвоните нам по телефону"
+
+#: templates/specorder.html:11
+msgid ""
+"та повідомте що ви хотіли б замовити. Ми в найкоротші терміни дізнаємося всю "
+"потрібну інформацію та повідомимо вас щодо ціни та термінів поставки"
+msgstr ""
+"и сообщите что вы хотели бы заказать. Мы в кратчайшие сроки узнаем всю "
+"необходимую информацию и сообщим вам по цене и срокам поставки"
+
+#: templates/specorder.html:11
+msgid "Способи оплати та доставки обговорюються окремо"
+msgstr "Способы оплаты и доставки оговариваются отдельно"
+
+#: templates/subcategory-detail.html:9
+msgid "Підкатегорія"
+msgstr "Подкатегория"

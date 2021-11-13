@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    image: bigagroparts:web
+    container_name: bigagroparts.web
+    tty: true
+    stdin_open: true
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - 80:8000
+    environment:
+      PYTHONIOENCODING: UTF-8
+      DJANGO_SETTINGS_MODULE: parts_shop.settings  
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    image: postgres:14.0-alpine
+    container_name: bigagroparts.db
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.postgres.env
+    
+volumes:
+  postgres_data:

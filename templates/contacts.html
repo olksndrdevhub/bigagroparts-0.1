@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block content %}
+<main style="margin-top: 60px;">
+    <div class="col-12" style="align-content: center;"><img src="{% static 'tlogo.png' %}" alt="" style="max-width: 100%; height: auto;" class="mx-auto img-fluid d-block img-thumbnail"></div>
+    <div class="container">
+        
+        <div class="text text-center m-4"><p style="font-size: 1.5em;">{% trans 'Ми раді вітати вас на нашому сайті' %}!<br></p>
+            <p>{% trans 'Якщо у вас виникли якісь питання чи пропозиції, ви можете зв' %}{% if LANGUAGE_CODE == 'uk' %}
+                <span class="p-0 m-0">'</span>
+                {% endif %}{% trans 'язатися з нами будь-яким зручним для вас способом' %}<br>
+            {% trans 'Також ми відкриті до взаємовигідної співпраці' %}!<br></p>
+            <p>{% trans 'Ми пропонуємо спеціальні цінові пропозиції для клієнтів, які готові закупати товари в оптових маштабах. Тож якщо ви бажаєте отримати статус оптовика -' %}
+                {% trans 'зателефонуйте нам за вказаним нижче номером або напишіть нам у соцмережах чи поштою і ми обговоримо з вами деталі співпраці.' %}</p>
+        </div>
+        <h5 class="m-3">{% trans 'Наші контакти' %}:</h5>
+        <div class="contacts text-center">
+            <div class="col1">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{% trans 'Телефон' %} (Viber, Telegram, WhatsApp)</li>
+                    <li class="list-group-item"><a href="tel:+380666666666">+380666666666</a> (10:00 - 17:00)</li>
+                </ul>
+            </div>
+            <div class="col2">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{% trans 'Електронна пошта' %}</li>
+                    <li class="list-group-item"><a href="mailto:bigagroparts@gmail.com">bigagroparts@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <h5 class="m-3">{% trans 'Графік роботи' %}:</h5>
+        <div class="contacts text-center">
+            <div class="col1">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{% trans "Понеділок - п'ятниця" %}</li>
+                    <li class="list-group-item">{% trans 'з 10:00 до 17:00' %}</li>
+                </ul>
+            </div>
+            <div class="col2">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{% trans 'Субота - неділя' %}</li>
+                    <li class="list-group-item">{% trans 'вихідні дні' %}</li>
+                </ul>
+            </div>
+        </div>
+        <h5 class="m-3">{% trans 'Ми в соцмережах' %}:</h5>
+        <div class="soc text-center">
+            <a href="https://fb.me/BigAgroParts/" class="btn btn-primary" target="blank">Facebook <i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/big_agroparts/" class="btn btn-primary" target="blank">Instagram <i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</main>
+{% endblock content %}

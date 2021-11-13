@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<main style="margin-top: 60px;" class="mb-5 pb-5">
+    <div class="col-12" style="align-content: center;"><img src="{% static 'tlogo.png' %}" alt="" style="max-width: 100%; height: auto;" class="mx-auto img-fluid d-block img-thumbnail"></div>
+    <div class="col-12 pb-5" style="align-content: center;">
+        <div class="container pt-5 pb-5">
+            <h3>{% trans 'Спецзамовлення' %}</h3><hr>
+            <p>{% trans 'Якщо ви не знайшли потрібний вам товар на нашому сайті - ви можете замовити його в нас спеціально для себе' %}. <br> {% trans 'Зателефонуйте нам за номером' %} <big><a href="tel:+380666666666" class="badge badge-success">+380666666666</a></big> {% trans 'та повідомте що ви хотіли б замовити. Ми в найкоротші терміни дізнаємося всю потрібну інформацію та повідомимо вас щодо ціни та термінів поставки' %}. <br> {% trans 'Способи оплати та доставки обговорюються окремо' %}.</p>
+        </div>
+    </div>
+</main>
+{% endblock content %}

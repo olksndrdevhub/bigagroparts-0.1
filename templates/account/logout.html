@@ -1,0 +1,25 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container mt-5 h-100">
+  <div class="col-6 offset-3 pt-5">
+    <h1>{% trans "Вихід" %}</h1>
+
+    <p>{% trans 'Ви впевнені, що бажаєте вийти з облікового запису?' %}</p>
+
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {% if redirect_field_value %}
+      <input type="hidden" class="form-control" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+      <button class="btn btn-primary" type="submit">{% trans 'Вихід' %}</button>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

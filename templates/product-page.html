@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+<!--Main layout-->
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn mb-5">
+
+      <!--Grid column-->
+      <div class="col-md-6">
+        <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade " data-ride="carousel" style="height: auto;!important">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            {% for i in item_images %}
+              <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}" class="green {% if forloop.counter0 == 0 %} active {% endif %}"></li>
+            {% endfor %}
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+            {% for i in item_images %}
+            <div class="mt-5 pt-5 carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+              <img class="img-fluid" src="{{i.image.url}}"
+                alt="First slide">
+            </div>
+            {% endfor %}
+            <!--/First slide-->
+            <!--/.Slides-->
+            <!--Controls-->
+            <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon green" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+              <span class="carousel-control-next-icon green" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          <!--/.Controls-->
+        </div>
+      </div>
+
+
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mt-5 pt-5">
+
+        <!--Content-->
+        <div class="p-4">
+
+          <div class="mb-3">
+            <a href="{{ category.get_absolute_url }}">
+              <span class="badge purple mr-1">{{ category.title }}</span>
+            </a>
+            <a href="{{ subcategory.get_absolute_url }}">
+              <span class="badge purple mr-1">{{ subcategory.title }}</span>
+            </a>
+            {% if item.availability == '1' %}
+              <span class="badge green mr-1">{% trans item.get_availability_display %}</span>
+            {% elif item.availability == '0' %}
+              <span class="badge red mr-1">{% trans item.get_availability_display %}</span>
+            {% elif item.availability == '2' %}
+              <span class="badge badge-warning mr-1">{% trans item.get_availability_display %}</span>
+            {% endif %}
+            
+          </div>
+
+          
+          <p class="lead font-weight-bold">{{ item.title }}</p>
+          <p class="lead">
+          {% if request.user.extendeduser.wholesaler %}<span>{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>{% else %}  
+            <span>{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
+          {% endif %}
+          </p>
+          <p><small>{% trans 'Артикул' %}: <b>{{ item.item_code }}</b></small></p>
+          <p>{% trans 'Код товару' %}: <b>{{ item.id }}</b></p>
+
+          
+
+          <!-- <form class="d-flex justify-content-left">
+            
+            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+            <button class="btn btn-primary btn-md my-0 p" type="submit">Додати в кошик
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </button>
+
+          </form> -->
+          {% if item.availability == '1' %}
+            <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+            <a href="{{ item.get_remove_from_card_url }}" class="btn btn-danger btn-md my-0 p" >{% trans 'Видалити з кошика' %}
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+          {% elif item.availability == '0' %}
+            <span class="mr-1">{% trans 'Цього товару немає в наявності зараз. <a href="/contacts">Зателефонуйте нам</a>, аби уточнити коли він буде доступний.' %}</span>
+          {% else %}
+            <span class="mr-1">{% trans 'Цей товар закінчується. <br> Зателефонуйте нам, аби уточнити його наявність.' %}</span><br>
+            <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-md mt-3 my-0 p" ><b>{% trans 'Уточнити наявність' %}</b></a>
+          {% endif %}
+
+          {% if item.description != None %}
+            <div class="description mt-5">
+              <h4>{% trans 'Опис' %}:</h4>
+              <p>{{ item.description }}</p>
+            </div>
+          {% endif %}
+
+        </div>
+        <!--Content-->
+        
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+    
+    <hr>
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 text-center">
+        <h4 class="my-4 h4">{% trans 'Інші товари з цього розділу' %}: </h4>
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      {% for item in last_items %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <!--Card-->
+              <div class="card">
+  
+  
+                <!--Card content-->
+                <div class="card-body text-center">
+                  <!--Category & Title-->
+                  <a href="{{ item.get_absolute_url }}" class="card-link">
+                    {% with item.itemimage_set.all|first as image %}
+                      <img src="{{ image.image.url }}" alt="" class="card-img-top">
+                    {% endwith %}
+                    <p>{{ item.title }}</p><hr>
+                    <p><small>{{ item.item_code }}</small></p>
+                    <p>{{ item.price }}</p>
+                  </a>
+                  {% if item.availability %}
+                    <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
+                    <i class="fas fa-shopping-cart ml-1"></i>
+                    </a>
+                  {% else %}
+                    <span class="badge red mr-1">{% trans 'Немає в наявності' %}</span>
+                  {% endif %}
+                
+                </div>
+                <!--Card content-->
+  
+              </div>
+              <!--Card-->
+            </div>
+          {% endfor %}
+
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+</main>
+<!--Main layout-->
+
+{% endblock content %}

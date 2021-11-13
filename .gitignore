@@ -1,0 +1,7 @@
+**__pycache__
+**.tox
+*.sqlite3
+*.sqlite3-jornal
+**.vscode
+**.env
+**.dev

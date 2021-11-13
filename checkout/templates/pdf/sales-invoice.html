@@ -1,0 +1,146 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    
+
+    <title>Накладна</title>
+
+    <style>
+        @font-face {
+        font-family: 'Roboto-Regular';
+        src: url('font/roboto/Roboto-Regular.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'Roboto-Regular';
+        }
+
+        .tbl2{
+            border: 1px solid black;
+        }
+
+        .tbl2 th, .tbl2 td{
+            text-align: left;
+            padding: 2px;
+        }
+
+        .tbl1, .tbl2{
+            margin-bottom: 10px;
+        }
+
+        .tbl3{
+            margin-top: 10px;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <div class="">
+        <h1>
+            Видаткова накладна № {{ order_code }} від {{ time }} <hr>
+        </h1>
+        <table class="tbl1">
+            <tbody>
+                {% if request.user %}
+                    <tr>
+                        <td>Постачальник: </td>
+                        <td>{{ request.get_host }}</td>
+                    </tr>
+                    <tr>
+                        <td>Покупець:</td>
+                        <td>{{ request.user.first_name }} {{ request.user.last_name }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>Постачальник: </td>
+                        <td>{{ deliver }}</td>
+                    </tr>
+                    <tr>
+                        <td>Покупець:</td>
+                        <td>{{ bayer }}</td>
+                    </tr>
+                {% endif %}
+                
+            </tbody>
+        </table>
+
+        <table class="tbl2">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Артикул</th>
+                    <th scope="col">Товар</th>
+                    <th scope="col">Ціна</th>
+                    <th scope="col">Кількість</th>
+                    <th scope="col">Сума</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order_item in order_items %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ order_item.item.item_code }}</td>
+                        <td>{{ order_item.item.title }}</td>
+                        <td>
+                            {% if request.user.extendeduser.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
+                            <span>₴ {{ order_item.item.price }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ order_item.quantity }}
+                        </td>
+                        <td>
+                            ₴ {{ order_item.get_total_item_price }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if order_total %}
+                <tr>
+                    <td colspan="5"><b>Сума замовлення</b></td>
+                    <td><b>₴ {{ order_total }}</b></td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        
+        <p class="summary">
+            Всього найменувань {{ item_count }}, на суму {{ order_total }} UAH <br>
+            <b>{{order_total}}</b> <hr>
+        </p>
+        
+        <table class="tbl3">
+            <tbody>
+                <tr>
+                    <td colspan="3">Від постачальника*</td>
+                    <td colspan="2">Отримав(ла)</td>
+                </tr>
+                <tr>
+                    <td colspan="3">__________________________________________</td>
+                    <td colspan="2">__________________________________________</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><small>*Відповідальний за здійснення господарської операції і правильність її оформлення</small></td>                    
+                    <td><small>За довіреністю</small></td>
+                    <td><small>№</small></td>
+                    <td><small>від</small></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+
+</body>
+</html>

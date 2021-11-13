@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block content %}
+<main style="margin-top: 60px;">
+    <div class="col-12" style="align-content: center;"><img src="{% static 'tlogo.png' %}" alt="" style="max-width: 100%; height: auto;" class="mx-auto img-fluid d-block img-thumbnail"></div>
+    <div class="col-12 pb-5" style="align-content: center;">
+        <div class="container pt-5 pb-5">
+            <h3>{% trans 'Доставка' %}</h3><hr>
+            {% get_current_language as LANGUAGE_CODE %}
+            <p>{% trans 'Ми здійснюємо доставку по Україні через сервіс "Нова Пошта",' %} {% trans "якщо місто доставки - Луцьк, ви можете обрати доставку нашим кур'єром. Терміни доставки - до 3-ьох робочих днів." %}</p>
+            <h3 class="mt-5">{% trans 'Оплата' %}</h3><hr>
+            <p>{% trans 'Оплатити вашу покупку ви можете двома способами: ' %}</p>
+            <li>{% trans 'Оплата за реквізитами (передоплата): Ви оплачуєте повну вартість замовлення банківським переказом на картку ПриватБанку, реквізити для оплати вам повідомить наш манеджер.' %}</li>
+            <li>{% trans "Оплата при отриманні: оплата вартості замовлення відбувається при отриманні у відділенні Нової Пошти або через кур'єра, якщо Ви обрали доставку кур'єром." %}</li>
+        </div>
+    </div>
+</main>
+{% endblock content %}

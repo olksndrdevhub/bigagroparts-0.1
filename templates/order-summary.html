@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+<!--Carousel Wrapper-->
+<main style="margin-top: 100px;">
+    <div class="container">
+        <div class="table-responsive text-nowrap">
+            <h2>{% trans 'Ваше замовлення' %}</h2>
+            <table class="table mb-5 pb-5">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{% trans 'Назва товару' %}</th>
+                    <th scope="col">{% trans 'Ціна' %}</th>
+                    <th scope="col">{% trans 'Кількість' %}</th>
+                    <th scope="col">{% trans 'Загальна вартість' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_item in object.items.all %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{{ order_item.item.get_absolute_url }}" class="card-link">{{ order_item.item.title }}</a></td>
+                        <td>
+                            {% if request.user.extendeduser.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
+                            <span>₴ {{ order_item.item.price }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'remove_single_item_card' order_item.item.slug %}"><i class="fas fa-minus-circle mr-2"></i></a>
+                            {{ order_item.quantity }}
+                            <a href="{% url 'add_to_card' order_item.item.slug %}"><i class="fas fa-plus-circle ml-2"></i></a>
+                        </td>
+                        <td>
+                            ₴ {{ order_item.get_total_item_price }}
+                            <a style="color: red;" href="{% url 'remove_from_card' order_item.item.slug %}">
+                                <i class="fas fa-trash mr-2 float-right"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">{% trans 'Ваш кошик порожній' %}!</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a class="btn btn-primary float-right" href="/">{% trans 'Продовжити покупки' %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if object.get_total %}
+                <tr>
+                    <td colspan="4"><b>{% trans 'Сума замовлення' %}</b></td>
+                    <td><b>₴ {{ object.get_total }}</b></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="5">
+                        <a class="btn btn-success float-right ml-2 mb-3" href="{% url 'checkout:index' %}">{% trans 'Перейти до оформлення' %}</a>
+                        <a class="btn btn-primary float-right" href="/">{% trans 'Продовжити покупки' %}</a>
+                    </td>
+                </tr>
+                {% endif %}
+                
+                  
+
+            </tbody>
+            </table>
+        
+        </div>
+
+    
+    </div>
+</main>
+<!--Main layout-->
+{% endblock content %}
