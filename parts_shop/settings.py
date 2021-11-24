@@ -104,6 +104,8 @@ LOCALE_PATHS = [
 
 # AWS S3 configuration
 USE_S3 = os.getenv('USE_S3') == 'True'
+USE_S3_STATIC = os.getenv('USE_S3_STATIC') == 'True'
+USE_S3_MEDIA = os.getenv('USE_S3_MEDIA') == 'True'
 
 if USE_S3:
     # aws configuration
@@ -114,10 +116,17 @@ if USE_S3:
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
     }
+
+if USE_S3_STATIC:
     # s3 static configuration
     AWS_STATIC_LOCATION = 'static'
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
     STATICFILES_STORAGE = 'parts_shop.storage_backends.StaticStorage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+if USE_S3_MEDIA:
     # s3 media configuration
     AWS_MEDIA_LOCATION = 'media'
     MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
@@ -125,15 +134,11 @@ if USE_S3:
     # s3 private media settings
     PRIVATE_MEDIA_LOCATION = 'private'
     PRIVATE_FILE_STORAGE = 'hello_django.storage_backends.PrivateMediaStorage'
-
 else:
-    STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_in_env')]
-
 
 
 

@@ -21,6 +21,14 @@ li.list-item:hover,
     /* border: solid 1px white; */
 }
 
+
+/* items card */
+.card-item{
+    height: 100px!important;
+}
+/* end items card */
+
+
 /* SLIDER home-page.html */
 .slider-btn:hover,
 .slider-btn:focus{
