@@ -138,7 +138,7 @@
   <div class="container" id="containerMain">
 
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark mdb-color success-color-dark mt-3 mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark mdb-color success-color-dark mt-3 mb-5" style="border-radius: 5px;">
 
 
       <!-- Collapse button -->
@@ -167,16 +167,28 @@
       
       {% if category_items %}
         <h5 class="p-4">{% trans 'Категорії за запитом' %} <strong>"{{ query }}"</strong>:</h5>
-        <div class="row wow fadeIn">
+        <div class="row">
         {% for category in category_items %}
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-              <div class="card-body">
-                <a href="{{ category.get_absolute_url }}" class="card-link">
-                  <img src="{{ category.image.url }}" alt="" class="card-img-top">
-                  <p>{{ category.title }}</p>
-                </a>  
+        <div class="col-6 col-lg-3 col-md-4 mb-4">
+          <div class="card card-item">
+            <!--Card content-->
+            <div class="card-body text-center">
+              <!--Category & Title-->
+              <div class="img-title-box">
+                <a href="{{category.get_absolute_url }}" class="card-link">
+                  <div class="card-img-box">
+                    <img src="{{ category.image.url }}" alt="" class="card-img-top">
+                  </div>
+                  <div class="card-title-box">
+                    <h5>{{ category.title }}</h5>
+                  </div>
+                </a>
               </div>
+              <div class="card-btn-box">
+                <a href="{{ category.get_absolute_url }}" class="btn btn-success">Перейти</a> 
+              </div>
+            </div>
+            <!--Card content-->
           </div>
         </div>
         {% endfor %}
@@ -185,15 +197,24 @@
 
       {% if subcategory_items %}
         <h5 class="p-4">{% trans 'Підкатегорії за запитом' %} <strong>"{{ query }}"</strong>:</h5>
-        <div class="row wow fadeIn">
+        <div class="row">
         {% for subcategory in subcategory_items %}
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
+        <div class="col-6 col-lg-3 col-md-4 mb-4">
+          <div class="card card-item">
               <div class="card-body">
-                <a href="{{ subcategory.get_absolute_url }}" class="card-link">
-                  <img src="{{ subcategory.image.url }}" alt="" class="card-img-top">
-                  <p>{{ subcategory.title }}</p>
-                </a>  
+                <div class="img-title-box">
+                  <a href="{{ subcategory.get_absolute_url }}" class="card-link">
+                    <div class="card-img-box">
+                      <img src="{{ subcategory.image.url }}" alt="" class="card-img-top">
+                    </div>
+                    <div class="card-title-box">
+                      <p>{{ subcategory.title }}</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-btn-box">
+                  <a href="{{ category.get_absolute_url }}" class="btn btn-success">Перейти</a> 
+                </div>
               </div>
           </div>
         </div>
@@ -203,26 +224,42 @@
 
       {% if item_items %}
         <h5 class="p-4">{% trans 'Товари за запитом' %} <strong>"{{ query }}"</strong>:</h5>
-        <div class="row wow fadeIn">
+        <div class="row">
         {% for item in item_items %}
-        <div class="col-lg-3 col-md-6 mb-4">
+        <div class="col-6 col-lg-3 col-md-4 mb-4">
           <div class="card">
               <div class="card-body">
-                <a href="{{ item.get_absolute_url }}" class="card-link">
-                  {% with item.itemimage_set.all|first as image %}
-                      <img src="{{ image.image.url }}" alt="" class="card-img-top">
-                    {% endwith %}
-                  <p>{{ item.title }}</p>
-                  <p><small>{{ item.item_code }}</small></p>
-                  <p>₴{{ item.price }}</p>
-                </a>  
-                {% if item.availability %}
-                  <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
-                  <i class="fas fa-shopping-cart ml-1"></i>
-                  </a>
-                {% else %}
-                  <span class="badge red mr-1">{% trans 'Немає в наявності' %}</span>
-                {% endif %}
+                <div class="img-title-box">
+                  <a href="{{ item.get_absolute_url }}" class="card-link">
+                    <div class="card-img-box">
+                      {% with item.itemimage_set.all|first as image %}
+                        <img src="{{ image.image.url }}" alt="" class="card-img-top">
+                      {% endwith %}
+                    </div>
+                    <div class="card-title-box">
+                      <p>{{ item.title }} <br>
+                      <small>{{ item.item_code }}</small></p>
+                    </div>
+                  </a>  
+                </div>
+                <div class="card-btn-box">
+                  <div class="price-cart-wrap">
+                    <div class="price-box d-flex align-items-center">
+                      <div class="box w-100"><p>{{ item.price }} ₴</p></div>
+                    </div>
+                    <div class="cart-box">
+                      {% if item.availability == '1' %}
+                        <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-lg my-0">
+                        <i class="fas fa-shopping-cart"></i>
+                        </a>
+                      {% else %}
+                        <a href="#" class="btn btn-warning btn-lg my-0">
+                          <i class="far fa-envelope"></i>
+                        </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
               </div>
           </div>
         </div>
@@ -235,29 +272,32 @@
       {% endif %}
     
       <!--Grid row-->
-      <div class="row wow fadeIn">
+      <div class="row">
 
         <!--Grid column-->
         
         {% for category in object_list %}
-          <div class="col-lg-3 col-md-6 mb-4">
-              <!--Card-->
-            <div class="card">
-
-
+          <div class="col-6 col-lg-3 col-md-4 mb-4">
+            <div class="card card-item">
               <!--Card content-->
               <div class="card-body text-center">
                 <!--Category & Title-->
-                <a href="{{category.get_absolute_url }}" class="card-link">
-                  <img src="{{ category.image.url }}" alt="" class="card-img-top">
-                  <h5>{{ category.title }}</h5>
-                </a>
-              
+                <div class="img-title-box">
+                  <a href="{{category.get_absolute_url }}" class="card-link">
+                    <div class="card-img-box">
+                      <img src="{{ category.image.url }}" alt="" class="card-img-top">
+                    </div>
+                    <div class="card-title-box">
+                      <h5>{{ category.title }}</h5>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-btn-box">
+                  <a href="{{ category.get_absolute_url }}" class="btn btn-success">Перейти</a> 
+                </div>
               </div>
               <!--Card content-->
-
             </div>
-            <!--Card-->
           </div>
         {% endfor %}
           

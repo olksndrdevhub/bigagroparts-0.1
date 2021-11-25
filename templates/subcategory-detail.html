@@ -11,20 +11,20 @@
           <img src="{{ subcategory.image.url }}" alt="img" style="height: 320px;" class="">
         </div>
         <div>
-          <button class="btn btn-outline-success" style="width: 200px;" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <button class="btn btn-outline-success categories-btn" style="width: 200px;" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
             Всі категорії
           </button>
           <div class="collapse" id="collapseExample">
-            <div class="card card-body dm_list p-0 p-0">
+            <div class="card card-body dm_list">
               {% for category in categories %}
-                <a href="{{ category.get_absolute_url }}" class="dropdown-item p-0"><li class="list-group-item">{{ category.title }}</li></a>
+                <a href="{{ category.get_absolute_url }}" class="dropdown-item"><li class="list-group-item">{{ category.title }}</li></a>
               {% endfor %}
             </div>
           </div>
         </div>
       </div>
       <section class="text-center mb-5 mt-2">
-        <nav class="navbar navbar-expand-lg navbar-dark mdb-color success-color-dark mb-5">
+        <nav class="navbar navbar-expand-lg navbar-dark mdb-color success-color-dark mb-5" style="border-radius: 5px;">
 
 
           <!-- Collapse button -->
@@ -47,47 +47,47 @@
         </nav>
 
           <!--Grid row-->
-        <div class="row wow fadeIn mt-5 items_table">
+        <div class="row mt-5 items_table">
   
           <!--Grid column-->
           
           {% for item in items %}
-            <div class="">
-                <!--Card-->
+            <div class="col-6 col-lg-3 col-md-4 col-xl-2 mb-4">
               <div class="card">
-  
-  
-                <!--Card content-->
-                <div class="card-body text-center">
-                  <!--Category & Title-->
-                  <a href="{{ item.get_absolute_url }}" class="card-link">
-                    {% with item.itemimage_set.all|first as image %}
-                      <img src="{{ image.image.url }}" alt="" class="card-img-top">
-                    {% endwith %}
-                    <p>{{ item.title }}</p> <hr>
-                    <p><small>{{ item.item_code }}</small></p>
-                    <p>
-                      {% if request.user.extendeduser.wholesaler %}<span>{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>{% else %}  
-                      <span>{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
-                      {% endif %}
-                    </p>
-
-                  </a>
-                  {% if item.availability == '1' %}
-                    <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
-                      <i class="fas fa-shopping-cart ml-1"></i>
-                    </a>
-                  {% elif item.availability == '0' %}
-                    <span class="badge red mr-1">{% trans 'Немає в наявності' %}</span>
-                  {% else %}
-                    <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-md my-0 p" >{% trans 'Уточнити наявність' %}</a>
-                  {% endif %}
-                
-                </div>
-                <!--Card content-->
-  
+                  <div class="card-body">
+                    <div class="img-title-box">
+                      <a href="{{ item.get_absolute_url }}" class="card-link">
+                        <div class="card-img-box">
+                          {% with item.itemimage_set.all|first as image %}
+                            <img src="{{ image.image.url }}" alt="" class="card-img-top">
+                          {% endwith %}
+                        </div>
+                        <div class="card-title-box">
+                          <p>{{ item.title }} <br>
+                          <small>{{ item.item_code }}</small></p>
+                        </div>
+                      </a>  
+                    </div>
+                    <div class="card-btn-box">
+                      <div class="price-cart-wrap">
+                        <div class="price-box d-flex align-items-center">
+                          <div class="box w-100"><p>{{ item.price }} ₴</p></div>
+                        </div>
+                        <div class="cart-box">
+                          {% if item.availability == '1' %}
+                            <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-lg my-0">
+                            <i class="fas fa-shopping-cart"></i>
+                            </a>
+                          {% else %}
+                            <a href="#" class="btn btn-warning btn-lg my-0">
+                              <i class="far fa-envelope"></i>
+                            </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
-              <!--Card-->
             </div>
           {% endfor %}
             
