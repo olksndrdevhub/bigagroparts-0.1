@@ -86,7 +86,23 @@ a.list-link:hover,
 
 
 
+/* product-page.html */
 
+.product_page_price{
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.product_page_buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.product_page_buttons{
+    
+}
+
+/* end of product-page.html */
 
 
 
