@@ -78,7 +78,7 @@ a.list-link:hover,
 }
 
 .price-box>.box>p{
-    font-size: 1.6em;
+    font-size: 1.4em;
     margin: 0;
 }
 
@@ -86,7 +86,23 @@ a.list-link:hover,
 
 
 
+/* product-page.html */
 
+.product_page_price{
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.product_page_buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.product_page_buttons{
+    
+}
+
+/* end of product-page.html */
 
 
 
@@ -100,6 +116,10 @@ a.list-link:hover,
 div.contacts{
     display: grid;
     grid-template-columns: 1fr;
+}
+
+main{
+    min-height: 100%;
 }
 
 div.foot{

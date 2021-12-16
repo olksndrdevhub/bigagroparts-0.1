@@ -16,11 +16,18 @@
                 <p class="">{% trans 'Прізвище' %}:</p> <p class=""><strong>{{ request.user.last_name }}</strong></p>
                 <p class="">{% trans 'Електронна пошта' %}:</p> <p class=""><strong>{{ request.user.email }}</strong></p>
                 <p class="">{% trans 'Номер телефону' %}:</p> <p class=""><strong>{% if request.user.phone_number is None %}
-                    Натисніть "Редагувати інформацію" щоб додати номер телефону
+                    {% trans 'Натисніть "Редагувати інформацію" щоб додати номер телефону' %}
                 {% else %}{{ request.user.phone_number }}{% endif %}</strong></p>
-                <p class="">{% trans 'Статус оптовика' %}:</p> <p class=""><strong>{% if request.user.wholesaler is None %}
-                    Ні
-                {% else %}Так{% endif %}</strong></p>
+                <p class="">{% trans 'Статус оптовика' %}:</p> 
+                <p class="">
+                    <strong>
+                        {% if not request.user.wholesaler %}
+                            {% trans 'Ні' %}
+                        {% else %}
+                            {% trans 'Так'%}
+                        {% endif %}
+                    </strong>
+                </p>
                 {% if not edit %}
                     <a href="{% url 'edit_account' %}" class="btn btn-light">{% trans 'Редагувати інформацію' %}</a>
                 {% endif %}
@@ -62,7 +69,7 @@
                             <a class="btn btn-sm btn-primary ml-5" href="{% url 'checkout:generate_invoice_in_cabinet' order.id %}">{% trans 'Згенерувати накладну' %}</a> 
                             <br>
                             {% for item in order.items.all %}
-                                {{ item.item.title }}, кількість: <b>{{item.quantity}}</b>, ціна: <b>{{item.item.price}} ₴</b><br>
+                                {{ item.item.title }}, {% trans 'кількість' %}: <b>{{item.quantity}}</b>, {% trans 'ціна' %}: <b>{{item.item.price}} ₴</b><br>
                             {% endfor %}
                         </li>
                     {% endfor %}

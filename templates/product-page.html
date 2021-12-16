@@ -74,45 +74,40 @@
 
           
           <p class="lead font-weight-bold">{{ item.title }}</p>
-          <p class="lead">
-          {% if request.user.extendeduser.wholesaler %}<span>{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>{% else %}  
-            <span>{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
-          {% endif %}
+          <p class="lead"><hr>
+            {% if item.availability != '0' %}
+              {% if request.user.extendeduser.wholesaler %}<span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>{% else %}  
+                <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
+              {% endif %}
+            {% endif %}
           </p>
           <p><small>{% trans 'Артикул' %}: <b>{{ item.item_code }}</b></small></p>
           <p>{% trans 'Код товару' %}: <b>{{ item.id }}</b></p>
 
-          
-
-          <!-- <form class="d-flex justify-content-left">
-            
-            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-            <button class="btn btn-primary btn-md my-0 p" type="submit">Додати в кошик
-              <i class="fas fa-shopping-cart ml-1"></i>
-            </button>
-
-          </form> -->
-          {% if item.availability == '1' %}
-            <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
-              <i class="fas fa-shopping-cart ml-1"></i>
-            </a>
-            <a href="{{ item.get_remove_from_card_url }}" class="btn btn-danger btn-md my-0 p" >{% trans 'Видалити з кошика' %}
-              <i class="fas fa-shopping-cart ml-1"></i>
-            </a>
-          {% elif item.availability == '0' %}
-            <span class="mr-1">{% trans 'Цього товару немає в наявності зараз. <a href="/contacts">Зателефонуйте нам</a>, аби уточнити коли він буде доступний.' %}</span>
-          {% else %}
-            <span class="mr-1">{% trans 'Цей товар закінчується. <br> Зателефонуйте нам, аби уточнити його наявність.' %}</span><br>
-            <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-md mt-3 my-0 p" ><b>{% trans 'Уточнити наявність' %}</b></a>
-          {% endif %}
-
-          {% if item.description != None %}
-            <div class="description mt-5">
-              <h4>{% trans 'Опис' %}:</h4>
-              <p>{{ item.description }}</p>
-            </div>
-          {% endif %}
-
+          <div class="product_page_buttons mt-4">
+            {% if item.availability == '1' %}
+              <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-md my-0 p" >{% trans 'Додати в кошик' %}
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </a>
+              <a href="{{ item.get_remove_from_card_url }}" class="btn btn-danger btn-md my-0 p" >{% trans 'Видалити з кошика' %}
+                <i class="fas fa-shopping-cart ml-1"></i>
+              </a>
+            {% elif item.availability == '0' %}
+              <span class="mr-1">{% trans 'Цього товару немає в наявності зараз' %}. <a href="/contacts">{% trans 'Зателефонуйте нам' %}</a>, {% trans 'аби уточнити коли він буде доступний.' %}</span> <br>
+              <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-md mt-3 my-0 p" ><b>{% trans 'Уточнити наявність' %}</b></a>
+            {% else %}
+              <span class="mr-1">{% trans 'Цей товар закінчується' %}. <br><a href="/contacts">{% trans 'Зателефонуйте нам' %}</a>, {% trans 'аби уточнити його наявність.' %}</span><br>
+              <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-md mt-3 my-0 p" ><b>{% trans 'Уточнити наявність' %}</b></a>
+            {% endif %}
+          </div>
+          <div class="product_page_description">
+            {% if item.description != None %}
+              <div class="description mt-5">
+                <h4>{% trans 'Опис' %}:</h4>
+                <p>{{ item.description }}</p>
+              </div>
+            {% endif %}
+          </div>
         </div>
         <!--Content-->
         
@@ -159,7 +154,9 @@
                 <div class="card-btn-box">
                   <div class="price-cart-wrap">
                     <div class="price-box d-flex align-items-center">
-                      <div class="box w-100"><p>{{ item.price }} ₴</p></div>
+                      {% if item.availability != '0' %}
+                        <div class="box w-100"><p>{{ item.price }} ₴</p></div>                        
+                      {% endif %}
                     </div>
                     <div class="cart-box">
                       {% if item.availability == '1' %}
@@ -167,7 +164,7 @@
                         <i class="fas fa-shopping-cart"></i>
                         </a>
                       {% else %}
-                        <a href="#" class="btn btn-warning btn-lg my-0">
+                        <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-lg my-0">
                           <i class="far fa-envelope"></i>
                         </a>
                       {% endif %}
