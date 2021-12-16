@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from parts_shop.forms import EditUserInfoForm, EditBillingAddressForm
 from checkout.models import BillingAddress
 from django.contrib.auth import get_user
+from django.utils.translation import gettext as _
 
 
 
@@ -55,17 +56,17 @@ def add_to_card(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, 'Додано ще одну одиницю товару в кошик!')
+            messages.info(request, _('Додано ще одну одиницю товару в кошик!'))
             return redirect(request.META['HTTP_REFERER'])
         else:
-            messages.info(request, 'Цей товар додано у кошик!')
+            messages.info(request, _('Цей товар додано у кошик!'))
             order.items.add(order_item)
             return redirect(request.META['HTTP_REFERER'])
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        messages.info(request, 'Цей товар додано у кошик!')
+        messages.info(request, _('Цей товар додано у кошик!'))
         return redirect(request.META['HTTP_REFERER'])
         
 @login_required
@@ -82,15 +83,15 @@ def remove_from_card(request, slug):
             ordered=False
             )[0]
             order.items.remove(order_item)
-            messages.info(request, 'Цей товар видалено з кошика!')
+            messages.info(request, _('Цей товар видалено з кошика!'))
             return redirect('core:order-summary')
         else:
             #add a message that order doesn`t contain the item
-            messages.info(request, 'Цього товару нема у вашому кошику!')
+            messages.info(request, _('Цього товару нема у вашому кошику!'))
             return redirect('item_detail', slug=slug)
     else:
         #add a message that user doesn`t have a order
-        messages.info(request, 'Ви ще не маєте нічого в кошику!')
+        messages.info(request, _('Ви ще не маєте нічого в кошику!'))
         return redirect('item_detail', slug=slug)  
 
 
@@ -113,15 +114,15 @@ def remove_single_item_card(request, slug):
                 order_item.save()
             else:
                 order.items.remove(order_item)
-            messages.info(request, 'Мінус одна одиниця товару!')
+            messages.info(request, _('Мінус одна одиниця товару!'))
             return redirect('core:order-summary')
         else:
             #add a message that order doesn`t contain the item
-            messages.info(request, 'Цього товару нема у вашому кошику!')
+            messages.info(request, _('Цього товару нема у вашому кошику!'))
             return redirect('core:order-summary')
     else:
         #add a message that user doesn`t have a order
-        messages.info(request, 'Ви ще не маєте нічого в кошику!')
+        messages.info(request, _('Ви ще не маєте нічого в кошику!'))
         return redirect('core:order-summary')    
     
     

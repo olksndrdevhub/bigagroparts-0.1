@@ -58,7 +58,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True, editable=True)
-    wholesaler = models.BooleanField(default=False, verbose_name='Статус оптовика', null=True, blank=True)
+    wholesaler = models.BooleanField(default=False, verbose_name='Статус оптовика')
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'

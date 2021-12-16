@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-23 09:28+0000\n"
+"POT-Creation-Date: 2021-12-16 14:35+0000\n"
 "PO-Revision-Date: 2020-04-03 13:45+0000\n"
 "Last-Translator: b'BigAgro Parts <bigagroparts@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,7 @@ msgstr ""
 msgid "Оплата за реквізитами (передоплата)"
 msgstr ""
 
-#: checkout/models.py:29 checkout/templates/index.html:61
-#: checkout/templates/pdf/sales-invoice.html:109
+#: checkout/models.py:29 checkout/templates/index.html:34
 #: templates/order-summary.html:56
 msgid "Сума замовлення"
 msgstr ""
@@ -48,7 +47,7 @@ msgstr ""
 msgid "Метод доставки:"
 msgstr ""
 
-#: checkout/models.py:33 checkout/templates/index.html:38
+#: checkout/models.py:33
 msgid "№ відділення Нової Пошти"
 msgstr ""
 
@@ -56,7 +55,7 @@ msgstr ""
 msgid "Введіть лише число без '№'"
 msgstr ""
 
-#: checkout/models.py:34 checkout/templates/index.html:39
+#: checkout/models.py:34
 msgid "Місто / село"
 msgstr ""
 
@@ -64,11 +63,11 @@ msgstr ""
 msgid "Адреса для доставки по Луцьку"
 msgstr ""
 
-#: checkout/models.py:36 checkout/templates/index.html:40
+#: checkout/models.py:36
 msgid "Область"
 msgstr ""
 
-#: checkout/models.py:37 checkout/templates/index.html:43
+#: checkout/models.py:37
 msgid "Контактний номер телефону"
 msgstr ""
 
@@ -129,77 +128,141 @@ msgstr ""
 msgid "Підтвердити замовлення"
 msgstr ""
 
-#: checkout/templates/index.html:30
-msgid "Збережена адреса"
-msgstr ""
-
-#: checkout/templates/index.html:34 checkout/templates/index.html:37
-msgid "Спосіб доставки"
-msgstr ""
-
-#: checkout/templates/index.html:35
-msgid "Адреса доставки по м. Луцьк"
-msgstr ""
-
-#: checkout/templates/index.html:42
-msgid "Країна"
-msgstr ""
-
-#: checkout/templates/index.html:44 parts_shop/forms.py:30
-msgid "Електронна адреса"
-msgstr ""
-
-#: checkout/templates/index.html:46 checkout/templates/index.html:48
-msgid "Спосіб оплати"
-msgstr ""
-
-#: checkout/templates/index.html:53
-msgid "Продовжити зі збереженою раніше адресою"
-msgstr ""
-
-#: checkout/templates/index.html:65 templates/order-summary.html:10
+#: checkout/templates/index.html:38 templates/order-summary.html:10
 msgid "Ваше замовлення"
 msgstr ""
 
-#: checkout/templates/index.html:69 templates/order-summary.html:17
+#: checkout/templates/index.html:42 templates/order-summary.html:17
 msgid "Кількість"
 msgstr ""
 
-#: checkout/templates/index.html:70 templates/category-detail.html:89
-#: templates/category-detail.html:90 templates/order-summary.html:16
-#: templates/product-page.html:45 templates/product-page.html:46
-#: templates/subcategory-detail.html:68 templates/subcategory-detail.html:69
+#: checkout/templates/index.html:43 templates/order-summary.html:16
+#: templates/product-page.html:79 templates/product-page.html:80
 msgid "Ціна"
+msgstr ""
+
+#: core/models.py:26
+msgid "The Email must be set"
+msgstr ""
+
+#: core/models.py:42
+msgid "Superuser must have is_staff=True."
+msgstr ""
+
+#: core/models.py:44
+msgid "Superuser must have is_superuser=True."
+msgstr ""
+
+#: core/models.py:53
+#, fuzzy
+#| msgid "E-mail Addresses"
+msgid "email address"
+msgstr "Адреса електронної пошти"
+
+#: core/models.py:54
+msgid "Має починатися з +380"
+msgstr ""
+
+#: core/models.py:70
+msgid "Користувач"
+msgstr ""
+
+#: core/models.py:71
+msgid "Користувачі"
+msgstr ""
+
+#: core/models.py:126
+msgid "Є в наявності"
+msgstr ""
+
+#: core/models.py:127
+msgid "Немає в наявносі"
+msgstr ""
+
+#: core/models.py:128
+msgid "Уточніть наявність"
+msgstr ""
+
+#: core/models.py:210
+msgid "Замовлення прийнято"
+msgstr ""
+
+#: core/models.py:211
+msgid "Замовлення виконується"
+msgstr ""
+
+#: core/models.py:212
+msgid "Замовлення виконано"
+msgstr ""
+
+#: core/models.py:222
+msgid "Статус замовлення"
 msgstr ""
 
 #: parts_shop/forms.py:12 parts_shop/forms.py:28
 msgid "Ім'я"
 msgstr ""
 
-#: parts_shop/forms.py:13 parts_shop/forms.py:29 templates/cabinet.html:17
+#: parts_shop/forms.py:13 parts_shop/forms.py:29 templates/cabinet.html:16
 msgid "Прізвище"
 msgstr ""
 
-#: parts_shop/forms.py:27
-msgid "Ім'я користувача"
+#: parts_shop/forms.py:30
+msgid "Електронна адреса"
 msgstr ""
 
-#: parts_shop/settings.py:79
+#: parts_shop/forms.py:31
+msgid "+380"
+msgstr ""
+
+#: parts_shop/forms.py:32 templates/cabinet.html:18
+msgid "Номер телефону"
+msgstr ""
+
+#: parts_shop/settings.py:88
 msgid "Ukrainian"
 msgstr ""
 
-#: parts_shop/settings.py:80
+#: parts_shop/settings.py:89
 msgid "Russian"
 msgstr ""
 
+#: parts_shop/views.py:59
+msgid "Додано ще одну одиницю товару в кошик!"
+msgstr ""
+
+#: parts_shop/views.py:62 parts_shop/views.py:69
+msgid "Цей товар додано у кошик!"
+msgstr ""
+
+#: parts_shop/views.py:86
+msgid "Цей товар видалено з кошика!"
+msgstr ""
+
+#: parts_shop/views.py:90 parts_shop/views.py:121
+msgid "Цього товару нема у вашому кошику!"
+msgstr ""
+
+#: parts_shop/views.py:94 parts_shop/views.py:125
+msgid "Ви ще не маєте нічого в кошику!"
+msgstr ""
+
+#: parts_shop/views.py:117
+msgid "Мінус одна одиниця товару!"
+msgstr ""
+
 #: templates/account/account_inactive.html:5
-#: templates/account/account_inactive.html:8
+#: templates/account/account_inactive.html:10
 msgid "Account Inactive"
 msgstr "Обліковий запис неактивний"
 
-#: templates/account/account_inactive.html:10
+#: templates/account/account_inactive.html:12
 msgid "This account is inactive."
 msgstr "Цей обліковий запис неактивний."
+
+#: templates/account/account_inactive.html:13
+msgid "Please, check your email and activate your account to use site!"
+msgstr ""
 
 #: templates/account/email.html:5
 msgid "Account"
@@ -328,11 +391,11 @@ msgid "Password Reset E-mail"
 msgstr "Скидання паролю"
 
 #: templates/account/email_confirm.html:6
-#: templates/account/email_confirm.html:10
+#: templates/account/email_confirm.html:12
 msgid "Confirm E-mail Address"
 msgstr "Підтвердження електронної адреси"
 
-#: templates/account/email_confirm.html:16
+#: templates/account/email_confirm.html:18
 #, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
@@ -341,11 +404,11 @@ msgstr ""
 "Будь ласка, підтвердьте що <a href=\"mailto:%(email)s\">%(email)s</a> це "
 "електронна адреса для користувача %(user_display)s."
 
-#: templates/account/email_confirm.html:20
+#: templates/account/email_confirm.html:22
 msgid "Confirm"
 msgstr "Підтвердити"
 
-#: templates/account/email_confirm.html:27
+#: templates/account/email_confirm.html:29
 #, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a href="
@@ -354,12 +417,12 @@ msgstr ""
 "Це посилання для підтвердження електронної адреси не дійсне. Будь ласка <a "
 "href=\"%(email_url)s\"> попросіть нове посилання</a>."
 
-#: templates/account/login.html:11 templates/account/login.html:21
+#: templates/account/login.html:11 templates/account/login.html:20
 #: templates/base.html:142
 msgid "Вхід"
 msgstr ""
 
-#: templates/account/login.html:20
+#: templates/account/login.html:21
 msgid "Забули пароль?"
 msgstr ""
 
@@ -626,15 +689,13 @@ msgstr ""
 msgid "Спецзамовлення"
 msgstr ""
 
-#: templates/base.html:105 templates/category-detail.html:42
-#: templates/home-page.html:154 templates/home-page.html:160
-#: templates/subcategory-detail.html:42
+#: templates/base.html:105 templates/category-detail.html:31
+#: templates/home-page.html:145 templates/subcategory-detail.html:31
 msgid "Введіть назву запчастини чи її артикул та натисніть Enter"
 msgstr ""
 
-#: templates/base.html:105 templates/category-detail.html:42
-#: templates/home-page.html:154 templates/home-page.html:160
-#: templates/subcategory-detail.html:42
+#: templates/base.html:105 templates/category-detail.html:31
+#: templates/home-page.html:145 templates/subcategory-detail.html:31
 msgid "Намагайтесь вводити точну назву чи артикул"
 msgstr ""
 
@@ -667,53 +728,76 @@ msgid "Контакти"
 msgstr ""
 
 #: templates/cabinet.html:13
-msgid "Логін:"
-msgstr ""
-
-#: templates/cabinet.html:14
 msgid "Ім"
 msgstr ""
 
-#: templates/cabinet.html:16
+#: templates/cabinet.html:15
 msgid "я"
 msgstr ""
 
-#: templates/cabinet.html:18 templates/contacts.html:29
+#: templates/cabinet.html:17 templates/contacts.html:29
 msgid "Електронна пошта"
 msgstr ""
 
-#: templates/cabinet.html:20
+#: templates/cabinet.html:19
+msgid "Натисніть \"Редагувати інформацію\" щоб додати номер телефону"
+msgstr ""
+
+#: templates/cabinet.html:21
+msgid "Статус оптовика"
+msgstr ""
+
+#: templates/cabinet.html:25
+msgid "Ні"
+msgstr ""
+
+#: templates/cabinet.html:27
+msgid "Так"
+msgstr ""
+
+#: templates/cabinet.html:32
 msgid "Редагувати інформацію"
 msgstr ""
 
-#: templates/cabinet.html:33
+#: templates/cabinet.html:45
 msgid "Зберегти"
 msgstr ""
 
-#: templates/cabinet.html:39
+#: templates/cabinet.html:51
 msgid "Історія замовлень"
 msgstr ""
 
-#: templates/cabinet.html:46
+#: templates/cabinet.html:58
 msgid "Замовлення"
 msgstr ""
 
-#: templates/cabinet.html:46
+#: templates/cabinet.html:58
 msgid "від"
 msgstr ""
 
-#: templates/cabinet.html:50
+#: templates/cabinet.html:69
 msgid "Згенерувати накладну"
+msgstr ""
+
+#: templates/cabinet.html:72
+msgid "кількість"
+msgstr ""
+
+#: templates/cabinet.html:72
+msgid "ціна"
 msgstr ""
 
 #: templates/category-detail.html:9
 msgid "Kатегорія"
 msgstr ""
 
-#: templates/category-detail.html:94 templates/home-page.html:217
-#: templates/product-page.html:60 templates/product-page.html:111
-#: templates/subcategory-detail.html:74
-msgid "Додати в кошик"
+#: templates/category-detail.html:15 templates/subcategory-detail.html:15
+msgid "Всі категорії"
+msgstr ""
+
+#: templates/category-detail.html:58 templates/home-page.html:171
+#: templates/home-page.html:199 templates/home-page.html:281
+msgid "Перейти"
 msgstr ""
 
 #: templates/conditions.html:11
@@ -835,31 +919,47 @@ msgstr ""
 msgid "Просто зателефонуйте нам і повідомте яка деталь вам потрібна."
 msgstr ""
 
-#: templates/home-page.html:169
+#: templates/home-page.html:100
+msgid "Величезний каталог запчастин до сільськогосподарської техніки"
+msgstr ""
+
+#: templates/home-page.html:103
+msgid "Тут ви знайдете все, що вам потрібно!"
+msgstr ""
+
+#: templates/home-page.html:125
+msgid "Попередній"
+msgstr ""
+
+#: templates/home-page.html:129
+msgid "Наступний"
+msgstr ""
+
+#: templates/home-page.html:152
 msgid "Категорії за запитом"
 msgstr ""
 
-#: templates/home-page.html:187
+#: templates/home-page.html:182
 msgid "Підкатегорії за запитом"
 msgstr ""
 
-#: templates/home-page.html:205
+#: templates/home-page.html:209
 msgid "Товари за запитом"
 msgstr ""
 
-#: templates/home-page.html:228
+#: templates/home-page.html:256
 msgid "Нажаль  за запитом"
 msgstr ""
 
-#: templates/home-page.html:228
+#: templates/home-page.html:256
 msgid "нічого не знайдено, спробуйте виправити запит"
 msgstr ""
 
-#: templates/home-page.html:228
+#: templates/home-page.html:256
 msgid "або зверніть увагу на функцію"
 msgstr ""
 
-#: templates/home-page.html:228
+#: templates/home-page.html:256
 msgid "спецзамовлення"
 msgstr ""
 
@@ -883,27 +983,51 @@ msgstr ""
 msgid "Перейти до оформлення"
 msgstr ""
 
-#: templates/product-page.html:35
-msgid "Є в наявності"
-msgstr ""
-
-#: templates/product-page.html:37
-msgid "Немає в наявності"
-msgstr ""
-
-#: templates/product-page.html:49
+#: templates/product-page.html:84
 msgid "Артикул"
 msgstr ""
 
-#: templates/product-page.html:63
+#: templates/product-page.html:85
+msgid "Код товару"
+msgstr ""
+
+#: templates/product-page.html:89
+msgid "Додати в кошик"
+msgstr ""
+
+#: templates/product-page.html:92
 msgid "Видалити з кошика"
 msgstr ""
 
-#: templates/product-page.html:67
+#: templates/product-page.html:96
+msgid "Цього товару немає в наявності зараз"
+msgstr ""
+
+#: templates/product-page.html:96 templates/product-page.html:99
+msgid "Зателефонуйте нам"
+msgstr ""
+
+#: templates/product-page.html:96
+msgid "аби уточнити коли він буде доступний."
+msgstr ""
+
+#: templates/product-page.html:97 templates/product-page.html:100
+msgid "Уточнити наявність"
+msgstr ""
+
+#: templates/product-page.html:99
+msgid "Цей товар закінчується"
+msgstr ""
+
+#: templates/product-page.html:99
+msgid "аби уточнити його наявність."
+msgstr ""
+
+#: templates/product-page.html:106
 msgid "Опис"
 msgstr ""
 
-#: templates/product-page.html:86
+#: templates/product-page.html:127
 msgid "Інші товари з цього розділу"
 msgstr ""
 
