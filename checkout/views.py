@@ -11,16 +11,9 @@ from core.models import Order
 from .admin import link_callback
 
 
-
-
-
-
-
 def checkout(request):
     user = get_user(request)
-    form = BillingForm(initial={
-            'email': user.email,
-            'phone': user.phone_number})
+    form = BillingForm(initial={'email': user.email, 'phone': user.phone_number})
 
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if len(order_qs) != 0:
@@ -31,7 +24,8 @@ def checkout(request):
         context = {
             'form': form,
             'order_items': order_items,
-            'order_total': order_total
+            'order_total': order_total,
+            'order_code': order_code
         }
     else:
         return redirect('/')
@@ -53,7 +47,7 @@ def checkout(request):
         billingaddress.address = form.data['address']
         billingaddress.payment_method = form.data['payment_method']
         print(form.data['payment_method'])
-        print(form.data['delivery_method'])       
+        print(form.data['delivery_method'])
         billingaddress.save()
         order.ordered = True
         order.save()
@@ -63,9 +57,8 @@ def checkout(request):
     return render(request, 'index.html', context)
 
 
-
 def generate_invoice_in_cabinet(request, *args, **kwargs):
-    user = get_user(request)
+    # user = get_user(request)
     order_id = kwargs['order_id']
     order = BillingAddress.objects.get(order_id=order_id)
 
@@ -89,6 +82,5 @@ def generate_invoice_in_cabinet(request, *args, **kwargs):
     # if error then show some funy view
     if pisa_status.err:
         return HttpResponse(f'We had some errors <pre>{html}</pre>')
-    
-    return response
 
+    return response

@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  web_prod:
+  web_stag:
     build: 
       context: .
       dockerfile: Dockerfile.prod
@@ -23,7 +23,7 @@ services:
       - ./.env.prod
     depends_on:
       - db_prod
-  db_prod:
+  db_stag:
     image: postgres:14.0-alpine
     container_name: bigagroparts.db
     restart: always

@@ -4,46 +4,36 @@ from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import ListView,DetailView, View
-from .models import Category, SubCategory, Item, Order, OrderItem
+from django.views.generic import ListView, View
+from .models import Category, SubCategory, Item, Order
 from django.db.models import Q
-from django.contrib.postgres.search import SearchVector, SearchQuery
 from django.http import HttpResponse
 
 import json
 
 from checkout.models import BillingAddress
 
+
 class HomeView(ListView):
     model = Category
     template_name = 'home-page.html'
-
-# def index(request):
-#     context = {
-#         'categories': Category.objects.all(),
-#     }
-#     return render(request, 'home-page.html', context)
 
 
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
-            not_home = True
             context = {
                 'object': order,
-                # 'not_home': not_home
             }
             return render(self.request, 'order-summary.html', context)
         except ObjectDoesNotExist:
             messages.info(self.request, 'Ви не маєте нічого в кошику!')
             return redirect('/')
 
+
 def set_language(request):
     pass
-   
-
-
 
 
 def search_view(request):
@@ -54,25 +44,25 @@ def search_view(request):
     # print('query: {}'.format(len(query)))
     if len(query):
         item_items = models[0].objects.filter(
-            Q(title__icontains = query) |
-            Q(item_code__icontains = query) |
-            Q(description__icontains = query) |
-            Q(id__icontains = query)
-        )
+            Q(title__icontains=query)
+            | Q(item_code__icontains=query)
+            | Q(description__icontains=query)
+            | Q(id__icontains=query))
         category_items = models[1].objects.filter(
-            Q(title__icontains = query)
+            Q(title__icontains=query)
         )
         subcategory_items = models[2].objects.filter(
-            Q(title__icontains = query)
+            Q(title__icontains=query)
         )
         return render(request, template_name, context={'item_items': item_items, 'category_items': category_items, 'subcategory_items': subcategory_items, 'query': query})
 
     return redirect('/')
 
+
 def autocomplete(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        search_qs = Item.objects.filter( Q(title__startswith=q) | Q(title__icontains=q) | Q(item_code__icontains=q) | Q(id__icontains=q))
+        search_qs = Item.objects.filter(Q(title__startswith=q) | Q(title__icontains=q) | Q(item_code__icontains=q) | Q(id__icontains=q))
         results = []
         # print(q)
         for r in search_qs:
@@ -92,17 +82,21 @@ def autocomplete(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
+
 def contacts(request):
     # not_home=True
     return render(request, 'contacts.html')
+
 
 def conditions(request):
     # not_home=True
     return render(request, 'conditions.html')
 
+
 def specorder(request):
     # not_home=True
     return render(request, 'specorder.html')
+
 
 def my_cabinet(request):
     # not_home=True

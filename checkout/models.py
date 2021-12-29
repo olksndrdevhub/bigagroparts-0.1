@@ -11,6 +11,7 @@ from core.models import Item, Order
 
 User = get_user_model()
 
+
 class BillingAddress(models.Model):
 
     NOVA_POSHTA = 'NP'
@@ -37,15 +38,12 @@ class BillingAddress(models.Model):
     phone = PhoneNumberField(verbose_name=_('Контактний номер телефону'))
     email = models.EmailField(verbose_name=_('Адреса електронної пошти'), max_length=200)
     payment_method = models.CharField(verbose_name=_('Метод оплати'), choices=PAYMENT_METHODS, max_length=10, default=PAY_BEFORE_DELIVERING)
-    
 
     def generate_invoice_context(self, request):
 
         locale.setlocale(locale.LC_ALL, 'uk_UA.utf8')
-
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-
         context = {
             'deliver': request.get_host(),
             'bayer': self.user.first_name + ' ' + self.user.last_name,
@@ -57,13 +55,10 @@ class BillingAddress(models.Model):
             'order_total': self.total_price,
             'item_count': len(self.order.items.all()),
         }
-
         return context
-
 
     def __str__(self):
         return f'{self.user.email} order'
 
     class Meta:
-        verbose_name_plural = 'Інформація про замовлення' 
-
+        verbose_name_plural = 'Інформація про замовлення'

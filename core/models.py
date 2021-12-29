@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 def slugify(s):
     pattern = r'[^\w+]'
     return re.sub(pattern, '-', s)
@@ -47,7 +48,6 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
- 
     first_name = models.CharField(max_length=150, blank=False)
     last_name = models.CharField(max_length=150, blank=False)
     email = models.EmailField(_('email address'), unique=True)
@@ -71,7 +71,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _("Користувачі")
 
     def __str__(self):
-        return self.first_name+' '+self.last_name
+        return self.first_name + ' ' + self.last_name
 
 
 class Category(models.Model):
@@ -82,7 +82,6 @@ class Category(models.Model):
                          allow_unicode=True,
                          max_length=200,
                          null=True)
-    
 
     def __str__(self):
         return self.title
@@ -110,7 +109,7 @@ class SubCategory(models.Model):
 
     def get_absolute_url(self):
         return reverse('subcategory_detail', kwargs={'slug': self.slug})
-    
+
     class Meta:
         verbose_name_plural = "Підкатегорії"
         ordering = ('title',)
@@ -143,7 +142,7 @@ class Item(models.Model):
                          null=True)
     subcategories = models.ManyToManyField(SubCategory, blank=True)
     categories = models.ManyToManyField(Category, blank=True)
-    
+
     class Meta:
         verbose_name_plural = 'Товари'
         ordering = ('title',)
@@ -153,26 +152,24 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return reverse('item_detail', kwargs={'slug': self.slug})
-    
+
     def get_add_to_card_url(self):
         return reverse('add_to_card', kwargs={'slug': self.slug})
-    
+
     def get_remove_from_card_url(self):
         return reverse('remove_from_card', kwargs={'slug': self.slug})
-
 
 
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     image = models.ImageField(verbose_name='Фото деталі', upload_to='uploads/', default='None/item.jpg', blank=True, null=True)
-    default =models.BooleanField(default=False)
+    default = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f'Image #{self.id} for {self.item.title}'
 
     class Meta:
         verbose_name_plural = 'Фото товарів'
-
 
 
 class OrderItem(models.Model):
@@ -193,11 +190,9 @@ class OrderItem(models.Model):
 
     def get_final_price(self):
         return self.get_total_item_price()
-    
+
     class Meta:
         verbose_name_plural = "Товари в кошику"
-
-
 
 
 class Order(models.Model):
@@ -230,10 +225,9 @@ class Order(models.Model):
             total += order_item.get_final_price()
             self.order_total_price = total
         return total
-    
+
     def set_total(self):
         self.order_total_price = self.get_total()
 
-    
     class Meta:
         verbose_name_plural = "Замовлення"

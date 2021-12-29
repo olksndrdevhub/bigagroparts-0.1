@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
+
 class MyCustomSignupForm(SignupForm):
     # mail = forms.CharField(required=True, label='Емейл')
     first_name = forms.CharField(required=True, label=_('Ім\'я'))
@@ -20,15 +21,12 @@ class MyCustomSignupForm(SignupForm):
         return user
 
 
-
-
-
 class EditUserInfoForm(forms.Form):
     # username = forms.CharField(max_length=100, label=_('Ім\'я користувача'))
     first_name = forms.CharField(max_length=100, label=_('Ім\'я'))
     last_name = forms.CharField(max_length=100, label=_('Прізвище'))
     email = forms.EmailField(label=_('Електронна адреса'))
-    phone_number = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': _('+380')}), 
+    phone_number = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': _('+380')}),
                                     label=_("Номер телефону"), required=False)
 
     # class Meta:
@@ -37,8 +35,6 @@ class EditUserInfoForm(forms.Form):
 
 
 class EditBillingAddressForm(forms.ModelForm):
-    
-
     class Meta:
         model = BillingAddress
         fields = ['address', 'nova_poshta', 'city', 'landmark']

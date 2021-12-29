@@ -1,4 +1,3 @@
-from logging import DEBUG
 import os
 from dotenv import load_dotenv
 
@@ -17,6 +16,8 @@ DEBUG = int(os.getenv("DEBUG", default=0))
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
+
+SECURE_PROXY_SSL_HEADER = os.getenv("SECURE_PROXY_SSL_HEADER").split(" ")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -141,7 +142,6 @@ else:
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_in_env')]
 
 
-
 # auth
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -195,9 +195,8 @@ DATABASES = {
         "PORT": os.getenv("SQL_PORT", "5432"),
     }
 }
-    
-    
-    
+
+
 # SECURE SETTINGS
 if os.getenv('DEBUG') == 0:
     SECRET_KEY = os.getenv('SECRET_KEY')

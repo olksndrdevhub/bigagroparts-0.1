@@ -5,3 +5,5 @@
 **.vscode
 **.env
 **.dev
+**.prod
+**.staging
