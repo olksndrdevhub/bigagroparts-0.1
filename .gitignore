@@ -7,4 +7,4 @@
 **.dev
 **.env.prod
 **.staging
-**.staging.proxy**
+**.proxy-companion
