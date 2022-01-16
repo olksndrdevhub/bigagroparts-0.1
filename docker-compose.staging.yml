@@ -27,7 +27,7 @@ services:
 
   db_stag:
     image: postgres:14.0-alpine
-    container_name: bigagroparts.db
+    container_name: bigagroparts_stag.db
     restart: always
     volumes: 
       - postgres_data_prod:/var/lib/postgresql/data/
