@@ -92,7 +92,7 @@
                         <td>{{ order_item.item.item_code }}</td>
                         <td>{{ order_item.item.title }}</td>
                         <td>
-                            {% if request.user.extendeduser.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
+                            {% if request.user.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
                             <span>₴ {{ order_item.item.price }}</span>
                             {% endif %}
                         </td>

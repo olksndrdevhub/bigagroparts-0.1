@@ -269,7 +269,7 @@
               })
               .autocomplete( "instance" )._renderItem = function( ul, item ) {
                 return $( "<li>" )
-                    .append("<div class='jquery-item align-items-center'><div class='jquery-item-title text-left'>" + item.label + "<p>Артикул: " + item.item_code + " Код товару: " + item.item_id + "</p></div>" + "<div class='jquery-item-price '>Ціна: ₴ " + item.price + "</div>" + "<img class='jquery-item-img p-0 m-0' src='" + item.img + "' style='height: 80px'>" + "</div>")
+                    .append("<div class='jquery-item align-items-center'><div class='jquery-item-title text-left'>" + item.label + "<p>Артикул: " + item.item_code + " Код товару: " + item.item_id + "</p></div>" + "<div class='jquery-item-price '>Ціна: ₴ " + {%if request.user.wholesaler%}item.special_price{%else%}item.price{%endif%} + "</div>" + "<img class='jquery-item-img p-0 m-0' src='" + item.img + "' style='height: 80px'>" + "</div>")
                     .appendTo( ul );
             };
         });

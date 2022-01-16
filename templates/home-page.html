@@ -229,7 +229,11 @@
                   <div class="price-cart-wrap">
                     <div class="price-box d-flex align-items-center">
                       {% if item.availability != '0' %}
-                        <div class="box w-100"><p>{{ item.price }} ₴</p></div>                        
+                        {% if request.user.wholesaler %}
+                          <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>
+                        {% else %}  
+                          <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
+                        {% endif %}
                       {% endif %}
                     </div>
                     <div class="cart-box">

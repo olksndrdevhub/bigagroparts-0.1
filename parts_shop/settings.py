@@ -16,8 +16,8 @@ DEBUG = int(os.getenv("DEBUG", default=0))
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
-
-SECURE_PROXY_SSL_HEADER = os.getenv("SECURE_PROXY_SSL_HEADER").split(" ")
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = os.getenv("SECURE_PROXY_SSL_HEADER").split(" ")
 
 INSTALLED_APPS = [
     'django.contrib.admin',

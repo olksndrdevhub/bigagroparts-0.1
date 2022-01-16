@@ -76,7 +76,9 @@
           <p class="lead font-weight-bold">{{ item.title }}</p>
           <p class="lead"><hr>
             {% if item.availability != '0' %}
-              {% if request.user.extendeduser.wholesaler %}<span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>{% else %}  
+              {% if request.user.wholesaler %}
+                <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>
+              {% else %}  
                 <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
               {% endif %}
             {% endif %}

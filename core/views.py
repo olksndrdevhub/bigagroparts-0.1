@@ -71,6 +71,7 @@ def autocomplete(request):
                 'value': r.title,
                 'url': r.get_absolute_url(),
                 'img': image.image.url,
+                'special_price': r.wholesaler_price,
                 'price': r.price,
                 'item_code': r.item_code,
                 'item_id': r.id
