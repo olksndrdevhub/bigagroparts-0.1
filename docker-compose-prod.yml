@@ -1,6 +1,7 @@
 version: '3.3'
 
 services:
+
   web_prod:
     build: 
       context: .
@@ -23,20 +24,48 @@ services:
       - ./.env.prod
     depends_on:
       - db_prod
+
   db_prod:
     image: postgres:14.0-alpine
-    container_name: bigagroparts.db
+    container_name: bigagroparts_prod.db
     restart: always
     volumes: 
       - postgres_data_prod:/var/lib/postgresql/data/
     env_file:
       - ./.postgres.env
-  nginx:
+
+  nginx-proxy:
+    container_name: nginx-proxy
     build: ./nginx
+    restart: always
     ports:
-      - 1337:80
+      - 443:443
+      - 80:80
+    volumes:
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
       - web_prod
     
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: acme-companion
+    env_file:
+      - ./.env.prod.proxy-companion
+    volumes:
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+    
 volumes:
   postgres_data_prod:
+  certs:
+  html:
+  vhost:
+  acme:
