@@ -1,0 +1,37 @@
+# .env.staging
+DEBUG=0
+SECRET_KEY=foo
+DJANGO_ALLOWED_HOSTS=<YOUR_DOMAIN.COM>
+SECURE_PROXY_SSL_HEADER = HTTP_X_FORWARDED_PROTO https
+
+VIRTUAL_HOST=<YOUR_DOMAIN.COM>
+VIRTUAL_PORT=8000
+LETSENCRYPT_HOST=<YOUR_DOMAIN.COM>
+
+SQL_ENGINE=django.db.backends.postgresql
+SQL_DATABASE=bigagroparts_db
+SQL_USER=bigagroparts
+SQL_PASSWORD=bigagroparts
+SQL_HOST=db_prod
+SQL_PORT=5432
+DATABASE=postgres
+
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_HOST_USER=bigagroparts@gmail.com
+EMAIL_HOST_PASSWORD=jlwt gnga gmwl falm
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+
+USE_S3=True
+USE_S3_STATIC=True
+USE_S3_MEDIA=True
+AWS_ACCESS_KEY_ID=AKIA5NMZKBFY2ZA5AZPM
+AWS_SECRET_ACCESS_KEY=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
+AWS_STORAGE_BUCKET_NAME=bigagroparts-data
+
+
+# .postgres.env
+POSTGRES_DB=bigagroparts_db
+POSTGRES_USER=bigagroparts
+POSTGRES_PASSWORD=bigagroparts

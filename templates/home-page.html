@@ -220,6 +220,13 @@
                       {% endwith %}
                     </div>
                     <div class="card-title-box">
+                      {% if item.availability == '1' %}
+                        <span class="badge green mr-1">{% trans item.get_availability_display %}</span>
+                      {% elif item.availability == '0' %}
+                        <span class="badge red mr-1">{% trans item.get_availability_display %}</span>
+                      {% elif item.availability == '2' %}
+                        <span class="badge badge-warning mr-1">{% trans item.get_availability_display %}</span>
+                      {% endif %}
                       <p>{{ item.title }} <br>
                       <small>{{ item.item_code }}</small></p>
                     </div>
@@ -229,7 +236,11 @@
                   <div class="price-cart-wrap">
                     <div class="price-box d-flex align-items-center">
                       {% if item.availability != '0' %}
-                        <div class="box w-100"><p>{{ item.price }} ₴</p></div>                        
+                        {% if request.user.wholesaler %}
+                          <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>
+                        {% else %}  
+                          <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
+                        {% endif %}
                       {% endif %}
                     </div>
                     <div class="cart-box">

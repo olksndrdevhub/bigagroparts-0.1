@@ -9,8 +9,6 @@ from django.contrib.auth import get_user
 from django.utils.translation import gettext as _
 
 
-
-
 def category_detail(request, slug):
     category = Category.objects.get(slug=slug)
     categories = Category.objects.all()
@@ -33,12 +31,13 @@ def item_detail(request, slug):
     print(item_images)
     category = item.categories.first()
     subcategory = item.subcategories.first()
-    if category != None:
+    if category is not None:
         last_items = category.item_set.order_by('?')[:4]
     else:
         last_items = subcategory.item_set.order_by('?')[:4]
 
     return render(request, 'product-page.html', context={'item': item, 'item_images': item_images, 'category': category, 'subcategory': subcategory, 'last_items': last_items, 'not_home': not_home})
+
 
 @login_required
 def add_to_card(request, slug):
@@ -47,12 +46,16 @@ def add_to_card(request, slug):
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
         user=request.user,
-        ordered=False
-    )
+        ordered=False)
+    if request.user.wholesaler:
+        order_item.item_price = item.wholesaler_price
+    else:
+        order_item.item_price = item.price
+    order_item.save()
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
-        #check if order item is in the order
+        # check if order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
@@ -68,32 +71,32 @@ def add_to_card(request, slug):
         order.items.add(order_item)
         messages.info(request, _('Цей товар додано у кошик!'))
         return redirect(request.META['HTTP_REFERER'])
-        
+
+
 @login_required
 def remove_from_card(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
-        #check if order item is in the order
+        # check if order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(
-            item=item,
-            user=request.user,
-            ordered=False
+                item=item,
+                user=request.user,
+                ordered=False
             )[0]
             order.items.remove(order_item)
             messages.info(request, _('Цей товар видалено з кошика!'))
             return redirect('core:order-summary')
         else:
-            #add a message that order doesn`t contain the item
+            # add a message that order doesn`t contain the item
             messages.info(request, _('Цього товару нема у вашому кошику!'))
             return redirect('item_detail', slug=slug)
     else:
-        #add a message that user doesn`t have a order
+        # add a message that user doesn`t have a order
         messages.info(request, _('Ви ще не маєте нічого в кошику!'))
-        return redirect('item_detail', slug=slug)  
-
+        return redirect('item_detail', slug=slug)
 
 
 @login_required
@@ -102,12 +105,12 @@ def remove_single_item_card(request, slug):
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
-        #check if order item is in the order
+        # check if order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(
-            item=item,
-            user=request.user,
-            ordered=False
+                item=item,
+                user=request.user,
+                ordered=False
             )[0]
             if order_item.quantity > 1:
                 order_item.quantity -= 1
@@ -117,15 +120,14 @@ def remove_single_item_card(request, slug):
             messages.info(request, _('Мінус одна одиниця товару!'))
             return redirect('core:order-summary')
         else:
-            #add a message that order doesn`t contain the item
+            # add a message that order doesn`t contain the item
             messages.info(request, _('Цього товару нема у вашому кошику!'))
             return redirect('core:order-summary')
     else:
-        #add a message that user doesn`t have a order
+        # add a message that user doesn`t have a order
         messages.info(request, _('Ви ще не маєте нічого в кошику!'))
-        return redirect('core:order-summary')    
-    
-    
+        return redirect('core:order-summary')
+
 
 def edit_account(request):
     user = get_user(request)
@@ -133,20 +135,17 @@ def edit_account(request):
     print(saved_address)
     edit = True
     form1 = EditUserInfoForm(initial={
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'email': user.email,
-            'phone_number': user.phone_number
-        })
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'phone_number': user.phone_number})
     # form2 = EditBillingAddressForm(initial={
     #         'address': saved_address.address,
     #         'nova_poshta': saved_address.nova_poshta,
     #         'city': saved_address.city,
     #         'landmark': saved_address.landmark,
-    #         # 'country': saved_address.country
+    #         'country': saved_address.country
     #     })
-    
-
 
     if request.method == 'POST':
         form1 = EditUserInfoForm(request.POST, initial={
@@ -154,14 +153,13 @@ def edit_account(request):
             'last_name': user.last_name,
             'email': user.email,
             'phone_number': user.phone_number
-
         })
         # form2 = EditBillingAddressForm(request.POST, initial={
         #     'address': saved_address.address,
         #     'nova_poshta': saved_address.nova_poshta,
         #     'city': saved_address.city,
         #     'landmark': saved_address.landmark,
-        #     # 'country': saved_address.country
+        #     'country': saved_address.country
         # })
         if form1.is_valid():
             user.first_name = form1.cleaned_data['first_name']
@@ -169,7 +167,7 @@ def edit_account(request):
             user.email = form1.cleaned_data['email']
             user.phone_number = form1.cleaned_data['phone_number']
             user.save()
-            # # saved_address = BillingAddress.objects.filter(user=request.user)
+            # saved_address = BillingAddress.objects.filter(user=request.user)
             # if saved_address.exists():
             #     print('exist')
             #     billingaddress = form2.save(commit=False)
@@ -181,5 +179,4 @@ def edit_account(request):
             #     billingaddress.save()
         return redirect('core:my_cabinet')
 
-    
     return render(request, 'cabinet.html', context={'form1': form1, 'edit': edit})

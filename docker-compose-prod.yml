@@ -1,34 +1,42 @@
 version: '3.3'
 
 services:
-  web:
-    build: .
+  web_prod:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
     image: bigagroparts_prod:web
     container_name: bigagroparts_prod.web
     tty: true
     stdin_open: true
     restart: always
     command: >
-      bash -c "gunicorn parts_shop.wsgi:application --bind 0.0.0.0:8000 --workers=2 --threads=4 --worker-class=gthread"
+      sh -c "gunicorn parts_shop.wsgi:application --bind 0.0.0.0:8000 --workers=2 --threads=4 --worker-class=gthread --log-level=debug"
     volumes:
       - .:/app
-    ports:
-      - 80:8000
+    expose:
+      - 8000
     environment:
       PYTHONIOENCODING: UTF-8
       DJANGO_SETTINGS_MODULE: parts_shop.settings    
     env_file:
-      - ./.env
+      - ./.env.prod
     depends_on:
-      - db
-  db:
+      - db_prod
+  db_prod:
     image: postgres:14.0-alpine
     container_name: bigagroparts.db
     restart: always
     volumes: 
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_prod:/var/lib/postgresql/data/
     env_file:
       - ./.postgres.env
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web_prod
     
 volumes:
-  postgres_data:
+  postgres_data_prod:

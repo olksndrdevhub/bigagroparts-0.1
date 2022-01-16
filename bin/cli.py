@@ -47,22 +47,6 @@ def main(check_env, deploying):
     # if check_env:
         # subprocess.call("grep -v '^#' .env | xargs")
 
-    migrate = input("Migrate the database? [y/n]: ")
-    if migrate == 'y':
-        process_migrate = subprocess.check_call(
-            ['python', 'manage.py', 'migrate'])
-
-    prepopulate = input("Prepopulate the database? [y/n]: ")
-    # TODO: this should be done by default in the migration step
-    if prepopulate == 'y':
-        process_makesuper = subprocess.check_call(
-            ['python', 'manage.py', 'prepopulate'])
-
-    makesuper = input("Create the admin user? [y/n]: ")
-    if makesuper == 'y':
-        process_makesuper = subprocess.check_call(
-            ['python', 'manage.py', 'makesuper'])
-
     if deploying:
         REQUIRED_ENV_VARS = (
             'AZ_GROUP',
@@ -111,8 +95,6 @@ def main(check_env, deploying):
     if update_azure_env == 'y':
         print("Updating App Settings... ")
         sys.stdout.flush()
-        command = get_settings_command()
-        process_update_env = subprocess.check_call(command)
         print("Finished updating app settings")
 
     print("Exiting...")

@@ -5,3 +5,6 @@
 **.vscode
 **.env
 **.dev
+**.prod
+**.staging
+**.staging.proxy**

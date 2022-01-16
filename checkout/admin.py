@@ -5,12 +5,11 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.staticfiles import finders
-from django.http import request, HttpResponse
+from django.http import HttpResponse
 from django.template.loader import get_template
 from django.urls.base import reverse
 from django.utils.html import format_html
 from django.contrib.auth import get_user_model
-
 
 from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
@@ -18,19 +17,22 @@ from import_export.widgets import ManyToManyWidget
 
 from .models import BillingAddress
 
+
 User = get_user_model()
+
 
 class AddressResourse(resources.ModelResource):
     users = fields.Field(widget=ManyToManyWidget(User, field='username'), attribute='users')
+
     class Meta:
         models = BillingAddress
+
 
 class AddressAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = AddressResourse
     list_display = ('total_price', 'order_id', 'user', 'nova_poshta', 'address', 'city', 'landmark', 'phone', 'order_actions',)
     readonly_fields = ('order_actions',)
-    
-    
+
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
@@ -42,17 +44,15 @@ class AddressAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         ]
         return custom_urls + urls
 
-
     def order_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Згенерувати накладну</a>',
             reverse('admin:order-invoice', args=[obj.order_id]),
         )
-    
+
     order_actions.short_description = 'Згенерувати накладну'
     order_actions.allow_tags = True
 
-    
     def generate_invoice_pdf(self, request, *args, **kwargs):
         order_id = kwargs['order_id']
         order = BillingAddress.objects.filter(order_id=order_id).first()
@@ -68,8 +68,7 @@ class AddressAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         html = template.render(context)
 
         # create a pdf
-        pisa_status = pisa.CreatePDF(
-        html, dest=response, link_callback=link_callback)
+        pisa_status = pisa.CreatePDF(html, dest=response, link_callback=link_callback)
         # if error then show some funy view
         if pisa_status.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
@@ -86,7 +85,7 @@ def link_callback(uri, rel):
         if not isinstance(result, (list, tuple)):
             result = [result]
         result = list(os.path.realpath(path) for path in result)
-        path=result[0]
+        path = result[0]
     else:
         sUrl = settings.STATIC_URL        # Typically /static/
         sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
@@ -106,8 +105,6 @@ def link_callback(uri, rel):
             'media URI must start with %s or %s' % (sUrl, mUrl)
         )
     return path
-
-
 
 
 admin.site.register(BillingAddress, AddressAdmin)

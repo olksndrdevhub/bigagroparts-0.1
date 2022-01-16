@@ -11,26 +11,33 @@ from import_export.widgets import ManyToManyWidget
 from .models import Item, OrderItem, Order, Category, SubCategory, CustomUser, ItemImage
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
+
 class OrderResource(resources.ModelResource):
     class Meta:
         model = Order
 
+
 class ItemResource(resources.ModelResource):
     categories = fields.Field(widget=ManyToManyWidget(Category, field='title'), attribute='categories')
     subcategories = fields.Field(widget=ManyToManyWidget(SubCategory, field='title'), attribute='subcategories')
+
     class Meta:
         model = Item
+
 
 class ItemImageResource(resources.ModelResource):
     class Meta:
         model = ItemImage
 
+
 class CategoryResource(resources.ModelResource):
     class Meta:
         model = Category
 
+
 class SubCategoryResource(resources.ModelResource):
     categories = fields.Field(widget=ManyToManyWidget(Category, field='title'), attribute='categories')
+
     class Meta:
         model = SubCategory
         # fields = ('id', 'title', 'slug', 'categories',)
@@ -53,8 +60,8 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')}
-        ),
+            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')
+        }),
     )
     search_fields = ('email',)
     ordering = ('email',)
@@ -62,6 +69,7 @@ class CustomUserAdmin(UserAdmin):
 
 class ItemImageInline(admin.StackedInline):
     model = ItemImage
+
 
 class ItemAdmin(ImportExportModelAdmin):
     resource_class = ItemResource
@@ -72,13 +80,11 @@ class ItemAdmin(ImportExportModelAdmin):
     readonly_fields = ['image_preview']
     inlines = (ItemImageInline,)
 
-
     def image_preview(self, obj):
         return mark_safe('<img src="{url}" height="200px" />'.format(
-            url = obj.image.url,
-            )
-    )
-    
+            url=obj.image.url,
+        ))
+
     def change_avaliability_true(self, request, queryset):
         queryset.update(availability=True)
     change_avaliability_true.short_description = 'Змінити статус на "Є в наявності"'
@@ -87,12 +93,12 @@ class ItemAdmin(ImportExportModelAdmin):
         queryset.update(availability=False)
     change_avaliability_false.short_description = 'Змінити статус на "Немає в наявності"'
 
+
 @admin.register(ItemImage)
 class ItemImageAdmin(ImportExportModelAdmin):
-    actions = ['change_default_status_true', 'change_default_status_false',]
+    actions = ['change_default_status_true', 'change_default_status_false']
 
     list_display = ('item', 'image', 'default')
-    
 
     def change_default_status_true(self, request, queryset):
         queryset.update(default=True)
@@ -101,6 +107,7 @@ class ItemImageAdmin(ImportExportModelAdmin):
     def change_default_status_false(self, request, queryset):
         queryset.update(default=True)
     change_default_status_false.short_description = 'Не використовувати за замовчуванням'
+
 
 class CategoryAdmin(ImportExportModelAdmin):
     search_fields = ['title']
@@ -117,12 +124,14 @@ class SubCategoryAdmin(ImportExportModelAdmin, ImportExportActionModelAdmin):
     list_filter = ['categories']
     # prepopulated_fields = {'slug': ['title']}
 
+
 class OrderAdmin(ImportExportModelAdmin):
     resource_class = OrderResource
     search_fields = ['id']
     list_display = ('id', 'user', 'start_date', 'ordered', 'order_status')
     filter_horizontal = ['items']
     list_filter = ['ordered', 'order_status']
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Item, ItemAdmin)

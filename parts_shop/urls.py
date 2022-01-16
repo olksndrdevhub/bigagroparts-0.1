@@ -12,14 +12,13 @@ admin.site.site_title = "BIG AGRO PARTS: портал адміністратор
 admin.site.index_title = "Ласкаво просимо до адмінпанелі"
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('checkout.urls', namespace='checkout')),
     path('accounts/', include('allauth.urls')),
     path('category/<slug:slug>/', category_detail, name='category_detail'),
     path('subcategory/<slug:slug>/', subcategory_detail, name='subcategory_detail'),
-    path('items/<slug:slug>', item_detail,  name='item_detail'),
+    path('items/<slug:slug>', item_detail, name='item_detail'),
     path('add-to-card/<slug:slug>/', add_to_card, name='add_to_card'),
     path('remove-from-card/<slug:slug>/',
          remove_from_card, name='remove_from_card'),

@@ -24,7 +24,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="{{ order_item.item.get_absolute_url }}" class="card-link">{{ order_item.item.title }}</a></td>
                         <td>
-                            {% if request.user.extendeduser.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
+                            {% if request.user.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
                             <span>₴ {{ order_item.item.price }}</span>
                             {% endif %}
                         </td>
