@@ -1,12 +1,13 @@
 version: '3.3'
 
 services:
+
   web_stag:
     build: 
       context: .
       dockerfile: Dockerfile.prod
-    image: bigagroparts_prod:web
-    container_name: bigagroparts_prod.web
+    image: bigagroparts_stag:web
+    container_name: bigagroparts_stag.web
     tty: true
     stdin_open: true
     restart: always
@@ -20,9 +21,10 @@ services:
       PYTHONIOENCODING: UTF-8
       DJANGO_SETTINGS_MODULE: parts_shop.settings    
     env_file:
-      - ./.env.prod
+      - ./.env.staging
     depends_on:
-      - db_prod
+      - db_stag
+
   db_stag:
     image: postgres:14.0-alpine
     container_name: bigagroparts.db
@@ -31,12 +33,38 @@ services:
       - postgres_data_prod:/var/lib/postgresql/data/
     env_file:
       - ./.postgres.env
-  nginx:
+
+  nginx-proxy:
+    container_name: nginx_stag
     build: ./nginx
+    restart: always
     ports:
-      - 1337:80
+      - 443:443
+      - 80:80
+    volumes:
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     depends_on:
-      - web_prod
+      - web_stag
+    
+    nginx-proxy-letsencrypt:
+      image: jrcs/letsencrypt-nginx-proxy-companion
+      env_file:
+        - ./.env.staging.proxy-companion
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+        - certs:/etc/nginx/certs
+        - html:/usr/share/nginx/html
+        - vhost:/etc/nginx/vhost.d
+        - acme:/etc/acme.sh
+      depends_on:
+        - nginx-proxy
     
 volumes:
   postgres_data_prod:
+    certs:
+    html:
+    vhost:
+    acme:
