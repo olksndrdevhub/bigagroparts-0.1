@@ -51,11 +51,13 @@ services:
     
   acme-companion:
     image: nginxproxy/acme-companion
+    container_name: acme-companion
     env_file:
       - ./.env.staging.proxy-companion
-    volumes-from:
-      - nginx-proxy
     volumes:
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - acme:/etc/acme.sh
     depends_on:
