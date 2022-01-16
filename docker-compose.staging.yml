@@ -35,7 +35,7 @@ services:
       - ./.postgres.env
 
   nginx-proxy:
-    container_name: nginx_stag
+    container_name: nginx-proxy
     build: ./nginx
     restart: always
     ports:
