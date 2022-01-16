@@ -41,11 +41,10 @@
                 <div class="card-body">
                   <p class="card-title m-0"><strong><a href="{{ order_item.item.get_absolute_url }}" class="card-link">{{ order_item.item.title }}</a></strong></p><span>{% trans 'Кількість' %}: {{ order_item.quantity }}</span>
                   <p class="card-text">{% trans 'Ціна' %}:
-                    {% if request.user.wholesaler %}
-                      ₴ {{ order_item.item.wholesaler_price }}
-                    {% else %}  
-                      ₴ {{ order_item.item.price }}
-                    {% endif %}
+                    ₴ {{ order_item.item_price }}
+                  </p>
+                  <p class="card-text">{% trans 'Сума' %}:
+                    ₴ {{ order_item.get_final_price }}
                   </p>
                 </div>
               </div>

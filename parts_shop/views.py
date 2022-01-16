@@ -47,6 +47,11 @@ def add_to_card(request, slug):
         item=item,
         user=request.user,
         ordered=False)
+    if request.user.wholesaler:
+        order_item.item_price = item.wholesaler_price
+    else:
+        order_item.item_price = item.price
+    order_item.save()
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]

@@ -176,6 +176,7 @@ class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, verbose_name='Користувач')
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Товар')
+    item_price = models.FloatField(max_length=200, verbose_name='Вартість товару', blank=True, default=0.0)
     quantity = models.IntegerField(default=1, verbose_name='Кількість')
     ordered = models.BooleanField(default=False, verbose_name='Замовлення підтверджено')
 
@@ -183,10 +184,7 @@ class OrderItem(models.Model):
         return f'{self.quantity} of {self.item.title}'
 
     def get_total_item_price(self):
-        if self.user.wholesaler:
-            return self.quantity * self.item.wholesaler_price
-        else:
-            return self.quantity * self.item.price
+        return self.quantity * self.item_price
 
     def get_final_price(self):
         return self.get_total_item_price()
