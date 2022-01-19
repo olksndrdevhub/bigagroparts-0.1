@@ -42,6 +42,7 @@ services:
       - 443:443
       - 80:80
     volumes:
+      - conf:/etc/nginx/conf.d
       - certs:/etc/nginx/certs
       - html:/usr/share/nginx/html
       - vhost:/etc/nginx/vhost.d
@@ -56,6 +57,7 @@ services:
       - ./.env.prod.proxy-companion
     volumes:
       - certs:/etc/nginx/certs
+      - conf:/etc/nginx/conf.d
       - html:/usr/share/nginx/html
       - vhost:/etc/nginx/vhost.d
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -69,3 +71,4 @@ volumes:
   html:
   vhost:
   acme:
+  conf:
