@@ -6,13 +6,13 @@ from django.contrib.auth import get_user_model
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 
-from core.models import Item, Order
+from core.models import Item, Cart
 
 
 User = get_user_model()
 
 
-class BillingAddress(models.Model):
+class Order(models.Model):
 
     NOVA_POSHTA = 'NP'
     KURIER = 'KU'
@@ -28,7 +28,7 @@ class BillingAddress(models.Model):
     )
 
     total_price = models.CharField(verbose_name=_('Сума замовлення'), max_length=100)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Замовлення')
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name='Кошик')
     delivery_method = models.CharField(verbose_name=_('Метод доставки:'), choices=DELIVERY_METHODS, max_length=5, default=NOVA_POSHTA)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     nova_poshta = models.CharField(max_length=5, verbose_name=_('№ відділення Нової Пошти'), help_text=_("Введіть лише число без '№'"), blank=True)
@@ -61,4 +61,4 @@ class BillingAddress(models.Model):
         return f'order #{self.id}'
 
     class Meta:
-        verbose_name_plural = 'Інформація про замовлення'
+        verbose_name_plural = 'Замовлення'

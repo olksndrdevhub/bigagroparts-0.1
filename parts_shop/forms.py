@@ -1,7 +1,7 @@
 from allauth.account.forms import SignupForm
 from django import forms
 from django.contrib.auth import get_user_model
-from checkout.models import BillingAddress
+from checkout.models import Order
 from phonenumber_field.formfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 
@@ -36,5 +36,5 @@ class EditUserInfoForm(forms.Form):
 
 class EditBillingAddressForm(forms.ModelForm):
     class Meta:
-        model = BillingAddress
+        model = Order
         fields = ['address', 'nova_poshta', 'city', 'landmark']

@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from core.models import Item, Category, SubCategory, Order, OrderItem, ItemImage
+from core.models import Item, Category, SubCategory, Cart, CartItem, ItemImage
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from parts_shop.forms import EditUserInfoForm, EditBillingAddressForm
-from checkout.models import BillingAddress
+from parts_shop.forms import EditUserInfoForm
+from checkout.models import Order
 from django.contrib.auth import get_user
 from django.utils.translation import gettext as _
 
@@ -39,70 +38,69 @@ def item_detail(request, slug):
     return render(request, 'product-page.html', context={'item': item, 'item_images': item_images, 'category': category, 'subcategory': subcategory, 'last_items': last_items, 'not_home': not_home})
 
 
-def add_to_card(request, slug):
-    order_id = request.session.get('order_id')
+def add_to_cart(request, slug):
+    cart_id = request.session.get('cart_id')
     item = get_object_or_404(Item, slug=slug)
     ordered_date = timezone.now()
 
     if request.user.is_authenticated:
-        order_qs = Order.objects.filter(user=request.user, ordered=False)
-        order_item, created = OrderItem.objects.get_or_create(
+        cart_qs = Order.objects.filter(user=request.user, ordered=False)
+        cart_item, created = CartItem.objects.get_or_create(
             item=item,
             user=request.user,
             ordered=False)
         if request.user.wholesaler:
-            order_item.item_price = item.wholesaler_price
+            cart_item.item_price = item.wholesaler_price
         else:
-            order_item.item_price = item.price
+            cart_item.item_price = item.price
     else:
-        order_qs = Order.objects.filter(id=order_id, ordered=False)
-        if not order_qs.exists():
-            order = Order.objects.create(ordered_date=ordered_date)
-            order_id = order.id
-        order_item, created = OrderItem.objects.get_or_create(
-            order_id=order_id,
+        cart_qs = Order.objects.filter(id=cart_id, ordered=False)
+        if not cart_qs.exists():
+            cart = Cart.objects.create(ordered_date=ordered_date)
+            cart_id = cart.id
+        cart_item, created = CartItem.objects.get_or_create(
+            cart_id=cart_id,
             item=item,
             ordered=False)
-        order_item.item_price = item.price
-    order_item.save()
+        cart_item.item_price = item.price
+    cart_item.save()
 
-    if order_qs.exists():
-        order = order_qs[0]
+    if cart_qs.exists():
+        cart = cart_qs[0]
         # check if order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
-            order_item.quantity += 1
-            order_item.save()
+        if cart.items.filter(item__slug=item.slug).exists():
+            cart_item.quantity += 1
+            cart_item.save()
             messages.info(request, _('Додано ще одну одиницю товару в кошик!'))
             return redirect(request.META['HTTP_REFERER'])
         else:
             messages.info(request, _('Цей товар додано у кошик!'))
-            order.items.add(order_item)
+            cart.items.add(cart_item)
             return redirect(request.META['HTTP_REFERER'])
     else:
         if request.user.is_authenticated:
-            order = Order.objects.create(user=request.user, ordered_date=ordered_date)
+            cart = Cart.objects.create(user=request.user, ordered_date=ordered_date)
         
-        request.session['order_id'] = order.id
-        order.items.add(order_item)
+        request.session['order_id'] = cart.id
+        cart.items.add(cart_item)
         messages.info(request, _('Цей товар додано у кошик!'))
         return redirect(request.META['HTTP_REFERER'])
 
 
-# @login_required
-def remove_from_card(request, slug):
-    order_id = request.session.get('order_id')
+def remove_from_cart(request, slug):
+    cart_id = request.session.get('cart_id')
     item = get_object_or_404(Item, slug=slug)
-    order_qs = Order.objects.filter(id=order_id, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
+    cart_qs = Order.objects.filter(id=cart_id, ordered=False)
+    if cart_qs.exists():
+        cart = cart_qs[0]
         # check if order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
-            order_item = OrderItem.objects.filter(
+        if cart.items.filter(item__slug=item.slug).exists():
+            cart_item = CartItem.objects.filter(
                 item=item,
-                order_id=order_id,
+                cart_id=cart_id,
                 ordered=False
             )[0]
-            order.items.remove(order_item)
+            Cart.items.remove(cart_item)
             messages.info(request, _('Цей товар видалено з кошика!'))
             return redirect('core:order-summary')
         else:
@@ -116,24 +114,24 @@ def remove_from_card(request, slug):
 
 
 
-def remove_single_item_card(request, slug):
+def remove_single_item_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
-    order_id = request.session.get('order_id')
-    order_qs = Order.objects.filter(id=order_id, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
+    cart_id = request.session.get('cart_id')
+    cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
+    if cart_qs.exists():
+        cart = cart_qs[0]
         # check if order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
-            order_item = OrderItem.objects.filter(
+        if cart.items.filter(item__slug=item.slug).exists():
+            cart_item = CartItem.objects.filter(
                 item=item,
-                order_id=order_id,
+                cart_id=cart_id,
                 ordered=False
             )[0]
-            if order_item.quantity > 1:
-                order_item.quantity -= 1
-                order_item.save()
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+                cart_item.save()
             else:
-                order.items.remove(order_item)
+                cart.items.remove(cart_item)
             messages.info(request, _('Мінус одна одиниця товару!'))
             return redirect('core:order-summary')
         else:
@@ -148,7 +146,7 @@ def remove_single_item_card(request, slug):
 
 def edit_account(request):
     user = get_user(request)
-    saved_address = BillingAddress.objects.filter(user=user).last()
+    saved_address = Order.objects.filter(user=user).last()
     print(saved_address)
     edit = True
     form1 = EditUserInfoForm(initial={

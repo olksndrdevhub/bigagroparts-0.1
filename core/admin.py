@@ -8,13 +8,13 @@ from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 from import_export.widgets import ManyToManyWidget
 
-from .models import Item, OrderItem, Order, Category, SubCategory, CustomUser, ItemImage
+from .models import Item, CartItem, Cart, Category, SubCategory, CustomUser, ItemImage
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
-class OrderResource(resources.ModelResource):
+class CartResource(resources.ModelResource):
     class Meta:
-        model = Order
+        model = Cart
 
 
 class ItemResource(resources.ModelResource):
@@ -125,8 +125,8 @@ class SubCategoryAdmin(ImportExportModelAdmin, ImportExportActionModelAdmin):
     # prepopulated_fields = {'slug': ['title']}
 
 
-class OrderAdmin(ImportExportModelAdmin):
-    resource_class = OrderResource
+class CartAdmin(ImportExportModelAdmin):
+    resource_class = CartResource
     search_fields = ['id']
     list_display = ('id', 'user', 'start_date', 'ordered', 'order_status')
     filter_horizontal = ['items']
@@ -135,7 +135,7 @@ class OrderAdmin(ImportExportModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Item, ItemAdmin)
-admin.site.register(OrderItem)
-admin.site.register(Order, OrderAdmin)
+admin.site.register(CartItem)
+admin.site.register(Cart, CartAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)

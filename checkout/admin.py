@@ -15,22 +15,22 @@ from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 from import_export.widgets import ManyToManyWidget
 
-from .models import BillingAddress
+from .models import Order
 
 
 User = get_user_model()
 
 
-class AddressResourse(resources.ModelResource):
+class OrderResourse(resources.ModelResource):
     users = fields.Field(widget=ManyToManyWidget(User, field='username'), attribute='users')
 
     class Meta:
-        models = BillingAddress
+        models = Order
 
 
-class AddressAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = AddressResourse
-    list_display = ('total_price', 'order_id', 'user', 'nova_poshta', 'address', 'city', 'landmark', 'phone', 'order_actions',)
+class OrderAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = OrderResourse
+    list_display = ('total_price', 'cart_id', 'user', 'nova_poshta', 'address', 'city', 'landmark', 'phone', 'order_actions',)
     readonly_fields = ('order_actions',)
 
     def get_urls(self):
@@ -55,7 +55,7 @@ class AddressAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
     def generate_invoice_pdf(self, request, *args, **kwargs):
         order_id = kwargs['order_id']
-        order = BillingAddress.objects.filter(order_id=order_id).first()
+        order = Order.objects.filter(order_id=order_id).first()
 
         template_path = 'pdf/sales-invoice.html'
         context = order.generate_invoice_context(request)
@@ -107,4 +107,4 @@ def link_callback(uri, rel):
     return path
 
 
-admin.site.register(BillingAddress, AddressAdmin)
+admin.site.register(Order, OrderAdmin)

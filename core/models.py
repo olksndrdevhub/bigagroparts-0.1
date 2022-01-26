@@ -1,5 +1,3 @@
-from pyexpat import model
-from statistics import mode
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
@@ -156,10 +154,10 @@ class Item(models.Model):
         return reverse('item_detail', kwargs={'slug': self.slug})
 
     def get_add_to_card_url(self):
-        return reverse('add_to_card', kwargs={'slug': self.slug})
+        return reverse('add_to_cart', kwargs={'slug': self.slug})
 
     def get_remove_from_card_url(self):
-        return reverse('remove_from_card', kwargs={'slug': self.slug})
+        return reverse('remove_from_cart', kwargs={'slug': self.slug})
 
 
 class ItemImage(models.Model):
@@ -174,10 +172,10 @@ class ItemImage(models.Model):
         verbose_name_plural = 'Фото товарів'
 
 
-class OrderItem(models.Model):
+class CartItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
-    order_id = models.IntegerField(verbose_name='ID замовлення', default=0)
+    cart_id = models.IntegerField(verbose_name='ID замовлення', default=0)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Товар')
     item_price = models.FloatField(max_length=200, verbose_name='Вартість товару', blank=True, default=0.0)
     quantity = models.IntegerField(default=1, verbose_name='Кількість')
@@ -196,7 +194,7 @@ class OrderItem(models.Model):
         verbose_name_plural = "Товари в кошику"
 
 
-class Order(models.Model):
+class Cart(models.Model):
 
     ORDER_ACCEPTED = 'OA'
     ORDER_IS_PROCESSED = 'OIP'
@@ -210,7 +208,7 @@ class Order(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
-    items = models.ManyToManyField(OrderItem, verbose_name='Товари')
+    items = models.ManyToManyField(CartItem, verbose_name='Товари')
     start_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оформлення')
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False, verbose_name='Замовлення підтверджено')
@@ -218,7 +216,7 @@ class Order(models.Model):
     order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=ORDER_ACCEPTED, max_length=20)
 
     def __str__(self):
-        return 'Замовлення: ' + str(self.id)
+        return 'Кошик: ' + str(self.id)
 
     def get_total(self):
         total = 0
@@ -231,4 +229,4 @@ class Order(models.Model):
         self.order_total_price = self.get_total()
 
     class Meta:
-        verbose_name_plural = "Замовлення"
+        verbose_name_plural = "Кошик"

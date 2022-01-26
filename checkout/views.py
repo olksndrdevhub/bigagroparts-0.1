@@ -6,25 +6,25 @@ from django.contrib.auth import get_user
 from xhtml2pdf import pisa
 
 from .forms import BillingForm
-from .models import BillingAddress
-from core.models import Order
+from .models import Order
+from core.models import Cart
 from .admin import link_callback
 
 
 def checkout(request):
     user = get_user(request)
-    order_id = request.session.get('order_id')
+    cart_id = request.session.get('cart_id')
     initial = {}
     if user.is_authenticated:
         initial={'email': user.email, 'phone': user.phone_number}
     form = BillingForm(initial=initial)
 
-    order_qs = Order.objects.filter(id=order_id, ordered=False)
-    if len(order_qs) != 0:
-        order = order_qs[0]
-        order_code = order.id
-        order_items = order.items.all()
-        order_total = order.get_total()
+    cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
+    if len(cart_qs) != 0:
+        cart = cart_qs[0]
+        order_code = cart.id
+        order_items = cart.items.all()
+        order_total = cart.get_total()
         context = {
             'form': form,
             'order_items': order_items,
@@ -38,23 +38,23 @@ def checkout(request):
         form = BillingForm(request.POST)
         if form.is_valid():
             print('form valid')
-        billingaddress = BillingAddress()
-        billingaddress.user = request.user if user.is_authenticated else None
-        billingaddress.order = order
-        billingaddress.total_price = order_total
-        billingaddress.delivery_method = form.data['delivery_method']
-        billingaddress.nova_poshta = form.data['nova_poshta']
-        billingaddress.city = form.data['city']
-        billingaddress.landmark = form.data['landmark']
-        billingaddress.phone = form.data['phone']
-        billingaddress.email = form.data['email']
-        billingaddress.address = form.data['address']
-        billingaddress.payment_method = form.data['payment_method']
+        order = Order()
+        order.user = request.user if user.is_authenticated else None
+        order.cart = cart
+        order.total_price = order_total
+        order.delivery_method = form.data['delivery_method']
+        order.nova_poshta = form.data['nova_poshta']
+        order.city = form.data['city']
+        order.landmark = form.data['landmark']
+        order.phone = form.data['phone']
+        order.email = form.data['email']
+        order.address = form.data['address']
+        order.payment_method = form.data['payment_method']
         print(form.data['payment_method'])
         print(form.data['delivery_method'])
-        billingaddress.save()
-        order.ordered = True
         order.save()
+        cart.ordered = True
+        cart.save()
 
         return render(request, 'checkout_success.html')
 
@@ -64,7 +64,7 @@ def checkout(request):
 def generate_invoice_in_cabinet(request, *args, **kwargs):
     # user = get_user(request)
     order_id = kwargs['order_id']
-    order = BillingAddress.objects.get(order_id=order_id)
+    order = Order.objects.get(order_id=order_id)
 
     template_path = 'pdf/sales-invoice.html'
     context = order.generate_invoice_context(request)

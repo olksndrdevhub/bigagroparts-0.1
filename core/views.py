@@ -5,13 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
-from .models import Category, SubCategory, Item, Order
+from .models import Category, SubCategory, Item, Cart
 from django.db.models import Q
 from django.http import HttpResponse
 
 import json
 
-from checkout.models import BillingAddress
+from checkout.models import Order
 
 
 class HomeView(ListView):
@@ -22,10 +22,10 @@ class HomeView(ListView):
 class OrderSummaryView(View):
     def get(self, *args, **kwargs):
         try:
-            order_id = self.request.session.get('order_id')
-            order = Order.objects.get(id=order_id, ordered=False)
+            cart_id = self.request.session.get('cart_id')
+            cart = Cart.objects.get(id=cart_id, ordered=False)
             context = {
-                'object': order,
+                'object': cart,
             }
             return render(self.request, 'order-summary.html', context)
         except ObjectDoesNotExist:
@@ -96,6 +96,6 @@ def specorder(request):
 @login_required
 def my_cabinet(request):
     user = get_user(request)
-    address = BillingAddress.objects.filter(user=user).last()
-    orders = Order.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
+    address = Order.objects.filter(user=user).last()
+    orders = Cart.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
     return render(request, 'cabinet.html', context={'address': address, 'orders': orders})
