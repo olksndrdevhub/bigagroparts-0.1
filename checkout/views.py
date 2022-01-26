@@ -13,9 +13,13 @@ from .admin import link_callback
 
 def checkout(request):
     user = get_user(request)
-    form = BillingForm(initial={'email': user.email, 'phone': user.phone_number})
+    order_id = request.session.get('order_id')
+    initial = {}
+    if user.is_authenticated:
+        initial={'email': user.email, 'phone': user.phone_number}
+    form = BillingForm(initial=initial)
 
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    order_qs = Order.objects.filter(id=order_id, ordered=False)
     if len(order_qs) != 0:
         order = order_qs[0]
         order_code = order.id
@@ -35,7 +39,7 @@ def checkout(request):
         if form.is_valid():
             print('form valid')
         billingaddress = BillingAddress()
-        billingaddress.user = request.user
+        billingaddress.user = request.user if user.is_authenticated else None
         billingaddress.order = order
         billingaddress.total_price = order_total
         billingaddress.delivery_method = form.data['delivery_method']

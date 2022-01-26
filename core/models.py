@@ -1,3 +1,5 @@
+from pyexpat import model
+from statistics import mode
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
@@ -174,7 +176,8 @@ class ItemImage(models.Model):
 
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, verbose_name='Користувач')
+                             on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
+    order_id = models.IntegerField(verbose_name='ID замовлення', default=0)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Товар')
     item_price = models.FloatField(max_length=200, verbose_name='Вартість товару', blank=True, default=0.0)
     quantity = models.IntegerField(default=1, verbose_name='Кількість')
@@ -206,7 +209,7 @@ class Order(models.Model):
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, verbose_name='Користувач')
+                             on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
     items = models.ManyToManyField(OrderItem, verbose_name='Товари')
     start_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оформлення')
     ordered_date = models.DateTimeField()
@@ -215,7 +218,7 @@ class Order(models.Model):
     order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=ORDER_ACCEPTED, max_length=20)
 
     def __str__(self):
-        return 'Замовлення користувача ' + self.user.email + ', номер замовлення: ' + str(self.id)
+        return 'Замовлення: ' + str(self.id)
 
     def get_total(self):
         total = 0

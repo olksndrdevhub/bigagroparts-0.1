@@ -30,7 +30,7 @@ class BillingAddress(models.Model):
     total_price = models.CharField(verbose_name=_('Сума замовлення'), max_length=100)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Замовлення')
     delivery_method = models.CharField(verbose_name=_('Метод доставки:'), choices=DELIVERY_METHODS, max_length=5, default=NOVA_POSHTA)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     nova_poshta = models.CharField(max_length=5, verbose_name=_('№ відділення Нової Пошти'), help_text=_("Введіть лише число без '№'"), blank=True)
     city = models.CharField(max_length=100, verbose_name=_('Місто / село'), blank=True)
     address = models.CharField(max_length=200, verbose_name=_('Адреса для доставки по Луцьку'), blank=True)
@@ -58,7 +58,7 @@ class BillingAddress(models.Model):
         return context
 
     def __str__(self):
-        return f'{self.user.email} order'
+        return f'order #{self.id}'
 
     class Meta:
         verbose_name_plural = 'Інформація про замовлення'

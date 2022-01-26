@@ -39,20 +39,33 @@ def item_detail(request, slug):
     return render(request, 'product-page.html', context={'item': item, 'item_images': item_images, 'category': category, 'subcategory': subcategory, 'last_items': last_items, 'not_home': not_home})
 
 
-@login_required
 def add_to_card(request, slug):
-    print(request)
+    order_id = request.session.get('order_id')
     item = get_object_or_404(Item, slug=slug)
-    order_item, created = OrderItem.objects.get_or_create(
-        item=item,
-        user=request.user,
-        ordered=False)
-    if request.user.wholesaler:
-        order_item.item_price = item.wholesaler_price
+    ordered_date = timezone.now()
+
+    if request.user.is_authenticated:
+        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        order_item, created = OrderItem.objects.get_or_create(
+            item=item,
+            user=request.user,
+            ordered=False)
+        if request.user.wholesaler:
+            order_item.item_price = item.wholesaler_price
+        else:
+            order_item.item_price = item.price
     else:
+        order_qs = Order.objects.filter(id=order_id, ordered=False)
+        if not order_qs.exists():
+            order = Order.objects.create(ordered_date=ordered_date)
+            order_id = order.id
+        order_item, created = OrderItem.objects.get_or_create(
+            order_id=order_id,
+            item=item,
+            ordered=False)
         order_item.item_price = item.price
     order_item.save()
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
+
     if order_qs.exists():
         order = order_qs[0]
         # check if order item is in the order
@@ -66,24 +79,27 @@ def add_to_card(request, slug):
             order.items.add(order_item)
             return redirect(request.META['HTTP_REFERER'])
     else:
-        ordered_date = timezone.now()
-        order = Order.objects.create(user=request.user, ordered_date=ordered_date)
+        if request.user.is_authenticated:
+            order = Order.objects.create(user=request.user, ordered_date=ordered_date)
+        
+        request.session['order_id'] = order.id
         order.items.add(order_item)
         messages.info(request, _('Цей товар додано у кошик!'))
         return redirect(request.META['HTTP_REFERER'])
 
 
-@login_required
+# @login_required
 def remove_from_card(request, slug):
+    order_id = request.session.get('order_id')
     item = get_object_or_404(Item, slug=slug)
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    order_qs = Order.objects.filter(id=order_id, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         # check if order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(
                 item=item,
-                user=request.user,
+                order_id=order_id,
                 ordered=False
             )[0]
             order.items.remove(order_item)
@@ -99,17 +115,18 @@ def remove_from_card(request, slug):
         return redirect('item_detail', slug=slug)
 
 
-@login_required
+
 def remove_single_item_card(request, slug):
     item = get_object_or_404(Item, slug=slug)
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    order_id = request.session.get('order_id')
+    order_qs = Order.objects.filter(id=order_id, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         # check if order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
             order_item = OrderItem.objects.filter(
                 item=item,
-                user=request.user,
+                order_id=order_id,
                 ordered=False
             )[0]
             if order_item.quantity > 1:
@@ -139,13 +156,7 @@ def edit_account(request):
         'last_name': user.last_name,
         'email': user.email,
         'phone_number': user.phone_number})
-    # form2 = EditBillingAddressForm(initial={
-    #         'address': saved_address.address,
-    #         'nova_poshta': saved_address.nova_poshta,
-    #         'city': saved_address.city,
-    #         'landmark': saved_address.landmark,
-    #         'country': saved_address.country
-    #     })
+
 
     if request.method == 'POST':
         form1 = EditUserInfoForm(request.POST, initial={
@@ -154,29 +165,14 @@ def edit_account(request):
             'email': user.email,
             'phone_number': user.phone_number
         })
-        # form2 = EditBillingAddressForm(request.POST, initial={
-        #     'address': saved_address.address,
-        #     'nova_poshta': saved_address.nova_poshta,
-        #     'city': saved_address.city,
-        #     'landmark': saved_address.landmark,
-        #     'country': saved_address.country
-        # })
+
         if form1.is_valid():
             user.first_name = form1.cleaned_data['first_name']
             user.last_name = form1.cleaned_data['last_name']
             user.email = form1.cleaned_data['email']
             user.phone_number = form1.cleaned_data['phone_number']
             user.save()
-            # saved_address = BillingAddress.objects.filter(user=request.user)
-            # if saved_address.exists():
-            #     print('exist')
-            #     billingaddress = form2.save(commit=False)
-            #     billingaddress.user = request.user
-            #     billingaddress.save()
-            # else:
-            #     billingaddress = form2.save(commit=False)
-            #     billingaddress.user = request.user
-            #     billingaddress.save()
+
         return redirect('core:my_cabinet')
 
     return render(request, 'cabinet.html', context={'form1': form1, 'edit': edit})

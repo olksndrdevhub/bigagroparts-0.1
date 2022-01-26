@@ -196,6 +196,8 @@ DATABASES = {
     }
 }
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
 
 # SECURE SETTINGS
 if os.getenv('DEBUG') == 0:

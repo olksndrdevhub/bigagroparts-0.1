@@ -5,8 +5,8 @@ register = template.Library()
 
 
 @register.filter
-def cart_total(user):
-    order = Order.objects.filter(user=user, ordered=False)
+def cart_total(session):
+    order = Order.objects.filter(id=session.get('order_id'), ordered=False)
 
     if order.exists():
         return order[0].items.count()

@@ -19,10 +19,11 @@ class HomeView(ListView):
     template_name = 'home-page.html'
 
 
-class OrderSummaryView(LoginRequiredMixin, View):
+class OrderSummaryView(View):
     def get(self, *args, **kwargs):
         try:
-            order = Order.objects.get(user=self.request.user, ordered=False)
+            order_id = self.request.session.get('order_id')
+            order = Order.objects.get(id=order_id, ordered=False)
             context = {
                 'object': order,
             }
@@ -40,8 +41,6 @@ def search_view(request):
     models = [Item, Category, SubCategory]
     template_name = 'home-page.html'
     query = request.POST.get('q')
-    # print(query)
-    # print('query: {}'.format(len(query)))
     if len(query):
         item_items = models[0].objects.filter(
             Q(title__icontains=query)
@@ -64,7 +63,6 @@ def autocomplete(request):
         q = request.GET.get('term', '')
         search_qs = Item.objects.filter(Q(title__startswith=q) | Q(title__icontains=q) | Q(item_code__icontains=q) | Q(id__icontains=q))
         results = []
-        # print(q)
         for r in search_qs:
             image = r.itemimage_set.filter(default=True).first()
             results.append({
@@ -85,22 +83,18 @@ def autocomplete(request):
 
 
 def contacts(request):
-    # not_home=True
     return render(request, 'contacts.html')
 
 
 def conditions(request):
-    # not_home=True
     return render(request, 'conditions.html')
 
 
 def specorder(request):
-    # not_home=True
     return render(request, 'specorder.html')
 
-
+@login_required
 def my_cabinet(request):
-    # not_home=True
     user = get_user(request)
     address = BillingAddress.objects.filter(user=user).last()
     orders = Order.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
