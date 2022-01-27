@@ -196,7 +196,7 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-    
+
     LEFTED_CART = 'LC'
     ORDER_ACCEPTED = 'OA'
     ORDER_IS_PROCESSED = 'OIP'
