@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
 from .models import Category, SubCategory, Item, Cart
@@ -92,6 +91,7 @@ def conditions(request):
 
 def specorder(request):
     return render(request, 'specorder.html')
+
 
 @login_required
 def my_cabinet(request):

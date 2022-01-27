@@ -83,7 +83,7 @@ def add_to_cart(request, slug):
     else:
         if request.user.is_authenticated:
             cart = Cart.objects.create(user=request.user, ordered_date=ordered_date)
-        
+
         request.session['cart_id'] = cart.id
         cart_item.cart_id = cart.id
         cart_item.save()
@@ -118,7 +118,6 @@ def remove_from_cart(request, slug):
         return redirect('item_detail', slug=slug)
 
 
-
 def remove_single_item_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     cart_id = request.session.get('cart_id')
@@ -148,6 +147,7 @@ def remove_single_item_cart(request, slug):
         messages.info(request, _('Ви ще не маєте нічого в кошику!'))
         return redirect('core:order-summary')
 
+
 @login_required
 def edit_account(request):
     user = get_user(request)
@@ -160,7 +160,6 @@ def edit_account(request):
         'last_name': user.last_name,
         'email': user.email,
         'phone_number': user.phone_number})
-
 
     if request.method == 'POST':
         form1 = EditUserInfoForm(request.POST, initial={

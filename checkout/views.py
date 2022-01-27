@@ -17,11 +17,11 @@ def checkout(request):
     cart_id = request.session.get('cart_id')
     initial = {}
     if user.is_authenticated:
-        initial={
+        initial = {
             'email': user.email,
             'phone': user.phone_number}
         if user.second_name:
-            initial['customer_name'] = user.last_name+' '+user.first_name+' '+user.second_name
+            initial['customer_name'] = user.last_name + ' ' + user.first_name + ' ' + user.second_name
     form = BillingForm(initial=initial)
 
     cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
