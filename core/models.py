@@ -175,7 +175,7 @@ class ItemImage(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
-    cart_id = models.IntegerField(verbose_name='ID замовлення', default=0)
+    cart_id = models.IntegerField(verbose_name='ID кошика', default=0)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Товар')
     item_price = models.FloatField(max_length=200, verbose_name='Вартість товару', blank=True, default=0.0)
     quantity = models.IntegerField(default=1, verbose_name='Кількість')
@@ -192,6 +192,8 @@ class CartItem(models.Model):
 
     class Meta:
         verbose_name_plural = "Товари в кошику"
+        ordering = ('id',)
+
 
 
 class Cart(models.Model):

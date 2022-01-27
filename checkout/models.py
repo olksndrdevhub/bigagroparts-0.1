@@ -46,14 +46,14 @@ class Order(models.Model):
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         context = {
             'deliver': request.get_host(),
-            'bayer': self.user.first_name + ' ' + self.user.last_name,
+            'bayer': self.user.first_name + ' ' + self.user.last_name if self.user else 'Anon user',
             'bayer_info': self.delivery_method,
             'time': dt_string,
-            'order': self.order,
-            'order_items': self.order.items.all(),
-            'order_code': self.order.id,
+            'cart': self.cart,
+            'order_items': self.cart.items.all(),
+            'order_code': self.id,
             'order_total': self.total_price,
-            'item_count': len(self.order.items.all()),
+            'item_count': len(self.cart.items.all()),
         }
         return context
 

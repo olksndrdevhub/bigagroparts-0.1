@@ -160,6 +160,27 @@ EMAIL_PORT = os.getenv('EMAIL_PORT', 'none')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'False')
 
 DEFAULT_FROM_EMAIL = 'bigagroparts.com <bigagroparts@gmail.com>'
+DEFAULT_STAFF_EMAIL = os.getenv('DJANGO_DEFAULT_STAFF_EMAIL', default='Planio.cz <oleksandr.romaniuk@protonmail.com>')
+
+# EMAIL SENDER MODULE CONFIGURATION
+EMAIL_SENDER = {
+    'SEND_ACTIVATION_ACTION_EMIL_TO_USER': True,
+    'SEND_ACTIVATION_ACTION_EMIL_TO_STAFF': True,
+
+    'SITE_NAME': 'Planio.cz',
+    'SENDER': DEFAULT_FROM_EMAIL,
+    'DEFAULT_STAFF_EMAIL': DEFAULT_STAFF_EMAIL,
+    'PROTOCOL': 'https',
+    'EMAIL_TEMPLATES': {
+        'activation_action_to_user': 'email/to_user/activation_action_to_user.html',
+        'activation_action_to_staff': 'email/to_staff/activation_action_to_staff.html',
+    },
+    'EMAIL_SUBJECTS':{
+        'activation_action_to_user': 'Account activation on Planio.cz',
+        'activation_action_to_staff': 'New {} account registered on Planio.cz'
+    }
+}
+
 
 
 AUTH_USER_MODEL = 'core.CustomUser'

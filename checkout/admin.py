@@ -30,14 +30,14 @@ class OrderResourse(resources.ModelResource):
 
 class OrderAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = OrderResourse
-    list_display = ('total_price', 'cart_id', 'user', 'nova_poshta', 'address', 'city', 'landmark', 'phone', 'order_actions',)
+    list_display = ('total_price', 'cart_id', 'user', 'nova_poshta', 'address', 'city', 'landmark', 'phone', 'id', 'order_actions',)
     readonly_fields = ('order_actions',)
 
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
             url(
-                r'^(?P<order_id>.+)/generate_invoice_pdf/$',
+                r'^(?P<id>.+)/generate_invoice_pdf/$',
                 self.admin_site.admin_view(self.generate_invoice_pdf),
                 name='order-invoice',
             )
@@ -47,19 +47,19 @@ class OrderAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     def order_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Згенерувати накладну</a>',
-            reverse('admin:order-invoice', args=[obj.order_id]),
+            reverse('admin:order-invoice', args=[obj.id]),
         )
 
     order_actions.short_description = 'Згенерувати накладну'
     order_actions.allow_tags = True
 
     def generate_invoice_pdf(self, request, *args, **kwargs):
-        order_id = kwargs['order_id']
-        order = Order.objects.filter(order_id=order_id).first()
+        order_id = kwargs['id']
+        order = Order.objects.filter(id=order_id).first()
 
         template_path = 'pdf/sales-invoice.html'
         context = order.generate_invoice_context(request)
-        bayer = order.user
+        bayer = context['bayer']
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="invoice_orderid_{order_id}_user_{bayer}.pdf"'

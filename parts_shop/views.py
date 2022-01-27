@@ -44,7 +44,7 @@ def add_to_cart(request, slug):
     ordered_date = timezone.now()
 
     if request.user.is_authenticated:
-        cart_qs = Order.objects.filter(user=request.user, ordered=False)
+        cart_qs = Cart.objects.filter(user=request.user, ordered=False)
         cart_item, created = CartItem.objects.get_or_create(
             item=item,
             user=request.user,
@@ -54,7 +54,7 @@ def add_to_cart(request, slug):
         else:
             cart_item.item_price = item.price
     else:
-        cart_qs = Order.objects.filter(id=cart_id, ordered=False)
+        cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
         if not cart_qs.exists():
             cart = Cart.objects.create(ordered_date=ordered_date)
             cart_id = cart.id
@@ -75,13 +75,17 @@ def add_to_cart(request, slug):
             return redirect(request.META['HTTP_REFERER'])
         else:
             messages.info(request, _('Цей товар додано у кошик!'))
+            cart_item.cart_id = cart.id
+            cart_item.save()
             cart.items.add(cart_item)
             return redirect(request.META['HTTP_REFERER'])
     else:
         if request.user.is_authenticated:
             cart = Cart.objects.create(user=request.user, ordered_date=ordered_date)
         
-        request.session['order_id'] = cart.id
+        request.session['cart_id'] = cart.id
+        cart_item.cart_id = cart.id
+        cart_item.save()
         cart.items.add(cart_item)
         messages.info(request, _('Цей товар додано у кошик!'))
         return redirect(request.META['HTTP_REFERER'])
@@ -90,7 +94,7 @@ def add_to_cart(request, slug):
 def remove_from_cart(request, slug):
     cart_id = request.session.get('cart_id')
     item = get_object_or_404(Item, slug=slug)
-    cart_qs = Order.objects.filter(id=cart_id, ordered=False)
+    cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
     if cart_qs.exists():
         cart = cart_qs[0]
         # check if order item is in the order
@@ -100,7 +104,7 @@ def remove_from_cart(request, slug):
                 cart_id=cart_id,
                 ordered=False
             )[0]
-            Cart.items.remove(cart_item)
+            cart.items.remove(cart_item)
             messages.info(request, _('Цей товар видалено з кошика!'))
             return redirect('core:order-summary')
         else:

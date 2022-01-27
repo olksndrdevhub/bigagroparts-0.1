@@ -63,12 +63,12 @@ def checkout(request):
 
 def generate_invoice_in_cabinet(request, *args, **kwargs):
     # user = get_user(request)
-    order_id = kwargs['order_id']
-    order = Order.objects.get(order_id=order_id)
+    order_id = kwargs['id']
+    order = Order.objects.get(id=order_id)
 
     template_path = 'pdf/sales-invoice.html'
     context = order.generate_invoice_context(request)
-    bayer = order.user
+    bayer = context['bayer']
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="invoice_orderid_{order_id}_user_{bayer}.pdf"'
