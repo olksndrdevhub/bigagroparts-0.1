@@ -36,6 +36,13 @@
         .carousel {
             height: 60vh;
         }
+        .alert{
+            width: 50%;
+            margin-bottom: 15px!important;
+            margin-top: 80px;
+            margin-left:auto;
+            margin-right:auto;
+        }
 
         @media (max-width: 740px) {
 
@@ -44,6 +51,9 @@
             header,
             .carousel {
                 height: 100vh;
+            }
+            .alert{
+                width: 100%;
             }
         }
 
@@ -179,7 +189,7 @@
     {% if messages %}
             <div>
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px!important; margin-top: 80px;">
+                <div class="alert text-center alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                     {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
