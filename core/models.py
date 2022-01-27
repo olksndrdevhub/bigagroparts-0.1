@@ -4,7 +4,6 @@ from django.db import models
 from autoslug import AutoSlugField
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 import re
-from django.utils import timezone
 from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -194,7 +193,6 @@ class CartItem(models.Model):
     class Meta:
         verbose_name_plural = "Товари в кошику"
         ordering = ('id',)
-
 
 
 class Cart(models.Model):

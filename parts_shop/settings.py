@@ -175,12 +175,11 @@ EMAIL_SENDER = {
         'activation_action_to_user': 'email/to_user/activation_action_to_user.html',
         'activation_action_to_staff': 'email/to_staff/activation_action_to_staff.html',
     },
-    'EMAIL_SUBJECTS':{
+    'EMAIL_SUBJECTS': {
         'activation_action_to_user': 'Account activation on Planio.cz',
         'activation_action_to_staff': 'New {} account registered on Planio.cz'
     }
 }
-
 
 
 AUTH_USER_MODEL = 'core.CustomUser'
