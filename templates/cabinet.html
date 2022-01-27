@@ -13,6 +13,9 @@
                 <p class="">{% trans 'Ім' %}{% if LANGUAGE_CODE == 'uk' %}
                 '
                 {% endif %}{% trans 'я' %}</p> <p class=""><strong>{{ request.user.first_name }}</strong></p>
+                <p class="">{% trans 'Ім\'я по батькові' %}:</p> <p class=""><strong>{% if request.user.second_name is None %}
+                    {% trans 'Натисніть "Редагувати інформацію" щоб додати ім\'я по батькові' %}
+                {% else %}{{ request.user.second_name }}{% endif %}</strong></p>
                 <p class="">{% trans 'Прізвище' %}:</p> <p class=""><strong>{{ request.user.last_name }}</strong></p>
                 <p class="">{% trans 'Електронна пошта' %}:</p> <p class=""><strong>{{ request.user.email }}</strong></p>
                 <p class="">{% trans 'Номер телефону' %}:</p> <p class=""><strong>{% if request.user.phone_number is None %}
@@ -51,24 +54,24 @@
             <h4>{% trans 'Історія замовлень' %}:</h4><hr>
             <div>
                 <ul class="list-group">
-                    {% for order in orders %}
+                    {% for ordered_cart in ordered_carts %}
                         <li class="list-group-item">
                             <big>
                                 <strong>
-                                    {% trans 'Замовлення' %} № {{address.id}} {% trans 'від' %} {{ order.ordered_date }} 
-                                    <span class="badge badge-success">₴ {{ order.get_total }}</span>
-                                    {% if order.order_status == 'OA' %}
-                                        <span class="badge badge-light">{{ order.get_order_status_display }}</span>
-                                    {% elif order.order_status == 'OIP' %}
-                                        <span class="badge badge-primary">{{ order.get_order_status_display }}</span>
+                                    {% trans 'Замовлення' %} # {{ordered_cart.id}} {% trans 'від' %} {{ ordered_cart.ordered_date }} 
+                                    <span class="badge badge-success">₴ {{ ordered_cart.get_total }}</span>
+                                    {% if ordered_cart.order_status == 'OA' %}
+                                        <span class="badge badge-light">{{ ordered_cart.get_order_status_display }}</span>
+                                    {% elif ordered_cart.order_status == 'OIP' %}
+                                        <span class="badge badge-primary">{{ ordered_cart.get_order_status_display }}</span>
                                     {% else %}
-                                        <span class="badge badge-success">{{ order.get_order_status_display }}</span>
+                                        <span class="badge badge-success">{{ ordered_cart.get_order_status_display }}</span>
                                     {% endif %}
                                 </strong>
                             </big> 
-                            <a class="btn btn-sm btn-primary ml-5" href="{% url 'checkout:generate_invoice_in_cabinet' address.id %}">{% trans 'Згенерувати накладну' %}</a> 
+                            <a class="btn btn-sm btn-primary ml-5" href="{% url 'checkout:generate_invoice_in_cabinet' ordered_cart.id %}">{% trans 'Згенерувати накладну' %}</a> 
                             <br>
-                            {% for item in order.items.all %}
+                            {% for item in ordered_cart.items.all %}
                                 {{ item.item.title }}, {% trans 'кількість' %}: <b>{{item.quantity}}</b>, {% trans 'ціна' %}: <b>{{item.item.price}} ₴</b>, {% trans 'сума' %}: <b>{{item.get_final_price}} ₴</b> <br>
                             {% endfor %}
                         </li>

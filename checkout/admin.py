@@ -16,6 +16,7 @@ from import_export.admin import ImportExportModelAdmin, ImportExportActionModelA
 from import_export.widgets import ManyToManyWidget
 
 from .models import Order
+from core.models import Cart
 
 
 User = get_user_model()
@@ -30,14 +31,16 @@ class OrderResourse(resources.ModelResource):
 
 class OrderAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = OrderResourse
-    list_display = ('total_price', 'cart_id', 'user', 'nova_poshta', 'address', 'city', 'landmark', 'phone', 'id', 'order_actions',)
+    search_fields = ['customer_name', 'cart__id', 'phone']
+    list_filter = ['cart__order_status']
+    list_display = ('total_price', 'cart', 'user', 'nova_poshta', 'customer_name', 'city', 'landmark', 'phone', 'id', 'order_actions',)
     readonly_fields = ('order_actions',)
 
     def get_urls(self):
         urls = super().get_urls()
         custom_urls = [
             url(
-                r'^(?P<id>.+)/generate_invoice_pdf/$',
+                r'^(?P<order_code>.+)/generate_invoice_pdf/$',
                 self.admin_site.admin_view(self.generate_invoice_pdf),
                 name='order-invoice',
             )
@@ -47,22 +50,22 @@ class OrderAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     def order_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Згенерувати накладну</a>',
-            reverse('admin:order-invoice', args=[obj.id]),
+            reverse('admin:order-invoice', args=[obj.cart.id]),
         )
 
     order_actions.short_description = 'Згенерувати накладну'
     order_actions.allow_tags = True
 
     def generate_invoice_pdf(self, request, *args, **kwargs):
-        order_id = kwargs['id']
-        order = Order.objects.filter(id=order_id).first()
+        order_code = kwargs['order_code']
+        order = Order.objects.filter(cart_id=order_code).first()
 
         template_path = 'pdf/sales-invoice.html'
         context = order.generate_invoice_context(request)
         bayer = context['bayer']
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="invoice_orderid_{order_id}_user_{bayer}.pdf"'
+        response['Content-Disposition'] = f'attachment; filename="invoice_orderid_{order_code}_user_{bayer}.pdf"'
         # find the template and render it.
         template = get_template(template_path)
         html = template.render(context)

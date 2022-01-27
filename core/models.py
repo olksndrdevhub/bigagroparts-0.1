@@ -48,7 +48,8 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
-    first_name = models.CharField(max_length=150, blank=False)
+    first_name = models.CharField(max_length=150, blank=False, verbose_name="Ім'я")
+    second_name = models.CharField(max_length=150, blank=True, null=True, verbose_name=_("Ім'я по батькові"))
     last_name = models.CharField(max_length=150, blank=False)
     email = models.EmailField(_('email address'), unique=True)
     phone_number = PhoneNumberField(verbose_name='Phone Number', help_text=_("Має починатися з +380"), blank=True, null=True)
@@ -197,12 +198,14 @@ class CartItem(models.Model):
 
 
 class Cart(models.Model):
-
+    
+    LEFTED_CART = 'LC'
     ORDER_ACCEPTED = 'OA'
     ORDER_IS_PROCESSED = 'OIP'
     ORDER_FULLFILED = 'OF'
 
     ORDER_STATUS_CHOICES = (
+        (LEFTED_CART, _('Залишений кошик')),
         (ORDER_ACCEPTED, _('Замовлення прийнято')),
         (ORDER_IS_PROCESSED, _('Замовлення виконується')),
         (ORDER_FULLFILED, _('Замовлення виконано'))
@@ -215,7 +218,7 @@ class Cart(models.Model):
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False, verbose_name='Замовлення підтверджено')
     order_total_price = models.FloatField(max_length=200, verbose_name='Вартість замовлення', blank=True, default=0.0)
-    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=ORDER_ACCEPTED, max_length=20)
+    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=LEFTED_CART, max_length=20)
 
     def __str__(self):
         return 'Кошик: ' + str(self.id)

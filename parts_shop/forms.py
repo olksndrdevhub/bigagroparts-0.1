@@ -24,6 +24,7 @@ class MyCustomSignupForm(SignupForm):
 class EditUserInfoForm(forms.Form):
     # username = forms.CharField(max_length=100, label=_('Ім\'я користувача'))
     first_name = forms.CharField(max_length=100, label=_('Ім\'я'))
+    second_name = forms.CharField(max_length=100, required=False, label=_('Ім\'я по батькові'))
     last_name = forms.CharField(max_length=100, label=_('Прізвище'))
     email = forms.EmailField(label=_('Електронна адреса'))
     phone_number = PhoneNumberField(widget=forms.TextInput(attrs={'placeholder': _('+380')}),

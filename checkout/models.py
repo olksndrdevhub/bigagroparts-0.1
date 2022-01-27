@@ -28,9 +28,10 @@ class Order(models.Model):
     )
 
     total_price = models.CharField(verbose_name=_('Сума замовлення'), max_length=100)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name='Кошик')
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE, related_name='order', verbose_name='Код замовлення/Кошик')
     delivery_method = models.CharField(verbose_name=_('Метод доставки:'), choices=DELIVERY_METHODS, max_length=5, default=NOVA_POSHTA)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    customer_name = models.CharField(verbose_name=_('ПІБ покупця'), max_length=200)
     nova_poshta = models.CharField(max_length=5, verbose_name=_('№ відділення Нової Пошти'), help_text=_("Введіть лише число без '№'"), blank=True)
     city = models.CharField(max_length=100, verbose_name=_('Місто / село'), blank=True)
     address = models.CharField(max_length=200, verbose_name=_('Адреса для доставки по Луцьку'), blank=True)
@@ -46,12 +47,12 @@ class Order(models.Model):
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         context = {
             'deliver': request.get_host(),
-            'bayer': self.user.first_name + ' ' + self.user.last_name if self.user else 'Anon user',
+            'bayer': self.customer_name,
             'bayer_info': self.delivery_method,
             'time': dt_string,
             'cart': self.cart,
             'order_items': self.cart.items.all(),
-            'order_code': self.id,
+            'order_code': self.cart.id,
             'order_total': self.total_price,
             'item_count': len(self.cart.items.all()),
         }

@@ -6,6 +6,7 @@ from parts_shop.forms import EditUserInfoForm
 from checkout.models import Order
 from django.contrib.auth import get_user
 from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import login_required
 
 
 def category_detail(request, slug):
@@ -147,7 +148,7 @@ def remove_single_item_cart(request, slug):
         messages.info(request, _('Ви ще не маєте нічого в кошику!'))
         return redirect('core:order-summary')
 
-
+@login_required
 def edit_account(request):
     user = get_user(request)
     saved_address = Order.objects.filter(user=user).last()
@@ -155,6 +156,7 @@ def edit_account(request):
     edit = True
     form1 = EditUserInfoForm(initial={
         'first_name': user.first_name,
+        'second_name': user.second_name,
         'last_name': user.last_name,
         'email': user.email,
         'phone_number': user.phone_number})
@@ -163,6 +165,7 @@ def edit_account(request):
     if request.method == 'POST':
         form1 = EditUserInfoForm(request.POST, initial={
             'first_name': user.first_name,
+            'second_name': user.second_name,
             'last_name': user.last_name,
             'email': user.email,
             'phone_number': user.phone_number
@@ -170,6 +173,7 @@ def edit_account(request):
 
         if form1.is_valid():
             user.first_name = form1.cleaned_data['first_name']
+            user.second_name = form1.cleaned_data['second_name']
             user.last_name = form1.cleaned_data['last_name']
             user.email = form1.cleaned_data['email']
             user.phone_number = form1.cleaned_data['phone_number']

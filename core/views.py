@@ -96,6 +96,6 @@ def specorder(request):
 @login_required
 def my_cabinet(request):
     user = get_user(request)
-    address = Order.objects.filter(user=user).last()
-    orders = Cart.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
-    return render(request, 'cabinet.html', context={'address': address, 'orders': orders})
+    latest_order_info = Order.objects.filter(user=user).last()
+    ordered_carts = Cart.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
+    return render(request, 'cabinet.html', context={'latest_order_info': latest_order_info, 'ordered_carts': ordered_carts})

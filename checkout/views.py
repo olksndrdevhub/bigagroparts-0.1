@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.contrib.auth import get_user
+from django.contrib.auth.decorators import login_required
 
 from xhtml2pdf import pisa
 
@@ -16,7 +17,10 @@ def checkout(request):
     cart_id = request.session.get('cart_id')
     initial = {}
     if user.is_authenticated:
-        initial={'email': user.email, 'phone': user.phone_number}
+        initial={
+            'email': user.email,
+            'phone': user.phone_number,
+            'customer_name': user.last_name+' '+user.first_name+' '+user.second_name}
     form = BillingForm(initial=initial)
 
     cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
@@ -44,6 +48,7 @@ def checkout(request):
         order.total_price = order_total
         order.delivery_method = form.data['delivery_method']
         order.nova_poshta = form.data['nova_poshta']
+        order.customer_name = form.data['customer_name']
         order.city = form.data['city']
         order.landmark = form.data['landmark']
         order.phone = form.data['phone']
@@ -54,6 +59,7 @@ def checkout(request):
         print(form.data['delivery_method'])
         order.save()
         cart.ordered = True
+        cart.order_status = Cart.ORDER_ACCEPTED
         cart.save()
 
         return render(request, 'checkout_success.html')
@@ -61,17 +67,18 @@ def checkout(request):
     return render(request, 'index.html', context)
 
 
+@login_required
 def generate_invoice_in_cabinet(request, *args, **kwargs):
     # user = get_user(request)
-    order_id = kwargs['id']
-    order = Order.objects.get(id=order_id)
+    order_code = kwargs['order_code']
+    order = Order.objects.get(cart_id=order_code)
 
     template_path = 'pdf/sales-invoice.html'
     context = order.generate_invoice_context(request)
     bayer = context['bayer']
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="invoice_orderid_{order_id}_user_{bayer}.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="invoice_orderid_{order_code}_user_{bayer}.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
