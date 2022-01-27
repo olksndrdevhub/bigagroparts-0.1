@@ -43,6 +43,9 @@
             margin-left:auto;
             margin-right:auto;
         }
+        .nav-link:hover{
+            border-radius: .125rem;
+        }
 
         @media (max-width: 740px) {
 
@@ -124,13 +127,17 @@
                 <!-- Right -->
                 <ul class="navbar-nav nav-flex-icons">
                     <li class="nav-item">
+                        {% with cart_count=request.session|cart_total %}
                         <a class="nav-link waves-effect navButton" href="{% url 'core:order-summary' %}">
+                            {% if cart_count > 0 %}
                             <span class="badge red z-depth-1 mr-1">
-                                {{ request.session | cart_total }}     
+                                {{ cart_count }}     
                             </span>
+                            {% endif %}
                             <i class="fas fa-shopping-cart"></i>
                             <span class="clearfix d-none d-sm-inline-block">{% trans ' Кошик ' %}</span>
                         </a>
+                        {%endwith%}
                     </li>
                     {% if request.user.is_authenticated %}
                         
