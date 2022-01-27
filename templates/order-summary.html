@@ -19,23 +19,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for order_item in object.items.all %}
+                {% for cart_item in object.items.all %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td><a href="{{ order_item.item.get_absolute_url }}" class="card-link">{{ order_item.item.title }}</a></td>
+                        <td><a href="{{ cart_item.item.get_absolute_url }}" class="card-link">{{ cart_item.item.title }}</a></td>
                         <td>
-                            {% if request.user.wholesaler %}<span>₴ {{ order_item.item.wholesaler_price }}</span>{% else %}  
-                            <span>₴ {{ order_item.item.price }}</span>
+                            {% if request.user.wholesaler %}<span>₴ {{ cart_item.item.wholesaler_price }}</span>{% else %}  
+                            <span>₴ {{ cart_item.item.price }}</span>
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{% url 'remove_single_item_card' order_item.item.slug %}"><i class="fas fa-minus-circle mr-2"></i></a>
-                            {{ order_item.quantity }}
-                            <a href="{% url 'add_to_card' order_item.item.slug %}"><i class="fas fa-plus-circle ml-2"></i></a>
+                            <a href="{% url 'remove_single_item_cart' cart_item.item.slug %}"><i class="fas fa-minus-circle mr-2"></i></a>
+                            {{ cart_item.quantity }}
+                            <a href="{% url 'add_to_cart' cart_item.item.slug %}"><i class="fas fa-plus-circle ml-2"></i></a>
                         </td>
                         <td>
-                            ₴ {{ order_item.get_total_item_price }}
-                            <a style="color: red;" href="{% url 'remove_from_card' order_item.item.slug %}">
+                            ₴ {{ cart_item.get_total_item_price }}
+                            <a style="color: red;" href="{% url 'remove_from_cart' cart_item.item.slug %}">
                                 <i class="fas fa-trash mr-2 float-right"></i>
                             </a>
                         </td>

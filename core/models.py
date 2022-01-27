@@ -48,7 +48,8 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
-    first_name = models.CharField(max_length=150, blank=False)
+    first_name = models.CharField(max_length=150, blank=False, verbose_name="Ім'я")
+    second_name = models.CharField(max_length=150, blank=True, null=True, verbose_name=_("Ім'я по батькові"))
     last_name = models.CharField(max_length=150, blank=False)
     email = models.EmailField(_('email address'), unique=True)
     phone_number = PhoneNumberField(verbose_name='Phone Number', help_text=_("Має починатися з +380"), blank=True, null=True)
@@ -154,10 +155,10 @@ class Item(models.Model):
         return reverse('item_detail', kwargs={'slug': self.slug})
 
     def get_add_to_card_url(self):
-        return reverse('add_to_card', kwargs={'slug': self.slug})
+        return reverse('add_to_cart', kwargs={'slug': self.slug})
 
     def get_remove_from_card_url(self):
-        return reverse('remove_from_card', kwargs={'slug': self.slug})
+        return reverse('remove_from_cart', kwargs={'slug': self.slug})
 
 
 class ItemImage(models.Model):
@@ -172,9 +173,10 @@ class ItemImage(models.Model):
         verbose_name_plural = 'Фото товарів'
 
 
-class OrderItem(models.Model):
+class CartItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, verbose_name='Користувач')
+                             on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
+    cart_id = models.IntegerField(verbose_name='ID кошика', default=0)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Товар')
     item_price = models.FloatField(max_length=200, verbose_name='Вартість товару', blank=True, default=0.0)
     quantity = models.IntegerField(default=1, verbose_name='Кількість')
@@ -191,31 +193,35 @@ class OrderItem(models.Model):
 
     class Meta:
         verbose_name_plural = "Товари в кошику"
+        ordering = ('id',)
 
 
-class Order(models.Model):
 
+class Cart(models.Model):
+    
+    LEFTED_CART = 'LC'
     ORDER_ACCEPTED = 'OA'
     ORDER_IS_PROCESSED = 'OIP'
     ORDER_FULLFILED = 'OF'
 
     ORDER_STATUS_CHOICES = (
+        (LEFTED_CART, _('Залишений кошик')),
         (ORDER_ACCEPTED, _('Замовлення прийнято')),
         (ORDER_IS_PROCESSED, _('Замовлення виконується')),
         (ORDER_FULLFILED, _('Замовлення виконано'))
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, verbose_name='Користувач')
-    items = models.ManyToManyField(OrderItem, verbose_name='Товари')
+                             on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
+    items = models.ManyToManyField(CartItem, verbose_name='Товари')
     start_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оформлення')
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False, verbose_name='Замовлення підтверджено')
     order_total_price = models.FloatField(max_length=200, verbose_name='Вартість замовлення', blank=True, default=0.0)
-    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=ORDER_ACCEPTED, max_length=20)
+    order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=LEFTED_CART, max_length=20)
 
     def __str__(self):
-        return 'Замовлення користувача ' + self.user.email + ', номер замовлення: ' + str(self.id)
+        return 'Кошик: ' + str(self.id)
 
     def get_total(self):
         total = 0
@@ -228,4 +234,4 @@ class Order(models.Model):
         self.order_total_price = self.get_total()
 
     class Meta:
-        verbose_name_plural = "Замовлення"
+        verbose_name_plural = "Кошик"

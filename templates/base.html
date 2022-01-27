@@ -37,6 +37,16 @@
         .carousel {
             height: 60vh;
         }
+        .alert{
+            width: 50%;
+            margin-bottom: 15px!important;
+            margin-top: 80px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .nav-link:hover{
+            border-radius: .125rem;
+        }
 
         @media (max-width: 740px) {
 
@@ -45,6 +55,9 @@
             header,
             .carousel {
                 height: 100vh;
+            }
+            .alert{
+                width: 100%;
             }
         }
 
@@ -114,17 +127,21 @@
 
                 <!-- Right -->
                 <ul class="navbar-nav nav-flex-icons">
-                    
+                    <li class="nav-item">
+                        {% with cart_count=request.session|cart_total %}
+                        <a class="nav-link waves-effect navButton" href="{% url 'core:order-summary' %}">
+                            {% if cart_count > 0 %}
+                            <span class="badge red z-depth-1 mr-1">
+                                {{ cart_count }}     
+                            </span>
+                            {% endif %}
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="clearfix d-none d-sm-inline-block">{% trans ' Кошик ' %}</span>
+                        </a>
+                        {%endwith%}
+                    </li>
                     {% if request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect navButton" href="{% url 'core:order-summary' %}">
-                                <span class="badge red z-depth-1 mr-1">
-                                    {{ request.user | cart_total }}     
-                                </span>
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="clearfix d-none d-sm-inline-block">{% trans ' Кошик ' %}</span>
-                            </a>
-                        </li>
+                        
                         <div class="btn-group">
                             <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <strong>{{ request.user.first_name }} {{ request.user.last_name }}{% if request.user.wholesaler %} (Оптовик){% endif %}</strong>
@@ -180,7 +197,7 @@
     {% if messages %}
             <div>
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 0px!important; margin-top: 80px;">
+                <div class="alert text-center alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                     {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -189,13 +206,11 @@
             {% endfor %}
             </div>
     {% endif %}
-    {% block content  %}
+    <main style="min-height: 70vh;">
+        {% block content  %}
 
-    {% endblock content %}
-
-
-
-
+        {% endblock content %}
+    </main>
 
     <!--Footer-->
     <footer class="page-footer footer text-center font-small mt-4 bg-dark">

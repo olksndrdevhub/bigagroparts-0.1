@@ -5,13 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
-from .models import Category, SubCategory, Item, Order
+from .models import Category, SubCategory, Item, Cart
 from django.db.models import Q
 from django.http import HttpResponse
 
 import json
 
-from checkout.models import BillingAddress
+from checkout.models import Order
 
 
 class HomeView(ListView):
@@ -19,12 +19,13 @@ class HomeView(ListView):
     template_name = 'home-page.html'
 
 
-class OrderSummaryView(LoginRequiredMixin, View):
+class OrderSummaryView(View):
     def get(self, *args, **kwargs):
         try:
-            order = Order.objects.get(user=self.request.user, ordered=False)
+            cart_id = self.request.session.get('cart_id')
+            cart = Cart.objects.get(id=cart_id, ordered=False)
             context = {
-                'object': order,
+                'object': cart,
             }
             return render(self.request, 'order-summary.html', context)
         except ObjectDoesNotExist:
@@ -40,8 +41,6 @@ def search_view(request):
     models = [Item, Category, SubCategory]
     template_name = 'home-page.html'
     query = request.POST.get('q')
-    # print(query)
-    # print('query: {}'.format(len(query)))
     if len(query):
         item_items = models[0].objects.filter(
             Q(title__icontains=query)
@@ -64,7 +63,6 @@ def autocomplete(request):
         q = request.GET.get('term', '')
         search_qs = Item.objects.filter(Q(title__startswith=q) | Q(title__icontains=q) | Q(item_code__icontains=q) | Q(id__icontains=q))
         results = []
-        # print(q)
         for r in search_qs:
             image = r.itemimage_set.filter(default=True).first()
             results.append({
@@ -85,23 +83,19 @@ def autocomplete(request):
 
 
 def contacts(request):
-    # not_home=True
     return render(request, 'contacts.html')
 
 
 def conditions(request):
-    # not_home=True
     return render(request, 'conditions.html')
 
 
 def specorder(request):
-    # not_home=True
     return render(request, 'specorder.html')
 
-
+@login_required
 def my_cabinet(request):
-    # not_home=True
     user = get_user(request)
-    address = BillingAddress.objects.filter(user=user).last()
-    orders = Order.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
-    return render(request, 'cabinet.html', context={'address': address, 'orders': orders})
+    latest_order_info = Order.objects.filter(user=user).last()
+    ordered_carts = Cart.objects.filter(user=user, ordered=True).all().order_by('-ordered_date')
+    return render(request, 'cabinet.html', context={'latest_order_info': latest_order_info, 'ordered_carts': ordered_carts})
