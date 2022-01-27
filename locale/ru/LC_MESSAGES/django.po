@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 14:35+0000\n"
-"PO-Revision-Date: 2021-12-16 14:36+0000\n"
-"Last-Translator: b'Oleksandr Romaniuk <oleksandr.romaniuk@protonmail.com>'\n"
+"POT-Creation-Date: 2022-01-27 17:29+0000\n"
+"PO-Revision-Date: 2022-01-27 17:29+0000\n"
+"Last-Translator: b'  <oleksandr.romaniuk@protonmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,60 +19,64 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.3\n"
 
-#: checkout/models.py:19
+#: checkout/models.py:20
 msgid "Нова Пошта"
 msgstr "Новая Почта"
 
-#: checkout/models.py:20
+#: checkout/models.py:21
 msgid "Кур'єр (по м. Луцьк)"
 msgstr "Курьер (по г. Луцк)"
 
-#: checkout/models.py:25
+#: checkout/models.py:26
 msgid "Оплата при отриманні"
 msgstr "Оплата при получении"
 
-#: checkout/models.py:26
+#: checkout/models.py:27
 msgid "Оплата за реквізитами (передоплата)"
 msgstr "Оплата по реквизитам (предоплата)"
 
-#: checkout/models.py:29 checkout/templates/index.html:34
+#: checkout/models.py:30 checkout/templates/index.html:34
 #: templates/order-summary.html:56
 msgid "Сума замовлення"
 msgstr "Сумма заказа"
 
-#: checkout/models.py:31
+#: checkout/models.py:32
 msgid "Метод доставки:"
 msgstr "Метод доставки:"
 
-#: checkout/models.py:33
+#: checkout/models.py:34
+msgid "ПІБ покупця"
+msgstr "ФИО покупателя"
+
+#: checkout/models.py:35
 msgid "№ відділення Нової Пошти"
 msgstr "№ отделения Новой Почты"
 
-#: checkout/models.py:33
+#: checkout/models.py:35
 msgid "Введіть лише число без '№'"
 msgstr "Введите только число без \"№\""
 
-#: checkout/models.py:34
+#: checkout/models.py:36
 msgid "Місто / село"
 msgstr "Город / село"
 
-#: checkout/models.py:35
+#: checkout/models.py:37
 msgid "Адреса для доставки по Луцьку"
 msgstr "Адрес для доставки по Луцку"
 
-#: checkout/models.py:36
+#: checkout/models.py:38
 msgid "Область"
 msgstr "Область"
 
-#: checkout/models.py:37
+#: checkout/models.py:39
 msgid "Контактний номер телефону"
 msgstr "Контактный номер телефона"
 
-#: checkout/models.py:38
+#: checkout/models.py:40
 msgid "Адреса електронної пошти"
 msgstr "Адрес электронной почты"
 
-#: checkout/models.py:39
+#: checkout/models.py:41
 msgid "Метод оплати"
 msgstr "Метод оплаты"
 
@@ -142,10 +146,17 @@ msgstr "Ваш заказ"
 msgid "Кількість"
 msgstr "Количество"
 
-#: checkout/templates/index.html:43 templates/order-summary.html:16
-#: templates/product-page.html:79 templates/product-page.html:80
+#: checkout/templates/index.html:43 templates/category-detail.html:93
+#: templates/category-detail.html:95 templates/home-page.html:240
+#: templates/home-page.html:242 templates/order-summary.html:16
+#: templates/product-page.html:80 templates/product-page.html:82
+#: templates/subcategory-detail.html:72 templates/subcategory-detail.html:74
 msgid "Ціна"
 msgstr "Цена"
+
+#: checkout/templates/index.html:46
+msgid "Сума"
+msgstr "Сумма"
 
 #: core/models.py:26
 msgid "The Email must be set"
@@ -158,6 +169,10 @@ msgstr "Суперпользователь должен иметь"
 #: core/models.py:44
 msgid "Superuser must have is_superuser=True."
 msgstr "Суперпользователь должен иметь"
+
+#: core/models.py:51 parts_shop/forms.py:27
+msgid "Ім'я по батькові"
+msgstr "Имя отчество"
 
 #: core/models.py:53
 msgid "email address"
@@ -175,89 +190,87 @@ msgstr "Пользователь"
 msgid "Користувачі"
 msgstr "Пользователи"
 
-#: core/models.py:126
+#: core/models.py:125
 msgid "Є в наявності"
 msgstr "Имеется в наличии"
 
-#: core/models.py:127
+#: core/models.py:126
 msgid "Немає в наявносі"
 msgstr "Нет в наличии"
 
-#: core/models.py:128
+#: core/models.py:127
 msgid "Уточніть наявність"
 msgstr "Уточните наличие"
 
-#: core/models.py:210
+#: core/models.py:206
+msgid "Залишений кошик"
+msgstr "Оставленная корзина"
+
+#: core/models.py:207 templates/cabinet.html:66
 msgid "Замовлення прийнято"
 msgstr "Заказ принят"
 
-#: core/models.py:211
+#: core/models.py:208 templates/cabinet.html:68
 msgid "Замовлення виконується"
 msgstr "Заказ в обработке"
 
-#: core/models.py:212
+#: core/models.py:209
 msgid "Замовлення виконано"
 msgstr "Заказ выполнен"
 
-#: core/models.py:222
+#: core/models.py:219
 msgid "Статус замовлення"
 msgstr "Статус заказа"
 
-#: parts_shop/forms.py:12 parts_shop/forms.py:28
+#: parts_shop/forms.py:13 parts_shop/forms.py:26
 msgid "Ім'я"
 msgstr "Имя"
 
-#: parts_shop/forms.py:13 parts_shop/forms.py:29 templates/cabinet.html:16
+#: parts_shop/forms.py:14 parts_shop/forms.py:28 templates/cabinet.html:21
 msgid "Прізвище"
 msgstr "Фамилия"
 
-#: parts_shop/forms.py:30
+#: parts_shop/forms.py:29
 msgid "Електронна адреса"
 msgstr "Электронный адрес"
 
-#: parts_shop/forms.py:31
+#: parts_shop/forms.py:30
 msgid "+380"
 msgstr "+380"
 
-#: parts_shop/forms.py:32 templates/cabinet.html:18
+#: parts_shop/forms.py:31 templates/cabinet.html:23
 msgid "Номер телефону"
 msgstr "Контактный номер телефона"
 
-#: parts_shop/settings.py:88
+#: parts_shop/settings.py:89
 msgid "Ukrainian"
 msgstr " Украинский"
 
-#: parts_shop/settings.py:89
+#: parts_shop/settings.py:90
 msgid "Russian"
 msgstr "Русский"
 
-#: parts_shop/views.py:59
+#: parts_shop/views.py:75
 msgid "Додано ще одну одиницю товару в кошик!"
 msgstr "Добавлена еще одна единица товара в корзину!"
 
-#: parts_shop/views.py:62 parts_shop/views.py:69
+#: parts_shop/views.py:78 parts_shop/views.py:91
 msgid "Цей товар додано у кошик!"
 msgstr "Этот товар добавлен в корзину!"
 
-#: parts_shop/views.py:86
-#, fuzzy
-#| msgid "Видалити з кошика"
+#: parts_shop/views.py:109
 msgid "Цей товар видалено з кошика!"
-msgstr "Удалить из корзины"
+msgstr "Этот товар удален из корзины!"
 
-#: parts_shop/views.py:90 parts_shop/views.py:121
-#, fuzzy
-#| msgid "Цього товару немає в наявності зараз"
+#: parts_shop/views.py:113 parts_shop/views.py:143
 msgid "Цього товару нема у вашому кошику!"
-msgstr "В наличии этого товара нет"
+msgstr "Этого товара нет в вашей корзине!"
 
-#: parts_shop/views.py:94 parts_shop/views.py:125
-#, fuzzy
-#| msgid "Вже маєте обліковий запис"
+#: parts_shop/views.py:117 parts_shop/views.py:147
 msgid "Ви ще не маєте нічого в кошику!"
-msgstr "Уже есть учетная запись"
+msgstr "У вас еще нет ничего в корзине!"
 
-#: parts_shop/views.py:117
+#: parts_shop/views.py:139
 msgid "Мінус одна одиниця товару!"
 msgstr "Минус одна единица товара!"
 
@@ -426,7 +439,7 @@ msgstr ""
 "запрос на подтверждение по электронной почте</a>."
 
 #: templates/account/login.html:11 templates/account/login.html:20
-#: templates/base.html:142
+#: templates/base.html:159
 msgid "Вхід"
 msgstr "Вход"
 
@@ -457,7 +470,7 @@ msgid "зареєструйтесь"
 msgstr "зарегистрируйтесь"
 
 #: templates/account/logout.html:10 templates/account/logout.html:19
-#: templates/base.html:137
+#: templates/base.html:154
 msgid "Вихід"
 msgstr "Выход"
 
@@ -592,7 +605,7 @@ msgstr "Указать пароль"
 msgid "Signup"
 msgstr "Зарегистрироваться"
 
-#: templates/account/signup.html:12 templates/base.html:145
+#: templates/account/signup.html:12 templates/base.html:162
 msgid "Реєстрація"
 msgstr "Зарегистрироваться"
 
@@ -672,120 +685,133 @@ msgstr ""
 "<strong>Внимание:</strong> вы еще можете <a "
 "href=\\\"%(email_url)s\\\">изменить свой адрес электронной почты</a>."
 
-#: templates/base.html:84
+#: templates/base.html:97
 msgid "Головна"
 msgstr "Главная"
 
-#: templates/base.html:87 templates/base.html:211
+#: templates/base.html:100 templates/base.html:226
 msgid "Контакти та співпраця"
 msgstr "Контакты и сотрудничество"
 
-#: templates/base.html:90 templates/base.html:212
+#: templates/base.html:103 templates/base.html:227
 msgid "Оплата та доставка"
 msgstr "Оплата и доставка"
 
-#: templates/base.html:93 templates/home-page.html:74
+#: templates/base.html:106 templates/home-page.html:74
 #: templates/specorder.html:10
 msgid "Спецзамовлення"
 msgstr "Спецзаказ"
 
-#: templates/base.html:105 templates/category-detail.html:31
+#: templates/base.html:118 templates/category-detail.html:31
 #: templates/home-page.html:145 templates/subcategory-detail.html:31
 msgid "Введіть назву запчастини чи її артикул та натисніть Enter"
 msgstr "Введите название запчасти или ее артикул и нажмите Enter"
 
-#: templates/base.html:105 templates/category-detail.html:31
+#: templates/base.html:118 templates/category-detail.html:31
 #: templates/home-page.html:145 templates/subcategory-detail.html:31
 msgid "Намагайтесь вводити точну назву чи артикул"
 msgstr "Старайтесь вводить точное название или артикул"
 
-#: templates/base.html:124
+#: templates/base.html:138
 msgid " Кошик "
 msgstr "Корзина"
 
-#: templates/base.html:133
+#: templates/base.html:150
 msgid "Адмінпанель"
 msgstr "Админпанель"
 
-#: templates/base.html:136 templates/base.html:206
+#: templates/base.html:153 templates/base.html:221
 msgid "Мій кабінет"
 msgstr "Мой кабинет"
 
-#: templates/base.html:205
+#: templates/base.html:220
 msgid "Особистий кабінет"
 msgstr "Личный кабинет"
 
-#: templates/base.html:209
+#: templates/base.html:224
 msgid "Карта сайту"
 msgstr "Карта сайта"
 
-#: templates/base.html:210
+#: templates/base.html:225
 msgid "Головна "
 msgstr "Главная"
 
-#: templates/base.html:215
+#: templates/base.html:230
 msgid "Контакти"
 msgstr "Контакты"
 
 #: templates/cabinet.html:13
-msgid "Ім"
-msgstr "Имя:"
+msgid "Ім`я"
+msgstr "Имя"
 
 #: templates/cabinet.html:15
-msgid "я"
-msgstr " "
+msgid "Ім`я по батькові"
+msgstr "Отчество"
 
-#: templates/cabinet.html:17 templates/contacts.html:29
+#: templates/cabinet.html:17
+msgid "Натисніть 'Редагувати інформацію' щоб додати ім`я по батькові"
+msgstr "Нажмите \"Изменить информацию\", чтобы добавить отчество"
+
+#: templates/cabinet.html:22 templates/contacts.html:29
 msgid "Електронна пошта"
 msgstr "Электронная почта"
 
-#: templates/cabinet.html:19
+#: templates/cabinet.html:25
 msgid "Натисніть \"Редагувати інформацію\" щоб додати номер телефону"
 msgstr "Нажмите \"Изменить информацию\", чтобы добавить номер телефона."
 
-#: templates/cabinet.html:21
+#: templates/cabinet.html:29
 msgid "Статус оптовика"
 msgstr "Статус оптовика"
 
-#: templates/cabinet.html:25
+#: templates/cabinet.html:31
 msgid "Ні"
 msgstr "Нет"
 
-#: templates/cabinet.html:27
+#: templates/cabinet.html:33
 msgid "Так"
 msgstr "Да"
 
-#: templates/cabinet.html:32
+#: templates/cabinet.html:37
 msgid "Редагувати інформацію"
 msgstr "Редактировать информацию"
 
-#: templates/cabinet.html:45
+#: templates/cabinet.html:50
 msgid "Зберегти"
 msgstr "Сохранить"
 
-#: templates/cabinet.html:51
+#: templates/cabinet.html:56
 msgid "Історія замовлень"
 msgstr "История заказов"
 
-#: templates/cabinet.html:58
+#: templates/cabinet.html:63
 msgid "Замовлення"
 msgstr "Заказ"
 
-#: templates/cabinet.html:58
+#: templates/cabinet.html:63
 msgid "від"
 msgstr "от"
 
-#: templates/cabinet.html:69
+#: templates/cabinet.html:70
+#| msgid "Замовлення виконано"
+msgid "Замовлення виконане"
+msgstr "Заказ выполнен"
+
+#: templates/cabinet.html:74
 msgid "Згенерувати накладну"
 msgstr "Сгенерировать накладную"
 
-#: templates/cabinet.html:72
+#: templates/cabinet.html:77
 msgid "кількість"
 msgstr "количество"
 
-#: templates/cabinet.html:72
+#: templates/cabinet.html:77
 msgid "ціна"
 msgstr "цена"
+
+#: templates/cabinet.html:77
+msgid "сума"
+msgstr "сумма"
 
 #: templates/category-detail.html:9
 msgid "Kатегорія"
@@ -796,7 +822,7 @@ msgid "Всі категорії"
 msgstr "Все категории"
 
 #: templates/category-detail.html:58 templates/home-page.html:171
-#: templates/home-page.html:199 templates/home-page.html:281
+#: templates/home-page.html:199 templates/home-page.html:292
 msgid "Перейти"
 msgstr "Перейти"
 
@@ -827,12 +853,12 @@ msgstr "Оплатить вашу покупку можно двумя спос�
 #: templates/conditions.html:16
 msgid ""
 "Оплата за реквізитами (передоплата): Ви оплачуєте повну вартість замовлення "
-"банківським переказом на картку ПриватБанку, реквізити для оплати вам "
-"повідомить наш манеджер."
+"банківським переказом на банківську картку, реквізити для оплати вам "
+"повідомить наш менеджер."
 msgstr ""
 "Оплата по реквизитам (предоплата): Вы оплачиваете полную стоимость заказа "
-"банковским переводом на карточку ПриватБанка, реквизиты для оплаты вам "
-"сообщит наш манеджер."
+"банковским переводом на на банковскую карту, реквизиты для оплаты вам "
+"сообщит наш менеджер."
 
 #: templates/conditions.html:17
 msgid ""
@@ -961,19 +987,19 @@ msgstr "Подкатегории по запросу"
 msgid "Товари за запитом"
 msgstr "Товары по запросу"
 
-#: templates/home-page.html:256
+#: templates/home-page.html:267
 msgid "Нажаль  за запитом"
 msgstr "К сожалению по запросу"
 
-#: templates/home-page.html:256
+#: templates/home-page.html:267
 msgid "нічого не знайдено, спробуйте виправити запит"
 msgstr "ничего не найдено, попробуйте исправить запрос"
 
-#: templates/home-page.html:256
+#: templates/home-page.html:267
 msgid "або зверніть увагу на функцію"
 msgstr "или обратите внимание на функцию"
 
-#: templates/home-page.html:256
+#: templates/home-page.html:267
 msgid "спецзамовлення"
 msgstr "спецзаказ"
 
@@ -997,51 +1023,51 @@ msgstr "Продолжить покупки"
 msgid "Перейти до оформлення"
 msgstr "Перейти к оформлению"
 
-#: templates/product-page.html:84
+#: templates/product-page.html:86
 msgid "Артикул"
 msgstr "Артикул"
 
-#: templates/product-page.html:85
+#: templates/product-page.html:87
 msgid "Код товару"
 msgstr "Код товара"
 
-#: templates/product-page.html:89
+#: templates/product-page.html:91
 msgid "Додати в кошик"
 msgstr "Добавить в корзину"
 
-#: templates/product-page.html:92
+#: templates/product-page.html:94
 msgid "Видалити з кошика"
 msgstr "Удалить из корзины"
 
-#: templates/product-page.html:96
+#: templates/product-page.html:98
 msgid "Цього товару немає в наявності зараз"
 msgstr "В наличии этого товара нет"
 
-#: templates/product-page.html:96 templates/product-page.html:99
+#: templates/product-page.html:98 templates/product-page.html:101
 msgid "Зателефонуйте нам"
 msgstr "Позвоните нам"
 
-#: templates/product-page.html:96
+#: templates/product-page.html:98
 msgid "аби уточнити коли він буде доступний."
 msgstr "чтобы уточнить, когда он будет доступен."
 
-#: templates/product-page.html:97 templates/product-page.html:100
+#: templates/product-page.html:99 templates/product-page.html:102
 msgid "Уточнити наявність"
 msgstr "Уточнить наличие"
 
-#: templates/product-page.html:99
+#: templates/product-page.html:101
 msgid "Цей товар закінчується"
 msgstr "Этот товар заканчивается"
 
-#: templates/product-page.html:99
+#: templates/product-page.html:101
 msgid "аби уточнити його наявність."
 msgstr "чтобы уточнить его наличие."
 
-#: templates/product-page.html:106
+#: templates/product-page.html:108
 msgid "Опис"
 msgstr "Описание"
 
-#: templates/product-page.html:127
+#: templates/product-page.html:129
 msgid "Інші товари з цього розділу"
 msgstr "Другие товары из этого раздела"
 
@@ -1072,6 +1098,19 @@ msgstr "Способы оплаты и доставки оговариваютс
 #: templates/subcategory-detail.html:9
 msgid "Підкатегорія"
 msgstr "Подкатегория"
+
+#~ msgid "Ім"
+#~ msgstr "Имя:"
+
+#~ msgid "я"
+#~ msgstr " "
+
+#~ msgid "Ім\\'я по батькові"
+#~ msgstr "Имя отчество"
+
+#, fuzzy
+#~ msgid "Ім\\"
+#~ msgstr "Имя:"
 
 #, fuzzy
 #~ msgid "Зателефонуйте нам, аби уточнити його наявність."

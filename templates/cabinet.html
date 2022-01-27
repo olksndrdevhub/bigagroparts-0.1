@@ -9,27 +9,29 @@
     <div class="container">
         <div class="row">
             <img src="{% static 'block_logo.png' %}" alt="" style="height: 30vh" class=" d-block img-thumbnail">
-            <div class="col text-right ">
-                <p class="">{% trans 'Ім' %}{% if LANGUAGE_CODE == 'uk' %}
-                '
-                {% endif %}{% trans 'я' %}</p> <p class=""><strong>{{ request.user.first_name }}</strong></p>
-                <p class="">{% trans 'Ім\'я по батькові' %}:</p> <p class=""><strong>{% if request.user.second_name is None %}
-                    {% trans 'Натисніть "Редагувати інформацію" щоб додати ім\'я по батькові' %}
-                {% else %}{{ request.user.second_name }}{% endif %}</strong></p>
-                <p class="">{% trans 'Прізвище' %}:</p> <p class=""><strong>{{ request.user.last_name }}</strong></p>
-                <p class="">{% trans 'Електронна пошта' %}:</p> <p class=""><strong>{{ request.user.email }}</strong></p>
-                <p class="">{% trans 'Номер телефону' %}:</p> <p class=""><strong>{% if request.user.phone_number is None %}
-                    {% trans 'Натисніть "Редагувати інформацію" щоб додати номер телефону' %}
-                {% else %}{{ request.user.phone_number }}{% endif %}</strong></p>
-                <p class="">{% trans 'Статус оптовика' %}:</p> 
-                <p class="">
-                    <strong>
-                        {% if not request.user.wholesaler %}
-                            {% trans 'Ні' %}
-                        {% else %}
-                            {% trans 'Так'%}
-                        {% endif %}
-                    </strong>
+            <div class="col text-left ">
+                <p><span class="font-weight-bold">{% trans 'Ім`я' %}:</span> {{ request.user.first_name }}</p>
+                <p>
+                    <span class="font-weight-bold">{% trans "Ім`я по батькові" %}:</span> 
+                    {% if request.user.second_name is None %}
+                        {% trans "Натисніть 'Редагувати інформацію' щоб додати ім`я по батькові" %}
+                    {% else %}{{ request.user.second_name }}
+                    {% endif %}
+                </p>
+                <p><span class="font-weight-bold">{% trans 'Прізвище' %}:</span> {{ request.user.last_name }}</p>
+                <p><span class="font-weight-bold">{% trans 'Електронна пошта' %}:</span> {{ request.user.email }}</p>
+                <p><span class="font-weight-bold">{% trans 'Номер телефону' %}:</span> 
+                    {% if request.user.phone_number is None %}
+                        {% trans 'Натисніть "Редагувати інформацію" щоб додати номер телефону' %}
+                    {% else %}{{ request.user.phone_number }}
+                    {% endif %}
+                </p>
+                <p><span class="font-weight-bold">{% trans 'Статус оптовика' %}:</span>  
+                    {% if not request.user.wholesaler %}
+                        {% trans 'Ні' %}
+                    {% else %}
+                        {% trans 'Так'%}
+                    {% endif %}
                 </p>
                 {% if not edit %}
                     <a href="{% url 'edit_account' %}" class="btn btn-light">{% trans 'Редагувати інформацію' %}</a>
@@ -61,11 +63,11 @@
                                     {% trans 'Замовлення' %} # {{ordered_cart.id}} {% trans 'від' %} {{ ordered_cart.ordered_date }} 
                                     <span class="badge badge-success">₴ {{ ordered_cart.get_total }}</span>
                                     {% if ordered_cart.order_status == 'OA' %}
-                                        <span class="badge badge-light">{{ ordered_cart.get_order_status_display }}</span>
+                                        <span class="badge badge-light">{% trans 'Замовлення прийнято' %}</span>
                                     {% elif ordered_cart.order_status == 'OIP' %}
-                                        <span class="badge badge-primary">{{ ordered_cart.get_order_status_display }}</span>
-                                    {% else %}
-                                        <span class="badge badge-success">{{ ordered_cart.get_order_status_display }}</span>
+                                        <span class="badge badge-primary">{% trans 'Замовлення виконується' %}</span>
+                                    {% elif ordered_cart.order_status == 'OF' %}
+                                        <span class="badge badge-success">{% trans 'Замовлення виконане' %}</span>
                                     {% endif %}
                                 </strong>
                             </big> 
