@@ -40,7 +40,10 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title m-0"><strong><a href="{{ order_item.item.get_absolute_url }}" class="card-link">{{ order_item.item.title }}</a></strong></p><span>{% trans 'Кількість' %}: {{ order_item.quantity }}</span>
-                  <p class="card-text">{% trans 'Ціна' %}:
+                  <p class="card-text">
+                  {% trans 'Артикул' %}:
+                    {{ order_item.item.item_code }} <br>
+                  {% trans 'Ціна' %}:
                     ₴ {{ order_item.item_price }}
                   </p>
                   <p class="card-text">{% trans 'Сума' %}:

@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">{% trans 'Артикул' %}</th>
                     <th scope="col">{% trans 'Назва товару' %}</th>
                     <th scope="col">{% trans 'Ціна' %}</th>
                     <th scope="col">{% trans 'Кількість' %}</th>
@@ -22,6 +23,7 @@
                 {% for cart_item in object.items.all %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{{ cart_item.item.get_absolute_url }}" class="card-link">{{ cart_item.item.item_code }}</a></td>
                         <td><a href="{{ cart_item.item.get_absolute_url }}" class="card-link">{{ cart_item.item.title }}</a></td>
                         <td>
                             {% if request.user.wholesaler %}<span>₴ {{ cart_item.item.wholesaler_price }}</span>{% else %}  
@@ -43,22 +45,22 @@
                     
                     {% empty %}
                     <tr>
-                        <td colspan="5">{% trans 'Ваш кошик порожній' %}!</td>
+                        <td colspan="6">{% trans 'Ваш кошик порожній' %}!</td>
                     </tr>
                     <tr>
-                        <td colspan="5">
+                        <td colspan="6">
                             <a class="btn btn-primary float-right" href="/">{% trans 'Продовжити покупки' %}</a>
                         </td>
                     </tr>
                 {% endfor %}
                 {% if object.get_total %}
                 <tr>
-                    <td colspan="4"><b>{% trans 'Сума замовлення' %}</b></td>
+                    <td colspan="5"><b>{% trans 'Сума замовлення' %}</b></td>
                     <td><b>₴ {{ object.get_total }}</b></td>
                 </tr>
                 
                 <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         <a class="btn btn-success float-right ml-2 mb-3" href="{% url 'checkout:index' %}">{% trans 'Перейти до оформлення' %}</a>
                         <a class="btn btn-primary float-right" href="/">{% trans 'Продовжити покупки' %}</a>
                     </td>
