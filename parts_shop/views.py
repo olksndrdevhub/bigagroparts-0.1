@@ -28,7 +28,6 @@ def item_detail(request, slug):
     item = Item.objects.get(slug=slug)
     not_home = True
     item_images = ItemImage.objects.filter(item=item).all()
-    print(item_images)
     category = item.categories.first()
     subcategory = item.subcategories.first()
     if category is not None:
@@ -152,7 +151,6 @@ def remove_single_item_cart(request, slug):
 def edit_account(request):
     user = get_user(request)
     saved_address = Order.objects.filter(user=user).last()
-    print(saved_address)
     edit = True
     form1 = EditUserInfoForm(initial={
         'first_name': user.first_name,
