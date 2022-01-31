@@ -123,7 +123,7 @@ class Item(models.Model):
 
     AVAILABILITY_CHOICES = (
         (AVAILABLE, _('Є в наявності')),
-        (NOT_AVAILABLE, _('Немає в наявносі')),
+        (NOT_AVAILABLE, _('Немає в наявності')),
         (NEED_TO_CHECK, _('Уточніть наявність'))
     )
 

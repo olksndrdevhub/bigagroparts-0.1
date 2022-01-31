@@ -87,11 +87,11 @@ class ItemAdmin(ImportExportModelAdmin):
         ))
 
     def change_avaliability_true(self, request, queryset):
-        queryset.update(availability=True)
+        queryset.update(availability='1')
     change_avaliability_true.short_description = 'Змінити статус на "Є в наявності"'
 
     def change_avaliability_false(self, request, queryset):
-        queryset.update(availability=False)
+        queryset.update(availability='0')
     change_avaliability_false.short_description = 'Змінити статус на "Немає в наявності"'
 
 
