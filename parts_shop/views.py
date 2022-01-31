@@ -150,7 +150,7 @@ def remove_single_item_cart(request, slug):
 @login_required
 def edit_account(request):
     user = get_user(request)
-    saved_address = Order.objects.filter(user=user).last()
+    # saved_address = Order.objects.filter(user=user).last()
     edit = True
     form1 = EditUserInfoForm(initial={
         'first_name': user.first_name,
