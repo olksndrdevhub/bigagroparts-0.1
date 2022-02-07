@@ -212,8 +212,8 @@ class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE, verbose_name='Користувач', blank=True, null=True)
     items = models.ManyToManyField(CartItem, verbose_name='Товари')
-    start_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оформлення')
-    ordered_date = models.DateTimeField()
+    start_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата формування')
+    ordered_date = models.DateTimeField(verbose_name='Дата замовлення', null=True, blank=True)
     ordered = models.BooleanField(default=False, verbose_name='Замовлення підтверджено')
     order_total_price = models.FloatField(max_length=200, verbose_name='Вартість замовлення', blank=True, default=0.0)
     order_status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name=_('Статус замовлення'), default=LEFTED_CART, max_length=20)

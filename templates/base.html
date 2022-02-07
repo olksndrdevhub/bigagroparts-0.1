@@ -128,7 +128,7 @@
                 <!-- Right -->
                 <ul class="navbar-nav nav-flex-icons">
                     <li class="nav-item">
-                        {% with cart_count=request.session|cart_total %}
+                        {% with cart_count=request|cart_total %}
                         <a class="nav-link waves-effect navButton" href="{% url 'core:order-summary' %}">
                             {% if cart_count > 0 %}
                             <span class="badge red z-depth-1 mr-1">

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-27 17:29+0000\n"
-"PO-Revision-Date: 2022-01-27 17:29+0000\n"
+"POT-Creation-Date: 2022-02-07 17:17+0000\n"
+"PO-Revision-Date: 2022-02-07 17:18+0000\n"
 "Last-Translator: b'  <oleksandr.romaniuk@protonmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -36,7 +36,7 @@ msgid "Оплата за реквізитами (передоплата)"
 msgstr "Оплата по реквизитам (предоплата)"
 
 #: checkout/models.py:30 checkout/templates/index.html:34
-#: templates/order-summary.html:56
+#: templates/order-summary.html:58
 msgid "Сума замовлення"
 msgstr "Сумма заказа"
 
@@ -142,19 +142,25 @@ msgstr "Подтвердить заказ"
 msgid "Ваше замовлення"
 msgstr "Ваш заказ"
 
-#: checkout/templates/index.html:42 templates/order-summary.html:17
+#: checkout/templates/index.html:42 templates/order-summary.html:18
 msgid "Кількість"
 msgstr "Количество"
 
-#: checkout/templates/index.html:43 templates/category-detail.html:93
+#: checkout/templates/index.html:44 templates/order-summary.html:15
+#: templates/product-page.html:86
+msgid "Артикул"
+msgstr "Артикул"
+
+#: checkout/templates/index.html:46 templates/category-detail.html:93
 #: templates/category-detail.html:95 templates/home-page.html:240
-#: templates/home-page.html:242 templates/order-summary.html:16
+#: templates/home-page.html:242 templates/order-summary.html:17
 #: templates/product-page.html:80 templates/product-page.html:82
+#: templates/product-page.html:168 templates/product-page.html:170
 #: templates/subcategory-detail.html:72 templates/subcategory-detail.html:74
 msgid "Ціна"
 msgstr "Цена"
 
-#: checkout/templates/index.html:46
+#: checkout/templates/index.html:49
 msgid "Сума"
 msgstr "Сумма"
 
@@ -195,7 +201,8 @@ msgid "Є в наявності"
 msgstr "Имеется в наличии"
 
 #: core/models.py:126
-msgid "Немає в наявносі"
+#| msgid "Немає в наявносі"
+msgid "Немає в наявності"
 msgstr "Нет в наличии"
 
 #: core/models.py:127
@@ -250,27 +257,27 @@ msgstr " Украинский"
 msgid "Russian"
 msgstr "Русский"
 
-#: parts_shop/views.py:75
+#: parts_shop/views.py:77
 msgid "Додано ще одну одиницю товару в кошик!"
 msgstr "Добавлена еще одна единица товара в корзину!"
 
-#: parts_shop/views.py:78 parts_shop/views.py:91
+#: parts_shop/views.py:81 parts_shop/views.py:95
 msgid "Цей товар додано у кошик!"
 msgstr "Этот товар добавлен в корзину!"
 
-#: parts_shop/views.py:109
+#: parts_shop/views.py:113
 msgid "Цей товар видалено з кошика!"
 msgstr "Этот товар удален из корзины!"
 
-#: parts_shop/views.py:113 parts_shop/views.py:143
+#: parts_shop/views.py:117 parts_shop/views.py:147
 msgid "Цього товару нема у вашому кошику!"
 msgstr "Этого товара нет в вашей корзине!"
 
-#: parts_shop/views.py:117 parts_shop/views.py:147
+#: parts_shop/views.py:121 parts_shop/views.py:151
 msgid "Ви ще не маєте нічого в кошику!"
 msgstr "У вас еще нет ничего в корзине!"
 
-#: parts_shop/views.py:139
+#: parts_shop/views.py:143
 msgid "Мінус одна одиниця товару!"
 msgstr "Минус одна единица товара!"
 
@@ -439,7 +446,7 @@ msgstr ""
 "запрос на подтверждение по электронной почте</a>."
 
 #: templates/account/login.html:11 templates/account/login.html:20
-#: templates/base.html:159
+#: templates/base.html:160
 msgid "Вхід"
 msgstr "Вход"
 
@@ -470,7 +477,7 @@ msgid "зареєструйтесь"
 msgstr "зарегистрируйтесь"
 
 #: templates/account/logout.html:10 templates/account/logout.html:19
-#: templates/base.html:154
+#: templates/base.html:155
 msgid "Вихід"
 msgstr "Выход"
 
@@ -605,7 +612,7 @@ msgstr "Указать пароль"
 msgid "Signup"
 msgstr "Зарегистрироваться"
 
-#: templates/account/signup.html:12 templates/base.html:162
+#: templates/account/signup.html:12 templates/base.html:163
 msgid "Реєстрація"
 msgstr "Зарегистрироваться"
 
@@ -685,58 +692,58 @@ msgstr ""
 "<strong>Внимание:</strong> вы еще можете <a "
 "href=\\\"%(email_url)s\\\">изменить свой адрес электронной почты</a>."
 
-#: templates/base.html:97
+#: templates/base.html:98
 msgid "Головна"
 msgstr "Главная"
 
-#: templates/base.html:100 templates/base.html:226
+#: templates/base.html:101 templates/base.html:227
 msgid "Контакти та співпраця"
 msgstr "Контакты и сотрудничество"
 
-#: templates/base.html:103 templates/base.html:227
+#: templates/base.html:104 templates/base.html:228
 msgid "Оплата та доставка"
 msgstr "Оплата и доставка"
 
-#: templates/base.html:106 templates/home-page.html:74
+#: templates/base.html:107 templates/home-page.html:74
 #: templates/specorder.html:10
 msgid "Спецзамовлення"
 msgstr "Спецзаказ"
 
-#: templates/base.html:118 templates/category-detail.html:31
+#: templates/base.html:119 templates/category-detail.html:31
 #: templates/home-page.html:145 templates/subcategory-detail.html:31
 msgid "Введіть назву запчастини чи її артикул та натисніть Enter"
 msgstr "Введите название запчасти или ее артикул и нажмите Enter"
 
-#: templates/base.html:118 templates/category-detail.html:31
+#: templates/base.html:119 templates/category-detail.html:31
 #: templates/home-page.html:145 templates/subcategory-detail.html:31
 msgid "Намагайтесь вводити точну назву чи артикул"
 msgstr "Старайтесь вводить точное название или артикул"
 
-#: templates/base.html:138
+#: templates/base.html:139
 msgid " Кошик "
 msgstr "Корзина"
 
-#: templates/base.html:150
+#: templates/base.html:151
 msgid "Адмінпанель"
 msgstr "Админпанель"
 
-#: templates/base.html:153 templates/base.html:221
+#: templates/base.html:154 templates/base.html:222
 msgid "Мій кабінет"
 msgstr "Мой кабинет"
 
-#: templates/base.html:220
+#: templates/base.html:221
 msgid "Особистий кабінет"
 msgstr "Личный кабинет"
 
-#: templates/base.html:224
+#: templates/base.html:225
 msgid "Карта сайту"
 msgstr "Карта сайта"
 
-#: templates/base.html:225
+#: templates/base.html:226
 msgid "Головна "
 msgstr "Главная"
 
-#: templates/base.html:230
+#: templates/base.html:231
 msgid "Контакти"
 msgstr "Контакты"
 
@@ -793,7 +800,6 @@ msgid "від"
 msgstr "от"
 
 #: templates/cabinet.html:70
-#| msgid "Замовлення виконано"
 msgid "Замовлення виконане"
 msgstr "Заказ выполнен"
 
@@ -1003,29 +1009,25 @@ msgstr "или обратите внимание на функцию"
 msgid "спецзамовлення"
 msgstr "спецзаказ"
 
-#: templates/order-summary.html:15
+#: templates/order-summary.html:16
 msgid "Назва товару"
 msgstr "Название товара"
 
-#: templates/order-summary.html:18
+#: templates/order-summary.html:19
 msgid "Загальна вартість"
 msgstr "Общая стоимость"
 
-#: templates/order-summary.html:46
+#: templates/order-summary.html:48
 msgid "Ваш кошик порожній"
 msgstr "Ваша корзина пуста"
 
-#: templates/order-summary.html:50 templates/order-summary.html:63
+#: templates/order-summary.html:52 templates/order-summary.html:65
 msgid "Продовжити покупки"
 msgstr "Продолжить покупки"
 
-#: templates/order-summary.html:62
+#: templates/order-summary.html:64
 msgid "Перейти до оформлення"
 msgstr "Перейти к оформлению"
-
-#: templates/product-page.html:86
-msgid "Артикул"
-msgstr "Артикул"
 
 #: templates/product-page.html:87
 msgid "Код товару"
