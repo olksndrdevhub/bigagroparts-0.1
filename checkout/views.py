@@ -1,4 +1,5 @@
 from django.http.response import HttpResponse
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.contrib.auth import get_user
@@ -14,6 +15,7 @@ from .admin import link_callback
 
 def checkout(request):
     user = get_user(request)
+    ordered_date = timezone.now()
     cart_id = request.session.get('cart_id')
     initial = {}
     if user.is_authenticated:
@@ -60,6 +62,7 @@ def checkout(request):
         print(form.data['delivery_method'])
         order.save()
         cart.ordered = True
+        cart.ordered_date = ordered_date
         cart.order_status = Cart.ORDER_ACCEPTED
         cart.save()
 

@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.contrib import admin
 from django.utils.html import mark_safe
 from django.contrib.auth.admin import UserAdmin
@@ -134,7 +132,7 @@ class CartAdmin(ImportExportModelAdmin):
     resource_class = CartResource
     inlines = (OrderInline,)
     search_fields = ['id']
-    list_display = ('id', 'user', 'start_date', 'ordered', 'order_status')
+    list_display = ('id', 'user', 'start_date', 'ordered_date', 'ordered', 'order_status')
     filter_horizontal = ['items']
     list_filter = ['ordered', 'order_status']
 

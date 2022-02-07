@@ -41,7 +41,7 @@ def item_detail(request, slug):
 def add_to_cart(request, slug):
     cart_id = request.session.get('cart_id')
     item = get_object_or_404(Item, slug=slug)
-    ordered_date = timezone.now()
+    start_date = timezone.now()
 
     if request.user.is_authenticated:
         cart_qs = Cart.objects.filter(user=request.user, ordered=False)
@@ -56,7 +56,7 @@ def add_to_cart(request, slug):
     else:
         cart_qs = Cart.objects.filter(id=cart_id, ordered=False)
         if not cart_qs.exists():
-            cart = Cart.objects.create(ordered_date=ordered_date)
+            cart = Cart.objects.create(start_date=start_date)
             cart_id = cart.id
         cart_item, created = CartItem.objects.get_or_create(
             cart_id=cart_id,
@@ -67,21 +67,26 @@ def add_to_cart(request, slug):
 
     if cart_qs.exists():
         cart = cart_qs[0]
+        cart.start_date = start_date
+        cart.save()
+        print(cart.ordered_date)
         # check if order item is in the order
         if cart.items.filter(item__slug=item.slug).exists():
             cart_item.quantity += 1
             cart_item.save()
             messages.info(request, _('Додано ще одну одиницю товару в кошик!'))
+            request.session['cart_id'] = cart.id
             return redirect(request.META['HTTP_REFERER'])
         else:
             messages.info(request, _('Цей товар додано у кошик!'))
             cart_item.cart_id = cart.id
             cart_item.save()
             cart.items.add(cart_item)
+            request.session['cart_id'] = cart.id
             return redirect(request.META['HTTP_REFERER'])
     else:
         if request.user.is_authenticated:
-            cart = Cart.objects.create(user=request.user, ordered_date=ordered_date)
+            cart = Cart.objects.create(user=request.user, start_date=start_date)
 
         request.session['cart_id'] = cart.id
         cart_item.cart_id = cart.id
