@@ -4,7 +4,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 
-from .views import category_detail, subcategory_detail, item_detail, add_to_cart, remove_from_cart, remove_single_item_cart, edit_account
+from .views import (category_detail, subcategory_detail, item_detail,
+                    add_to_cart, remove_from_cart, remove_single_item_cart,
+                    edit_account, update_cart_item_quantity)
 
 
 admin.site.site_header = "BIG AGRO PARTS: панель адміністратора"
@@ -19,6 +21,7 @@ urlpatterns = [
     path('category/<slug:slug>/', category_detail, name='category_detail'),
     path('subcategory/<slug:slug>/', subcategory_detail, name='subcategory_detail'),
     path('items/<slug:slug>', item_detail, name='item_detail'),
+    path('update_cart_item_quantity', update_cart_item_quantity, name='update_cart_item_quantity'),
     path('add-to-cart/<slug:slug>/', add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<slug:slug>/',
          remove_from_cart, name='remove_from_cart'),

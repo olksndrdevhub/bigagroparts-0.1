@@ -185,7 +185,8 @@ class CartItem(models.Model):
         return f'{self.quantity} of {self.item.title}'
 
     def get_total_item_price(self):
-        return self.quantity * self.item_price
+        total = float(self.item_price * self.quantity)
+        return total
 
     def get_final_price(self):
         return self.get_total_item_price()
