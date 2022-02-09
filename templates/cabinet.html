@@ -74,7 +74,7 @@
                             <a class="btn btn-sm btn-primary ml-5" href="{% url 'checkout:generate_invoice_in_cabinet' ordered_cart.id %}">{% trans 'Згенерувати накладну' %}</a> 
                             <br>
                             {% for item in ordered_cart.items.all %}
-                                {{ item.item.title }}, {% trans 'кількість' %}: <b>{{item.quantity}}</b>, {% trans 'ціна' %}: <b>{{item.item.price}} ₴</b>, {% trans 'сума' %}: <b>{{item.get_final_price}} ₴</b> <br>
+                                {{ item.item.title }}, {% trans 'кількість' %}: <b>{{item.quantity}}</b>, {% trans 'ціна' %}: <b>{{item.item_price}} ₴</b>, {% trans 'сума' %}: <b>{{item.get_final_price}} ₴</b> <br>
                             {% endfor %}
                         </li>
                     {% endfor %}
