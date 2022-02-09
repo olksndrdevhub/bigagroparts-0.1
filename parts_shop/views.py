@@ -7,6 +7,7 @@ from checkout.models import Order
 from django.contrib.auth import get_user
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 def category_detail(request, slug):
@@ -37,6 +38,21 @@ def item_detail(request, slug):
 
     return render(request, 'product-page.html', context={'item': item, 'item_images': item_images, 'category': category, 'subcategory': subcategory, 'last_items': last_items, 'not_home': not_home})
 
+
+def update_cart_item_quantity(request):
+    cart_item_id = request.POST.get('cart_item_id')
+    quantity = request.POST.get('quantity')
+    quantity = int(quantity)
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    cart_item.quantity = quantity
+    cart_item.save()
+    total = cart_item.get_total_item_price()
+    print(total)
+    data = {
+        'quantity': quantity,
+        'cart_item_total': total
+    }
+    return JsonResponse(data)
 
 def add_to_cart(request, slug):
     cart_id = request.session.get('cart_id')

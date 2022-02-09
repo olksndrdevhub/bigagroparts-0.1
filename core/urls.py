@@ -7,7 +7,6 @@ app_name = 'core'
 
 urlpatterns = [
     path('', HomeView.as_view(), name='index'),
-    # path('search/', HomeView.as_view(), name='search'),
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
     path('contacts', contacts, name='contacts_page'),
     path('conditions', conditions, name='conditions_page'),

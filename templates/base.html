@@ -59,6 +59,12 @@
             .alert{
                 width: 100%;
             }
+            .product_page_price {
+                font-size: 16px;
+            }
+            price-cart-wrap{
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (min-width: 800px) and (max-width: 850px) {
@@ -207,6 +213,7 @@
             </div>
     {% endif %}
     <main style="min-height: 70vh;">
+        {% include 'elements/loading.html' %}
         {% block content  %}
 
         {% endblock content %}
@@ -334,18 +341,71 @@
       })
     });
 </script>
-    <!-- <script src="{% static 'js/main.js' %}"></script> -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+<script>
+    function show_loading() {
+        $("#loading").css("display", "");
+        $("#waiting").addClass("modal-backdrop fade in");
+    }
+    
+    function hide_loading() {
+    
+        $("#loading").css("display", "None");
+        $("#waiting").removeClass("modal-backdrop fade in");
+    }
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+    function sum_order_total(){
+        var sum = 0;
+        $('.cart_item_total').each(function() {
+            sum += parseFloat($(this).text().replace(',', '.'));
+        });
+        return sum;
+    }
+</script>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
         });
-    </script>
+    });
+</script>
+<script>
+    $('.item_quantity_input').change(function(){
+        var quantity = $(this).val();
+        console.log(typeof(quantity))
+        console.log(quantity.length)
+        var cart_item_id = $(this).attr('cart_item_id')
+        if (quantity.length === 0){
+            //pass
+        } else {
+            show_loading();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'update_cart_item_quantity' %}",
+                headers:{
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                data: {
+                    'cart_item_id': cart_item_id,
+                    'quantity': quantity,
+                },
+                success: function(res){
+                    console.log(res);
+                    var cart_item_total = res['cart_item_total']
+                    var id = '#cart_item_total_' + cart_item_id
+                    $(id).text(cart_item_total);
+                    var sum = sum_order_total();
+                    console.log(sum);
+                    $('#order_total').text(sum);
+                    hide_loading();
+                }
+            })
+        }
+    });
+</script>
 </body>
 
 </html>
