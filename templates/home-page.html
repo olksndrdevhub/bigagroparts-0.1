@@ -135,7 +135,7 @@
 
 <!--Main layout-->
 <main>
-  <div class="container" id="containerMain">
+  <div class="container {% if category_items or subcategory_items or item_items %} col-11{% endif %}" id="containerMain">
 
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark mdb-color success-color-dark mt-3 mb-5" style="border-radius: 5px;">
@@ -209,56 +209,7 @@
         <h5 class="p-4">{% trans 'Товари за запитом' %} <strong>"{{ query }}"</strong>:</h5>
         <div class="row">
         {% for item in item_items %}
-        <div class="col-6 col-lg-3 col-md-4 mb-4">
-          <div class="card">
-              <div class="card-body">
-                <div class="img-title-box">
-                  <a href="{{ item.get_absolute_url }}" class="card-link">
-                    <div class="card-img-box">
-                      {% with item.itemimage_set.all|first as image %}
-                        <img src="{{ image.image.url }}" alt="" class="card-img-top">
-                      {% endwith %}
-                    </div>
-                    <div class="card-title-box">
-                      {% if item.availability == '1' %}
-                        <span class="badge green mr-1">{% trans item.get_availability_display %}</span>
-                      {% elif item.availability == '0' %}
-                        <span class="badge red mr-1">{% trans item.get_availability_display %}</span>
-                      {% elif item.availability == '2' %}
-                        <span class="badge badge-warning mr-1">{% trans item.get_availability_display %}</span>
-                      {% endif %}
-                      <p>{{ item.title }} <br>
-                      <small>{{ item.item_code }}</small></p>
-                    </div>
-                  </a>  
-                </div>
-                <div class="card-btn-box">
-                  <div class="price-cart-wrap">
-                    <div class="price-box d-flex align-items-center">
-                      {% if item.availability != '0' %}
-                        {% if request.user.wholesaler %}
-                          <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.wholesaler_price }}</span>
-                        {% else %}  
-                          <span class="product_page_price">{% trans 'Ціна' %}: ₴ {{ item.price }}</span>
-                        {% endif %}
-                      {% endif %}
-                    </div>
-                    <div class="cart-box">
-                      {% if item.availability == '1' %}
-                        <a href="{{ item.get_add_to_card_url }}" class="btn btn-success btn-lg my-0">
-                        <i class="fas fa-shopping-cart"></i>
-                        </a>
-                      {% else %}
-                        <a href="{% url 'core:contacts_page' %}" class="btn btn-warning btn-lg my-0">
-                          <i class="far fa-envelope"></i>
-                        </a>
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
+          {% include 'elements/item-element.html' %}
         {% endfor %}
         </div>
       {% endif %}
