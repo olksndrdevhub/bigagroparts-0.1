@@ -54,6 +54,7 @@ def update_cart_item_quantity(request):
     }
     return JsonResponse(data)
 
+
 def add_to_cart(request, slug):
     cart_id = request.session.get('cart_id')
     item = get_object_or_404(Item, slug=slug)
