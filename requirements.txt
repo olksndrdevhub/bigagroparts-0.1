@@ -58,7 +58,7 @@ toml==0.10.0
 tox==3.14.6
 unicode==2.7
 Unidecode==1.1.1
-urllib3==1.25.8
+urllib3==1.26.5
 virtualenv==20.0.15
 webencodings==0.5.1
 xhtml2pdf==0.2.5
