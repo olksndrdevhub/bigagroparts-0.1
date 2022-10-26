@@ -39,7 +39,7 @@ Pillow==9.0.1
 pluggy==0.13.1
 polib==1.1.0
 psycopg2-binary==2.8.4
-py==1.8.1
+py==1.11.0
 pycodestyle==2.5.0
 pyparsing==2.4.6
 PyPDF2==1.26.0
